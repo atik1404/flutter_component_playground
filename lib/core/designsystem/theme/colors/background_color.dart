@@ -7,21 +7,21 @@ final class BackgroundColor extends ThemeExtension<BackgroundColor> {
 
   BackgroundColor(
       {required this.primaryBackgroundColor,
-      required this.secondaryBackgroundColor});
+      required this.secondaryBackgroundColor,});
 
   @override
   ThemeExtension<BackgroundColor> copyWith(
-      {Color? primaryBackgroundColor, Color? secondaryBackgroundColor}) {
+      {Color? primaryBackgroundColor, Color? secondaryBackgroundColor,}) {
     return BackgroundColor(
         primaryBackgroundColor:
         primaryBackgroundColor ?? this.primaryBackgroundColor,
         secondaryBackgroundColor:
-        secondaryBackgroundColor ?? this.secondaryBackgroundColor);
+        secondaryBackgroundColor ?? this.secondaryBackgroundColor,);
   }
 
   @override
   ThemeExtension<BackgroundColor> lerp(
-      covariant ThemeExtension<BackgroundColor>? other, double t) {
+      covariant ThemeExtension<BackgroundColor>? other, double t,) {
     if (other is! BackgroundColor) return this;
 
     return BackgroundColor(
@@ -30,14 +30,14 @@ final class BackgroundColor extends ThemeExtension<BackgroundColor> {
             primaryBackgroundColor,
         secondaryBackgroundColor: Color.lerp(
                 secondaryBackgroundColor, other.secondaryBackgroundColor, t) ??
-            secondaryBackgroundColor);
+            secondaryBackgroundColor,);
   }
 
   static final light = BackgroundColor(
       primaryBackgroundColor: AppColorConstants.primaryBackgroundLight,
-      secondaryBackgroundColor: AppColorConstants.secondaryBackgroundLight);
+      secondaryBackgroundColor: AppColorConstants.secondaryBackgroundLight,);
 
   static final dark = BackgroundColor(
       primaryBackgroundColor: AppColorConstants.primaryBackgroundDark,
-      secondaryBackgroundColor: AppColorConstants.secondaryBackgroundDark);
+      secondaryBackgroundColor: AppColorConstants.secondaryBackgroundDark,);
 }

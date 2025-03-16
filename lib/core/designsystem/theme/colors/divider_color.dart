@@ -9,10 +9,10 @@ final class DividerColor extends ThemeExtension<DividerColor> {
 
   @override
   ThemeExtension<DividerColor> copyWith(
-      {Color? primaryDividerColor, Color? secondaryDividerColor}) {
+      {Color? primaryDividerColor, Color? secondaryDividerColor,}) {
     return DividerColor(
         primaryDividerColor: primaryDividerColor ?? this.primaryDividerColor,
-        secondaryDividerColor: secondaryDividerColor ?? this.secondaryDividerColor);
+        secondaryDividerColor: secondaryDividerColor ?? this.secondaryDividerColor,);
   }
 
   @override
@@ -26,14 +26,14 @@ final class DividerColor extends ThemeExtension<DividerColor> {
             primaryDividerColor,
         secondaryDividerColor:
         Color.lerp(secondaryDividerColor, other.secondaryDividerColor, t) ??
-            secondaryDividerColor);
+            secondaryDividerColor,);
   }
 
   static final light = DividerColor(
       primaryDividerColor: AppColorConstants.primaryLight,
-      secondaryDividerColor: AppColorConstants.primaryLight);
+      secondaryDividerColor: AppColorConstants.primaryLight,);
 
   static final dark = DividerColor(
       primaryDividerColor: AppColorConstants.primaryDark,
-      secondaryDividerColor: AppColorConstants.primaryDark);
+      secondaryDividerColor: AppColorConstants.primaryDark,);
 }

@@ -15,7 +15,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor> {
       required this.secondary,
       required this.onSecondary,
       required this.primaryContainer,
-      required this.onPrimaryContainer});
+      required this.onPrimaryContainer,});
 
   @override
   ThemeExtension<ButtonColor> copyWith(
@@ -24,7 +24,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor> {
       Color? secondary,
       Color? onSecondary,
       Color? primaryContainer,
-      Color? onPrimaryContainer}) {
+      Color? onPrimaryContainer,}) {
     return ButtonColor(
       primary: primary ?? this.primary,
       onPrimary: primary ?? this.onPrimary,
@@ -51,7 +51,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor> {
                 primaryContainer,
         onPrimaryContainer:
             Color.lerp(onPrimaryContainer, other.onPrimaryContainer, t) ??
-                onPrimaryContainer);
+                onPrimaryContainer,);
   }
 
   static final light = ButtonColor(
@@ -60,7 +60,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor> {
       secondary: AppColorConstants.secondaryLight,
       onSecondary: AppColorConstants.white,
       primaryContainer: AppColorConstants.primaryContainerLight,
-      onPrimaryContainer: AppColorConstants.white);
+      onPrimaryContainer: AppColorConstants.white,);
 
   static final dark = ButtonColor(
       primary: AppColorConstants.primaryDark,
@@ -68,5 +68,5 @@ final class ButtonColor extends ThemeExtension<ButtonColor> {
       secondary: AppColorConstants.secondaryDark,
       onSecondary: AppColorConstants.white,
       primaryContainer: AppColorConstants.primaryContainerDark,
-      onPrimaryContainer: AppColorConstants.white);
+      onPrimaryContainer: AppColorConstants.white,);
 }
