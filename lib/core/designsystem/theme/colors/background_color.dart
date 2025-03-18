@@ -1,43 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/designsystem/theme/colors/app_color_constants.dart';
+import 'package:flutter_component_playground/core/designsystem/theme/utils/color_fields_mixin.dart';
 
-final class BackgroundColor extends ThemeExtension<BackgroundColor> {
+final class BackgroundColor extends ThemeExtension<BackgroundColor>
+    with ColorFieldsMixin<BackgroundColor> {
   final Color primaryBackgroundColor;
   final Color secondaryBackgroundColor;
 
-  BackgroundColor(
-      {required this.primaryBackgroundColor,
-      required this.secondaryBackgroundColor,});
+  BackgroundColor._({
+    required this.primaryBackgroundColor,
+    required this.secondaryBackgroundColor,
+  });
 
   @override
-  ThemeExtension<BackgroundColor> copyWith(
-      {Color? primaryBackgroundColor, Color? secondaryBackgroundColor,}) {
-    return BackgroundColor(
-        primaryBackgroundColor:
-        primaryBackgroundColor ?? this.primaryBackgroundColor,
-        secondaryBackgroundColor:
-        secondaryBackgroundColor ?? this.secondaryBackgroundColor,);
+  List<Color> get colorFields =>
+      [primaryBackgroundColor, secondaryBackgroundColor];
+
+  @override
+  ThemeExtension<BackgroundColor> copyWith({
+    Color? primaryBackgroundColor,
+    Color? secondaryBackgroundColor,
+  }) {
+    return copyWithList([
+      primaryBackgroundColor,
+      secondaryBackgroundColor,
+    ]);
   }
 
   @override
-  ThemeExtension<BackgroundColor> lerp(
-      covariant ThemeExtension<BackgroundColor>? other, double t,) {
-    if (other is! BackgroundColor) return this;
-
-    return BackgroundColor(
-        primaryBackgroundColor: Color.lerp(
-                primaryBackgroundColor, other.primaryBackgroundColor, t) ??
-            primaryBackgroundColor,
-        secondaryBackgroundColor: Color.lerp(
-                secondaryBackgroundColor, other.secondaryBackgroundColor, t) ??
-            secondaryBackgroundColor,);
+  BackgroundColor createInstance(List<Color> colors) {
+    return BackgroundColor._(
+      primaryBackgroundColor: colors[0],
+      secondaryBackgroundColor: colors[1],
+    );
   }
 
-  static final light = BackgroundColor(
-      primaryBackgroundColor: AppColorConstants.primaryBackgroundLight,
-      secondaryBackgroundColor: AppColorConstants.secondaryBackgroundLight,);
+  static final _lightThemeColor = BackgroundColor._(
+    primaryBackgroundColor: Color(0xFFFFFFFF),
+    secondaryBackgroundColor: Color(0xFFF5F5F5),
+  );
 
-  static final dark = BackgroundColor(
-      primaryBackgroundColor: AppColorConstants.primaryBackgroundDark,
-      secondaryBackgroundColor: AppColorConstants.secondaryBackgroundDark,);
+  static final _darkThemeColor = BackgroundColor._(
+    primaryBackgroundColor: Color(0xFFFFFFFF),
+    secondaryBackgroundColor: Color(0xFFF5F5F5),
+  );
 }
