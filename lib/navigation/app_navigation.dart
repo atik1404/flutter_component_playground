@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/navigation/app_screen_name.dart';
+import 'package:flutter_component_playground/features/homescreen/home_screen_route.dart';
+import 'package:flutter_component_playground/navigation/app_route.dart';
+import 'package:flutter_component_playground/navigation/base_router.dart';
+import 'package:go_router/go_router.dart';
 
-class AppNavigation{
-  // Route onGenerateRoute(RouteSettings setting){
-  //   switch(setting.name){
-  //     case AppScreenName.homeScreen;
-  //   }
-  // }
+List<BaseRouter> get routers => [
+      HomeScreenRoute(),
+    ];
 
-  MaterialPageRoute<dynamic> _navigate(Widget screen) {
-    return MaterialPageRoute(builder: (context) => screen);
-  }
-}
+final GoRouter router = GoRouter(
+  initialLocation: AppRoute.homeScreen,
+  routes: [...routers.expand((router) => router.routes)],
+  errorBuilder: (context, state) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(state.error?.message ?? "Unknown screen"),
+            TextButton(
+              onPressed: () => context.pop(),
+              child: const Text("Back"),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+);

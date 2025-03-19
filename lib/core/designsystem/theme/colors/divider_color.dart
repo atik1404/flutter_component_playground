@@ -1,39 +1,42 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/designsystem/theme/colors/app_color_constants.dart';
+part of 'app_colors_aggregator.dart';
 
-final class DividerColor extends ThemeExtension<DividerColor> {
+final class DividerColor extends ThemeExtension<DividerColor>
+    with ColorFieldsMixin<DividerColor> {
   final Color primaryDividerColor;
   final Color secondaryDividerColor;
 
-  DividerColor({required this.primaryDividerColor, required this.secondaryDividerColor});
+  DividerColor._(
+      {required this.primaryDividerColor, required this.secondaryDividerColor,});
 
   @override
-  ThemeExtension<DividerColor> copyWith(
-      {Color? primaryDividerColor, Color? secondaryDividerColor,}) {
-    return DividerColor(
-        primaryDividerColor: primaryDividerColor ?? this.primaryDividerColor,
-        secondaryDividerColor: secondaryDividerColor ?? this.secondaryDividerColor,);
+  ThemeExtension<DividerColor> copyWith({
+    Color? primaryDividerColor,
+    Color? secondaryDividerColor,
+  }) {
+    return copyWithList([
+      primaryDividerColor,
+      secondaryDividerColor,
+    ]);
   }
 
   @override
-  ThemeExtension<DividerColor> lerp(
-      covariant ThemeExtension<DividerColor>? other, double t) {
-    if (other is! DividerColor) return this;
+  List<Color> get colorFields => [primaryDividerColor, secondaryDividerColor];
 
-    return DividerColor(
-        primaryDividerColor:
-        Color.lerp(primaryDividerColor, other.primaryDividerColor, t) ??
-            primaryDividerColor,
-        secondaryDividerColor:
-        Color.lerp(secondaryDividerColor, other.secondaryDividerColor, t) ??
-            secondaryDividerColor,);
+  @override
+  DividerColor createInstance(List<Color> colors) {
+    return DividerColor._(
+      primaryDividerColor: colors[0],
+      secondaryDividerColor: colors[1],
+    );
   }
 
-  static final light = DividerColor(
-      primaryDividerColor: AppColorConstants.primaryLight,
-      secondaryDividerColor: AppColorConstants.primaryLight,);
+  static final _lightThemeColor = DividerColor._(
+    primaryDividerColor: AppColorConstants.primaryLight,
+    secondaryDividerColor: AppColorConstants.primaryLight,
+  );
 
-  static final dark = DividerColor(
-      primaryDividerColor: AppColorConstants.primaryDark,
-      secondaryDividerColor: AppColorConstants.primaryDark,);
+  static final _darkThemeColor = DividerColor._(
+    primaryDividerColor: AppColorConstants.primaryDark,
+    secondaryDividerColor: AppColorConstants.primaryDark,
+  );
 }

@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/designsystem/theme/colors/app_color_constants.dart';
-import 'package:flutter_component_playground/core/designsystem/theme/utils/color_fields_mixin.dart';
+part of 'app_colors_aggregator.dart';
 
 final class AppBarColor extends ThemeExtension<AppBarColor>
     with ColorFieldsMixin<AppBarColor> {

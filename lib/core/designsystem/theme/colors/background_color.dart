@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/designsystem/theme/utils/color_fields_mixin.dart';
+part of 'app_colors_aggregator.dart';
 
 final class BackgroundColor extends ThemeExtension<BackgroundColor>
     with ColorFieldsMixin<BackgroundColor> {
@@ -35,12 +34,12 @@ final class BackgroundColor extends ThemeExtension<BackgroundColor>
   }
 
   static final _lightThemeColor = BackgroundColor._(
-    primaryBackgroundColor: Color(0xFFFFFFFF),
-    secondaryBackgroundColor: Color(0xFFF5F5F5),
+    primaryBackgroundColor: AppColorConstants.primaryBackgroundLight,
+    secondaryBackgroundColor: AppColorConstants.secondaryBackgroundLight,
   );
 
   static final _darkThemeColor = BackgroundColor._(
-    primaryBackgroundColor: Color(0xFFFFFFFF),
-    secondaryBackgroundColor: Color(0xFFF5F5F5),
+    primaryBackgroundColor: AppColorConstants.primaryBackgroundDark,
+    secondaryBackgroundColor: AppColorConstants.secondaryBackgroundDark,
   );
 }

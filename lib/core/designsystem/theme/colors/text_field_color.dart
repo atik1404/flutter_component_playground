@@ -1,54 +1,54 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/designsystem/theme/colors/app_color_constants.dart';
+part of 'app_colors_aggregator.dart';
 
-final class TextFieldColor extends ThemeExtension<TextFieldColor> {
+final class TextFieldColor extends ThemeExtension<TextFieldColor>
+    with ColorFieldsMixin<TextFieldColor> {
   final Color fillColor;
   final Color hintColor;
   final Color focusedBorderColor;
   final Color disableBorderColor;
   final Color error;
 
-  TextFieldColor(
-      {required this.fillColor,
-      required this.hintColor,
-      required this.focusedBorderColor,
-      required this.disableBorderColor,
-      required this.error});
+  TextFieldColor._({
+    required this.fillColor,
+    required this.hintColor,
+    required this.focusedBorderColor,
+    required this.disableBorderColor,
+    required this.error,
+  });
 
   @override
-  ThemeExtension<TextFieldColor> copyWith(
-      {Color? fillColor,
-      Color? hintColor,
-      Color? focusedBorderColor,
-      Color? disableBorderColor,
-      Color? error}) {
-    return TextFieldColor(
-        fillColor: fillColor ?? this.fillColor,
-        hintColor: hintColor ?? this.hintColor,
-        focusedBorderColor: focusedBorderColor ?? this.focusedBorderColor,
-        disableBorderColor: disableBorderColor ?? this.disableBorderColor,
-        error: error ?? this.error);
+  ThemeExtension<TextFieldColor> copyWith({
+    Color? fillColor,
+    Color? hintColor,
+    Color? focusedBorderColor,
+    Color? disableBorderColor,
+    Color? error,
+  }) {
+    return copyWithList([
+      fillColor,
+      hintColor,
+      focusedBorderColor,
+      disableBorderColor,
+      error,
+    ]);
   }
 
   @override
-  ThemeExtension<TextFieldColor> lerp(
-      covariant ThemeExtension<TextFieldColor>? other, double t) {
-    if (other is! TextFieldColor) return this;
+  List<Color> get colorFields =>
+      [fillColor, hintColor, focusedBorderColor, disableBorderColor, error];
 
-    return TextFieldColor(
-      fillColor: Color.lerp(fillColor, other.fillColor, t) ?? fillColor,
-      hintColor: Color.lerp(hintColor, other.hintColor, t) ?? hintColor,
-      focusedBorderColor:
-          Color.lerp(focusedBorderColor, other.focusedBorderColor, t) ??
-              focusedBorderColor,
-      disableBorderColor:
-          Color.lerp(disableBorderColor, other.disableBorderColor, t) ??
-              disableBorderColor,
-      error: Color.lerp(error, other.error, t) ?? error,
+  @override
+  TextFieldColor createInstance(List<Color> colors) {
+    return TextFieldColor._(
+      fillColor: colors[0],
+      hintColor: colors[1],
+      focusedBorderColor: colors[2],
+      disableBorderColor: colors[3],
+      error: colors[4],
     );
   }
 
-  static final light = TextFieldColor(
+  static final _lightThemeColor = TextFieldColor._(
     fillColor: AppColorConstants.primaryLight,
     hintColor: AppColorConstants.hintColor,
     focusedBorderColor: AppColorConstants.primaryStrokeLight,
@@ -56,7 +56,7 @@ final class TextFieldColor extends ThemeExtension<TextFieldColor> {
     error: AppColorConstants.errorLight,
   );
 
-  static final dark = TextFieldColor(
+  static final _darkThemeColor = TextFieldColor._(
     fillColor: AppColorConstants.primaryLight,
     hintColor: AppColorConstants.hintColor,
     focusedBorderColor: AppColorConstants.primaryStrokeDark,
