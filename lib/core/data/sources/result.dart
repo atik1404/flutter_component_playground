@@ -1,4 +1,6 @@
 
+import 'package:flutter_component_playground/core/data/sources/network_exception.dart';
+
 sealed class Result<T>{
   const Result();
 }

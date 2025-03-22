@@ -28,7 +28,7 @@ dependencies:
   json_annotation: ^4.9.0
   envied: ^1.1.1
   flutter_local_notifications: ^18.0.1
-  intl: ^0.20.2
+  intl: ^0.19.0
   #freezed_annotation: ^3.0.0
   carousel_slider: ^5.0.0
   flutter_screenutil: ^5.9.3
@@ -53,14 +53,19 @@ dev_dependencies:
   #freezed: ^3.0.3
   flutter_launcher_icons: "^0.14.3"
 
-  # flutter_localizations:
-  #   sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/images/launcher_icon.png"
 
+flutter_intl:
+  enabled: true
+  arb_dir: lib/localization
+  output_dir: lib/localization/generated
+  class_name: LocalizedStrings
 
 flutter:
   uses-material-design: true
