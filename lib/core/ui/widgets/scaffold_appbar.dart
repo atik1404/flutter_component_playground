@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ScaffoldAppbar extends StatelessWidget {
-  final AppBar? appbar;
+  final PreferredSizeWidget? appbar;
   final List<Widget>? actions;
   final Widget? body;
   final bool centerTitle;

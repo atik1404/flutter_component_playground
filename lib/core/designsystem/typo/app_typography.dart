@@ -192,7 +192,7 @@ final class AppTypography extends ThemeExtension<AppTypography> with TextStyleFi
 
   static TextStyle _getTypoStyle(double fontSize, FontWeight fontWeight) {
     return TextStyle(
-      fontFamily: "Poppins",
+      fontFamily: "Roboto",
       fontSize: fontSize.sp,
       fontWeight: fontWeight,
       height: 1.2,

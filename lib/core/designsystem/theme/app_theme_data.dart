@@ -33,7 +33,7 @@ final class AppThemeData {
         onInverseSurface: materialTokens.onInverseSurface,
         //surfaceContainer: ,
       ),
-      fontFamily: "Poppins",
+      fontFamily: "Roboto",
       extensions: [
         AppColorsAggregator.lightThemeColors,
         DimensionAggregator.instance,
