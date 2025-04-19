@@ -59,6 +59,16 @@ class LocalizedStrings {
       args: [],
     );
   }
+
+  /// `Movie Hub`
+  String get title_app_name {
+    return Intl.message(
+      'Movie Hub',
+      name: 'title_app_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<LocalizedStrings> {

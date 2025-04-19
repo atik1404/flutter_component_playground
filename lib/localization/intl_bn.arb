@@ -2,5 +2,6 @@
 
     "@@locale": "bn",
 
-    "title_home": "Home"
+    "title_home": "Home",
+    "title_app_name": "Movie Hub"
 }

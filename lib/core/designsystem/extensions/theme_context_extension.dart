@@ -15,6 +15,7 @@ extension ThemeContextExtension on BuildContext {
   AppTypography get typography => Theme.of(this)._typography;
   DimensionAggregator get _dimensions => Theme.of(this)._dimensions;
   IconSize get iconSizes => _dimensions.icon;
+  ImageSize get imageSizes => _dimensions.imageSize;
   DividerSize get lineSizes => _dimensions.line;
   ShapeRadius get shapeRadius => _dimensions.shape;
   SpacingSize get spacingSizes => _dimensions.spacing;
