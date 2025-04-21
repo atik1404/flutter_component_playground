@@ -55,4 +55,6 @@ final class AppColorConstants {
 
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
+
+  static const introductionBackgroundColor = Color(0xFF3B4054);
 }

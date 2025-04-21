@@ -69,6 +69,76 @@ class LocalizedStrings {
       args: [],
     );
   }
+
+  /// `The Simple Way to`
+  String get title_introduction_1 {
+    return Intl.message(
+      'The Simple Way to',
+      name: 'title_introduction_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `find the best!`
+  String get title_introduction_sub_1 {
+    return Intl.message(
+      'find the best!',
+      name: 'title_introduction_sub_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The Best Design`
+  String get title_introduction_2 {
+    return Intl.message(
+      'The Best Design',
+      name: 'title_introduction_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Strategy!`
+  String get title_introduction_sub_2 {
+    return Intl.message(
+      'Strategy!',
+      name: 'title_introduction_sub_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
+  String get msg_introduction_1 {
+    return Intl.message(
+      'Your perfect movie night starts here. Explore, stream, and love every scene.!',
+      name: 'msg_introduction_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From Oscar winners to hidden gems—every film awaits your spotlight.`
+  String get msg_introduction_2 {
+    return Intl.message(
+      'From Oscar winners to hidden gems—every film awaits your spotlight.',
+      name: 'msg_introduction_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Started`
+  String get button_get_started {
+    return Intl.message(
+      'Get Started',
+      name: 'button_get_started',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<LocalizedStrings> {

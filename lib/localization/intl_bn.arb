@@ -3,5 +3,15 @@
     "@@locale": "bn",
 
     "title_home": "Home",
-    "title_app_name": "Movie Hub"
+    "title_app_name": "Movie Hub",
+    "title_introduction_1": "The Simple Way to",
+    "title_introduction_sub_1": "find the best!",
+    "title_introduction_2": "The Best Design",
+    "title_introduction_sub_2": "Strategy!",
+
+    "msg_introduction_1": "Your perfect movie night starts here. Explore, stream, and love every scene.!",
+    "msg_introduction_2": "From Oscar winners to hidden gems—every film awaits your spotlight.",
+
+    "button_get_started": "Get Started"
+
 }

@@ -26,9 +26,10 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<SplashCubit, SplashScreenState>(
       listener: (context, state) {
         if (state.shouldNavigateToNextScreen) {
-          context.goNamed(AppRoute.loginScreen); //navigate to login screen
+          context
+              .goNamed(AppRoute.onboardingScreen); //navigate to login screen
           Fluttertoast.showToast(
-            msg: "Login success",
+            msg: "Go to introduction screen",
             toastLength: Toast.LENGTH_SHORT,
           );
         }
