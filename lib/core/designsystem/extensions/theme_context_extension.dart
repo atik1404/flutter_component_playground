@@ -11,7 +11,9 @@ extension ThemeContextExtension on BuildContext {
   TextColor get textColors => _colorTokens.textColor;
   TextFieldColor get textFieldColors => _colorTokens.textFieldColor;
   BackgroundColor get backgroundColors => _colorTokens.backgroundColor;
+  ButtonColor get buttonColors => _colorTokens.buttonColor;
   AppBarColor get appBarColors => _colorTokens.appBarColor;
+  StrokeColor get strokeColors => _colorTokens.strokeColor;
   AppTypography get typography => Theme.of(this)._typography;
   DimensionAggregator get _dimensions => Theme.of(this)._dimensions;
   IconSize get iconSizes => _dimensions.icon;

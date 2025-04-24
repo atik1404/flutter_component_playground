@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_component_playground/core/common/utils/logger_utils';
 import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
-import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
 import 'package:flutter_component_playground/core/model/onboarding_pager_entity.dart';
+import 'package:flutter_component_playground/core/ui/widgets/app_button.dart';
 import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
+import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -47,8 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             SpacerBox(
               height: 20.h,
             ),
-            if (_currentPage == onboardingPagerList.length - 1)
-              _buildButton(),
+            _buildAnimatedButton(context),
             SpacerBox(
               height: screenSize.height * 0.15,
             ),
@@ -145,28 +144,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          Fluttertoast.showToast(msg: "Button clicked");
-          log.info("info log");
-        },
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8), // Rounded corners
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: context.spacingSizes.base,
-          ),
+  Widget _buildAnimatedButton(BuildContext context) {
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 500),
+      opacity: _currentPage == onboardingPagerList.length - 1 ? 1.0 : 0.0,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        transform: Matrix4.translationValues(
+          0,
+          _currentPage == onboardingPagerList.length - 1 ? 0 : 50,
+          0,
         ),
-        child: Text(
-          context.getString.button_get_started,
-          style: context.typography.bodyLargeRegular,
+        child: AppButton(
+          text: context.getString.button_get_started,
+          onPressed: () {
+            context.goNamed(AppRoute.loginScreen);
+          },
         ),
       ),
     );
   }
-
 }

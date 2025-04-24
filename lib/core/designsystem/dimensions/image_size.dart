@@ -38,9 +38,9 @@ final class ImageSize extends ThemeExtension<ImageSize>
   List<double> get numericFields => [small, medium, base, large];
 
   static final _instance = ImageSize._(
-    small: 16,
-    medium: 20,
-    base: 24,
-    large: 32,
+    small: 24,
+    medium: 32,
+    base: 48,
+    large: 80,
   );
 }

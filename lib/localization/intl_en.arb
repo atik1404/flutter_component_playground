@@ -9,9 +9,21 @@
     "title_introduction_2": "The Best Design",
     "title_introduction_sub_2": "Strategy!",
 
-
     "msg_introduction_1": "Your perfect movie night starts here. Explore, stream, and love every scene.!",
     "msg_introduction_2": "From Oscar winners to hidden gems—every film awaits your spotlight.",
+    "msg_login": "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.",
 
-    "button_get_started": "Get Started"
+    "button_get_started": "Get Started",
+    "button_login": "Login",
+
+    "text_facebook": "Facebook",
+    "text_google": "Google",
+    "text_sign_in": "Sign In",
+    "text_or": "Or",
+    "text_forget_password": "Forget Password?",
+    "text_dont_have_account": "Don't have an account?",
+    "text_sign_up": "Sign Up",
+
+    "hint_enter_email": "Enter your email",
+    "hint_enter_password": "Enter your password"
 }

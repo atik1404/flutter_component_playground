@@ -130,11 +130,121 @@ class LocalizedStrings {
     );
   }
 
+  /// `It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.`
+  String get msg_login {
+    return Intl.message(
+      'It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.',
+      name: 'msg_login',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Get Started`
   String get button_get_started {
     return Intl.message(
       'Get Started',
       name: 'button_get_started',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get button_login {
+    return Intl.message(
+      'Login',
+      name: 'button_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Facebook`
+  String get text_facebook {
+    return Intl.message(
+      'Facebook',
+      name: 'text_facebook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Google`
+  String get text_google {
+    return Intl.message(
+      'Google',
+      name: 'text_google',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign In`
+  String get text_sign_in {
+    return Intl.message(
+      'Sign In',
+      name: 'text_sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Or`
+  String get text_or {
+    return Intl.message(
+      'Or',
+      name: 'text_or',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forget Password?`
+  String get text_forget_password {
+    return Intl.message(
+      'Forget Password?',
+      name: 'text_forget_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
+  String get text_dont_have_account {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'text_dont_have_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get text_sign_up {
+    return Intl.message(
+      'Sign Up',
+      name: 'text_sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get hint_enter_email {
+    return Intl.message(
+      'Enter your email',
+      name: 'hint_enter_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get hint_enter_password {
+    return Intl.message(
+      'Enter your password',
+      name: 'hint_enter_password',
       desc: '',
       args: [],
     );

@@ -24,10 +24,26 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "button_get_started":
             MessageLookupByLibrary.simpleMessage("Get Started"),
+        "button_login": MessageLookupByLibrary.simpleMessage("Login"),
+        "hint_enter_email":
+            MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "hint_enter_password":
+            MessageLookupByLibrary.simpleMessage("Enter your password"),
         "msg_introduction_1": MessageLookupByLibrary.simpleMessage(
             "Your perfect movie night starts here. Explore, stream, and love every scene.!"),
         "msg_introduction_2": MessageLookupByLibrary.simpleMessage(
             "From Oscar winners to hidden gems—every film awaits your spotlight."),
+        "msg_login": MessageLookupByLibrary.simpleMessage(
+            "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
+        "text_dont_have_account":
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "text_facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
+        "text_forget_password":
+            MessageLookupByLibrary.simpleMessage("Forget Password?"),
+        "text_google": MessageLookupByLibrary.simpleMessage("Google"),
+        "text_or": MessageLookupByLibrary.simpleMessage("Or"),
+        "text_sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "text_sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "title_app_name": MessageLookupByLibrary.simpleMessage("Movie Hub"),
         "title_home": MessageLookupByLibrary.simpleMessage("Home"),
         "title_introduction_1":
