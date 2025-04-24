@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/core/common/utils/logger_utils';
 import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
 import 'package:flutter_component_playground/localization/generated/l10n.dart';
 import 'package:flutter_component_playground/localization/locale_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDi();
+  setupLogging();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

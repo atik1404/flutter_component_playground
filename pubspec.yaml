@@ -38,6 +38,7 @@ dependencies:
   logger: ^2.5.0
   yaml_edit: ^2.2.2
   go_router: ^14.8.0
+  logging: ^1.3.0
 
 
 dev_dependencies:

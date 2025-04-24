@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_component_playground/core/common/utils/logger_utils';
 import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
 import 'package:flutter_component_playground/core/model/onboarding_pager_entity.dart';
@@ -150,6 +151,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: ElevatedButton(
         onPressed: () {
           Fluttertoast.showToast(msg: "Button clicked");
+          log.info("info log");
         },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
