@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/ui/widgets/app_text_field.dart';
+import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
+import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
 import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
-import 'package:flutter_component_playground/localization/localize_extension.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -9,10 +9,20 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldAppbar(
-      body: Center(
-        child: AppTextField(
-          hintText: context.getString.hint_enter_email,
-        ),
+      body: Column(
+        children: [
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(context.shapeRadius.base),
+              child: Image.asset(
+                AppImages.appLogo,
+                width: 180,
+                height: 180,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
