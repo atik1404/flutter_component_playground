@@ -30,7 +30,7 @@ final class AppColorConstants {
   static const primaryTextLight = Color.fromARGB(255, 0, 70, 124);
   static const primaryTextDark = Color(0x8CE1E8EF);
 
-  static const secondaryTextLight = Color(0x8C82898D);
+  static const secondaryTextLight = Color(0xFF61677D);
   static const secondaryTextDark = Color(0x8CB2C5D3);
  
   static const primaryBackgroundLight = Color(0xFFDEE8F6);
