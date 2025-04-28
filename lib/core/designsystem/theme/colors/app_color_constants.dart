@@ -32,7 +32,7 @@ final class AppColorConstants {
 
   static const secondaryTextLight = Color(0x8C82898D);
   static const secondaryTextDark = Color(0x8CB2C5D3);
-
+ 
   static const primaryBackgroundLight = Color(0xFFDEE8F6);
   static const primaryBackgroundDark = Color(0xFF6A6D7E);
 
