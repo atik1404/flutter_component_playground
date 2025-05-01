@@ -16,7 +16,7 @@ import 'package:flutter_component_playground/core/designsystem/extensions/theme_
 ///   onChanged: (value) => print(value),
 /// )
 /// ```
-class AppTextField extends StatelessWidget {
+class AppTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final String? labelText;
@@ -33,6 +33,7 @@ class AppTextField extends StatelessWidget {
   final double borderRadius;
   final EdgeInsetsGeometry contentPadding;
   final bool enabled;
+  final bool isFillColorEnabled;
 
   /// Creates an [AppTextField] widget.
   ///
@@ -68,11 +69,19 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.borderColor,
-    this.borderRadius = 8.0,
+    this.borderRadius = 15.0,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     this.enabled = true,
+    this.isFillColorEnabled = true,
   });
+
+  @override
+  _AppTextFieldState createState() => _AppTextFieldState();
+}
+
+class _AppTextFieldState extends State<AppTextField> {
+  bool _isObscured = true;
 
   /// Builds the widget representation of [AppTextField].
   ///
@@ -88,53 +97,72 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final strokeColors = context.strokeColors;
     final materialColors = context.materialColors;
+    final lineSizes = context.lineSizes;
 
     return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      onChanged: onChanged,
-      inputFormatters: inputFormatters,
-      maxLines: maxLines,
-      maxLength: maxLength,
-      enabled: enabled,
+      controller: widget.controller,
+      obscureText: widget.obscureText ? _isObscured : false,
+      keyboardType: widget.keyboardType,
+      textInputAction: widget.textInputAction,
+      onChanged: widget.onChanged,
+      inputFormatters: widget.inputFormatters,
+      maxLines: widget.maxLines,
+      maxLength: widget.maxLength,
+      enabled: widget.enabled,
       decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        contentPadding: contentPadding,
+        hintText: widget.hintText,
+        hintStyle: TextStyle(
+          color: context.textColors.hintTextColor, // Set the hint text color
+        ),
+        labelText: widget.labelText,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: widget.obscureText
+            ? IconButton(
+                icon: Icon(
+                  _isObscured ? Icons.visibility_off : Icons.visibility,
+                  color: materialColors.onSurface,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isObscured = !_isObscured;
+                  });
+                },
+              )
+            : widget.suffixIcon,
+        contentPadding: widget.contentPadding,
+        fillColor: context.backgroundColors.primaryBackgroundColor,
+        filled: widget.isFillColorEnabled,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: BorderSide(
-            color: borderColor ?? strokeColors.primaryStrokeColor,
+            color: widget.borderColor ?? strokeColors.primaryStrokeColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: BorderSide(
-            color: borderColor ?? strokeColors.primaryStrokeColor.withAlpha(50),
+            color: widget.borderColor ??
+                strokeColors.primaryStrokeColor.withAlpha(50),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: BorderSide(
-            color: borderColor ?? strokeColors.primaryStrokeColor,
-            width: 2,
+            color: widget.borderColor ?? strokeColors.primaryStrokeColor,
+            width: lineSizes.thin,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: BorderSide(
             color: materialColors.error,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: BorderSide(
             color: materialColors.error,
-            width: 2,
+            width: lineSizes.thin,
           ),
         ),
       ),

@@ -33,12 +33,12 @@ final class StrokeColor extends ThemeExtension<StrokeColor>
   }
 
   static final _lightThemeColor = StrokeColor._(
-    primaryStrokeColor: AppColorConstants.primaryLight,
-    secondaryStrokeColor: AppColorConstants.primaryLight,
+    primaryStrokeColor: AppColorConstants.primaryStrokeLight,
+    secondaryStrokeColor: AppColorConstants.secondaryStrokeLight,
   );
 
   static final _darkThemeColor = StrokeColor._(
-    primaryStrokeColor: AppColorConstants.primaryDark,
-    secondaryStrokeColor: AppColorConstants.primaryDark,
+    primaryStrokeColor: AppColorConstants.primaryStrokeDark,
+    secondaryStrokeColor: AppColorConstants.secondaryStrokeDark,
   );
 }

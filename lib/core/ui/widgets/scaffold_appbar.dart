@@ -6,6 +6,7 @@ class ScaffoldAppbar extends StatelessWidget {
   final Widget? body;
   final bool centerTitle;
   final bool isIgnoreSafeArea;
+  final bool reisizeToAvoidBottomInset;
 
   const ScaffoldAppbar({
     super.key,
@@ -14,6 +15,7 @@ class ScaffoldAppbar extends StatelessWidget {
     required this.body,
     this.centerTitle = true,
     this.isIgnoreSafeArea = false,
+    this.reisizeToAvoidBottomInset = false,
   });
 
   @override
@@ -22,6 +24,7 @@ class ScaffoldAppbar extends StatelessWidget {
 
     return Scaffold(
       appBar: appbar,
+      resizeToAvoidBottomInset: reisizeToAvoidBottomInset,
       body: isIgnoreSafeArea ? body : SafeArea(child: body),
     );
   }
