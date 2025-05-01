@@ -140,6 +140,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.`
+  String get msg_sign_up {
+    return Intl.message(
+      'It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.',
+      name: 'msg_sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Get Started`
   String get button_get_started {
     return Intl.message(
@@ -155,6 +165,16 @@ class LocalizedStrings {
     return Intl.message(
       'Login',
       name: 'button_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Account`
+  String get button_create_account {
+    return Intl.message(
+      'Create Account',
+      name: 'button_create_account',
       desc: '',
       args: [],
     );
@@ -220,6 +240,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `Do you have an account?`
+  String get text_have_account {
+    return Intl.message(
+      'Do you have an account?',
+      name: 'text_have_account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sign Up`
   String get text_sign_up {
     return Intl.message(
@@ -245,6 +275,26 @@ class LocalizedStrings {
     return Intl.message(
       'Enter your password',
       name: 'hint_enter_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter confirm password`
+  String get hint_enter_confirm_password {
+    return Intl.message(
+      'Enter confirm password',
+      name: 'hint_enter_confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your name`
+  String get hint_enter_name {
+    return Intl.message(
+      'Enter your name',
+      name: 'hint_enter_name',
       desc: '',
       args: [],
     );

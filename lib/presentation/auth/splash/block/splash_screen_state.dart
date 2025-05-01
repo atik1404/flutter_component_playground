@@ -9,7 +9,7 @@ class SplashScreenState extends Equatable {
     required this.shouldNavigateToNextScreen,
   });
 
-  SplashScreenState copywith({
+  SplashScreenState copyWith({
     bool? isLoading,
     bool? shouldNavigateToNextScreen,
   }) {

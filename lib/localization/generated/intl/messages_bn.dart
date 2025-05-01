@@ -22,11 +22,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "button_create_account":
+            MessageLookupByLibrary.simpleMessage("Create Account"),
         "button_get_started":
             MessageLookupByLibrary.simpleMessage("Get Started"),
         "button_login": MessageLookupByLibrary.simpleMessage("Login"),
+        "hint_enter_confirm_password":
+            MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "hint_enter_email":
             MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "hint_enter_name":
+            MessageLookupByLibrary.simpleMessage("Enter your name"),
         "hint_enter_password":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "msg_introduction_1": MessageLookupByLibrary.simpleMessage(
@@ -35,12 +41,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "From Oscar winners to hidden gems—every film awaits your spotlight."),
         "msg_login": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
+        "msg_sign_up": MessageLookupByLibrary.simpleMessage(
+            "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "text_dont_have_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "text_facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
         "text_forget_password":
             MessageLookupByLibrary.simpleMessage("Forget Password?"),
         "text_google": MessageLookupByLibrary.simpleMessage("Google"),
+        "text_have_account":
+            MessageLookupByLibrary.simpleMessage("Do you have an account?"),
         "text_or": MessageLookupByLibrary.simpleMessage("Or"),
         "text_sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "text_sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),

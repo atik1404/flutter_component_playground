@@ -34,6 +34,7 @@ class AppTextField extends StatefulWidget {
   final EdgeInsetsGeometry contentPadding;
   final bool enabled;
   final bool isFillColorEnabled;
+  final FocusNode? focusNode;
 
   /// Creates an [AppTextField] widget.
   ///
@@ -74,6 +75,7 @@ class AppTextField extends StatefulWidget {
         const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     this.enabled = true,
     this.isFillColorEnabled = true,
+    this.focusNode,
   });
 
   @override
@@ -101,6 +103,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
     return TextFormField(
       controller: widget.controller,
+      focusNode: widget.focusNode,
       obscureText: widget.obscureText ? _isObscured : false,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
@@ -109,6 +112,13 @@ class _AppTextFieldState extends State<AppTextField> {
       maxLines: widget.maxLines,
       maxLength: widget.maxLength,
       enabled: widget.enabled,
+      onFieldSubmitted: (value){
+        if(widget.textInputAction == TextInputAction.next){
+          FocusScope.of(context).nextFocus();
+        } else if(widget.textInputAction == TextInputAction.done){
+          FocusScope.of(context).unfocus();
+        }
+      },
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: TextStyle(

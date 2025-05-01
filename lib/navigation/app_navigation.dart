@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_component_playground/presentation/auth/onboarding/onboarding_route.dart';
 import 'package:flutter_component_playground/presentation/auth/login/login_screen_route.dart';
+import 'package:flutter_component_playground/presentation/auth/registration/registration_route.dart';
 import 'package:flutter_component_playground/presentation/auth/splash/splash_screen_route.dart';
 import 'package:flutter_component_playground/presentation/home/home_screen_route.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
@@ -11,6 +12,7 @@ List<BaseRouter> get routers => [
       SplashScreenRoute(),
       OnboardingRoute(),
       LoginScreenRoute(),
+      RegistrationRoute(),
       HomeScreenRoute(),
     ];
 

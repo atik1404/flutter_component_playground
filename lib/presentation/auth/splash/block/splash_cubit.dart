@@ -9,10 +9,13 @@ class SplashCubit extends Cubit<SplashScreenState> {
         ));
 
   void navigateToLoginScreen() async {
-    emit(state.copywith(isLoading: true));
+    emit(state.copyWith(isLoading: true));
 
     await Future.delayed(const Duration(milliseconds: 2000));
 
-    emit(state.copywith(shouldNavigateToNextScreen: true));
+    // Check if the Cubit is still active before emitting a new state
+    if (!isClosed) {
+      emit(state.copyWith(shouldNavigateToNextScreen: true));
+    }
   }
 }

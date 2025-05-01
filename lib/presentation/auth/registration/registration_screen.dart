@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/core/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
@@ -12,8 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +28,30 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: Container(
-          padding: EdgeInsets.all(context.spacingSizes.large),
+          padding: EdgeInsets.all(context.spacingSizes.base),
           width: double.infinity,
-          height: mediaQuery.size.height,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height -
+                mediaQuery.viewInsets.bottom, // Adjust for keyboard
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: Image.asset(
+                      AppIcons.ic_back,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                  ),
+                  const Spacer(),
+                ],
+              ),
               SpacerBox(
                 height: context.spacingSizes.large,
               ),
@@ -50,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                 height: spacingSizes.large,
               ),
               Text(
-                getString.text_sign_in,
+                getString.text_sign_up,
                 style: typography.titleLargeBold
                     .copyWith(color: textColors.primaryTextColor),
               ),
@@ -58,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                 height: spacingSizes.base,
               ),
               Text(
-                context.getString.msg_login,
+                context.getString.msg_sign_up,
                 style: typography.bodyMediumLight
                     .copyWith(color: context.materialColors.onPrimaryContainer),
                 textAlign: TextAlign.center,
@@ -97,39 +115,39 @@ class LoginScreen extends StatelessWidget {
               Column(
                 children: [
                   AppTextField(
-                    hintText: context.getString.hint_enter_email,
+                    hintText: getString.hint_enter_name,
+                    keyboardType: TextInputType.name,
+                  ),
+                  SpacerBox(
+                    height: spacingSizes.base,
+                  ),
+                  AppTextField(
+                    hintText: getString.hint_enter_email,
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SpacerBox(
                     height: spacingSizes.base,
                   ),
                   AppTextField(
-                    textInputAction: TextInputAction.done,
-                    hintText: context.getString.hint_enter_password,
+                    hintText: getString.hint_enter_password,
+                    obscureText: true,
+                  ),
+                  SpacerBox(
+                    height: spacingSizes.base,
+                  ),
+                  AppTextField(
+                    hintText: getString.hint_enter_confirm_password,
                     obscureText: true,
                   ),
                 ],
               ),
               SpacerBox(
-                height: spacingSizes.base,
-              ),
-              Row(
-                children: [
-                  const Spacer(),
-                  Text(
-                    context.getString.text_forget_password,
-                    style: typography.bodyMediumRegular
-                        .copyWith(color: textColors.primaryTextColor),
-                  ),
-                ],
-              ),
-              SpacerBox(
-                height: spacingSizes.large,
+                height: spacingSizes.xLarge,
               ),
               AppButton(
-                text: context.getString.button_login,
+                text: getString.button_create_account,
                 onPressed: () {
-                  Fluttertoast.showToast(msg: "Login button clicked");
+                  Fluttertoast.showToast(msg: "Create account button clicked");
                 },
               ),
               SpacerBox(
@@ -139,7 +157,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    context.getString.text_dont_have_account,
+                    context.getString.text_have_account,
                     style: typography.bodyMediumLight
                         .copyWith(color: textColors.primaryTextColor),
                   ),
@@ -151,7 +169,7 @@ class LoginScreen extends StatelessWidget {
                       context.pushNamed(AppRoute.registrationScreen);
                     },
                     child: Text(
-                      getString.text_sign_up,
+                      getString.text_sign_in,
                       style: typography.bodyMedium.copyWith(
                         color: textColors.primaryTextColor,
                       ),

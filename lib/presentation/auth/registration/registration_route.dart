@@ -1,17 +1,17 @@
 import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/navigation/base_router.dart';
-import 'package:flutter_component_playground/presentation/auth/login/login_screen.dart';
+import 'package:flutter_component_playground/presentation/auth/registration/registration_screen.dart';
 import 'package:go_router/go_router.dart';
 
-final class LoginScreenRoute extends BaseRouter {
+class RegistrationRoute extends BaseRouter {
   @override
   List<GoRoute> get routes => [
         GoRoute(
-          path: AppRoute.loginScreen,
-          name: AppRoute.loginScreen,
+          path: AppRoute.registrationScreen,
+          name: AppRoute.registrationScreen,
           pageBuilder: (context, state) {
             return buildAnimatedPage(
-              child: const LoginScreen(),
+              child: const RegistrationScreen(),
             );
           },
         ),

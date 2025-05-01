@@ -9,7 +9,11 @@ final class OnboardingRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.onboardingScreen,
           name: AppRoute.onboardingScreen,
-          builder: (context, state) => const OnboardingScreen(),
+          pageBuilder: (context, state) {
+            return buildAnimatedPage(
+              child: const OnboardingScreen(),
+            );
+          },
         ),
       ];
 }

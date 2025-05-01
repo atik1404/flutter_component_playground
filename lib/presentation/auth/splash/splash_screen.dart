@@ -9,7 +9,6 @@ import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/presentation/auth/splash/block/splash_cubit.dart';
 import 'package:flutter_component_playground/presentation/auth/splash/block/splash_screen_state.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 // A splash screen that displays the app logo and name.
@@ -45,10 +44,8 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
 
-              // Adds vertical spacing between the logo and the app title.
               SpacerBox(height: spaceSize.large),
 
-              // App name styled using the theme's large bold text style.
               Text(
                 context.getString.title_app_name,
                 style: context.typography.titleLargeBold.copyWith(
