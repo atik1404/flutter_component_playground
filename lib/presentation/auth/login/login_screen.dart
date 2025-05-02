@@ -116,10 +116,15 @@ class LoginScreen extends StatelessWidget {
               Row(
                 children: [
                   const Spacer(),
-                  Text(
-                    context.getString.text_forget_password,
-                    style: typography.bodyMediumRegular
-                        .copyWith(color: textColors.primaryTextColor),
+                  GestureDetector(
+                    onTap: () {
+                      context.pushNamed(AppRoute.forgotPasswordScreen);
+                    },
+                    child: Text(
+                      context.getString.text_forget_password,
+                      style: typography.bodyMediumSemiBold
+                          .copyWith(color: textColors.primaryTextColor),
+                    ),
                   ),
                 ],
               ),

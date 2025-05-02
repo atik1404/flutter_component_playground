@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_component_playground/presentation/auth/forgot_password/forgot_password_screen_route.dart';
 import 'package:flutter_component_playground/presentation/auth/onboarding/onboarding_route.dart';
 import 'package:flutter_component_playground/presentation/auth/login/login_screen_route.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/registration_route.dart';
@@ -14,6 +15,7 @@ List<BaseRouter> get routers => [
       LoginScreenRoute(),
       RegistrationRoute(),
       HomeScreenRoute(),
+      ForgotPasswordScreenRoute(),
     ];
 
 final GoRouter router = GoRouter(

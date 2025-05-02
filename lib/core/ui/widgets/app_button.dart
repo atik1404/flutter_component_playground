@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
 
@@ -11,6 +10,7 @@ class AppButton extends StatelessWidget {
   final Color? textColor;
   final double borderRadius;
   final EdgeInsetsGeometry? padding;
+  final bool isDisabled;
 
   const AppButton({
     super.key,
@@ -22,22 +22,28 @@ class AppButton extends StatelessWidget {
     this.textColor,
     this.borderRadius = 15.0,
     this.padding,
+    this.isDisabled = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final buttonBackgroundColor = isDisabled
+        ? context.buttonColors.disable
+        : (backgroundColor ?? context.buttonColors.primary);
+
     return SizedBox(
       width: isFullWidth ? double.infinity : width,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isDisabled ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? context.buttonColors.primary,
+          backgroundColor: buttonBackgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          padding: padding ?? EdgeInsets.symmetric(
-            vertical: context.spacingSizes.base,
-          ),
+          padding: padding ??
+              EdgeInsets.symmetric(
+                vertical: context.spacingSizes.base,
+              ),
         ),
         child: Text(
           text,

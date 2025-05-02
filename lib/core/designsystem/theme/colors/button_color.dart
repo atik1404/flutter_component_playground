@@ -8,6 +8,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
   final Color onSecondary;
   final Color primaryContainer;
   final Color onPrimaryContainer;
+  final Color disable;
 
   ButtonColor._({
     required this.primary,
@@ -16,6 +17,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
     required this.onSecondary,
     required this.primaryContainer,
     required this.onPrimaryContainer,
+    required this.disable,
   });
 
   @override
@@ -26,6 +28,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
     Color? onSecondary,
     Color? primaryContainer,
     Color? onPrimaryContainer,
+    Color? disable,
   }) {
     return copyWithList([
       primary,
@@ -34,6 +37,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
       onSecondary,
       primaryContainer,
       onPrimaryContainer,
+      disable,
     ]);
   }
 
@@ -45,6 +49,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
         onSecondary,
         primaryContainer,
         onPrimaryContainer,
+        disable,
       ];
 
   @override
@@ -56,6 +61,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
       onSecondary: colors[3],
       primaryContainer: colors[4],
       onPrimaryContainer: colors[5],
+      disable: colors[6],
     );
   }
 
@@ -66,6 +72,7 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
     onSecondary: AppColorConstants.white,
     primaryContainer: AppColorConstants.primaryContainerLight,
     onPrimaryContainer: AppColorConstants.white,
+    disable: AppColorConstants.disableButtonColor,
   );
 
   static final _darkThemeColor = ButtonColor._(
@@ -75,5 +82,6 @@ final class ButtonColor extends ThemeExtension<ButtonColor>
     onSecondary: AppColorConstants.white,
     primaryContainer: AppColorConstants.primaryContainerDark,
     onPrimaryContainer: AppColorConstants.white,
+    disable: AppColorConstants.disableButtonColor,
   );
 }

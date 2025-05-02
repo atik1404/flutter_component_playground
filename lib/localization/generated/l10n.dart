@@ -110,6 +110,36 @@ class LocalizedStrings {
     );
   }
 
+  /// `Forgot Password`
+  String get title_forgot_password {
+    return Intl.message(
+      'Forgot Password',
+      name: 'title_forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter OTP`
+  String get title_otp {
+    return Intl.message(
+      'Enter OTP',
+      name: 'title_otp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get title_reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'title_reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
   String get msg_introduction_1 {
     return Intl.message(
@@ -150,6 +180,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.`
+  String get msg_forgot_password {
+    return Intl.message(
+      'It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum.',
+      name: 'msg_forgot_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Get Started`
   String get button_get_started {
     return Intl.message(
@@ -175,6 +215,36 @@ class LocalizedStrings {
     return Intl.message(
       'Create Account',
       name: 'button_create_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get button_continue {
+    return Intl.message(
+      'Continue',
+      name: 'button_continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get button_reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'button_reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get button_sumit {
+    return Intl.message(
+      'Submit',
+      name: 'button_sumit',
       desc: '',
       args: [],
     );
@@ -260,6 +330,66 @@ class LocalizedStrings {
     );
   }
 
+  /// `I'm agree to the `
+  String get text_agreed {
+    return Intl.message(
+      'I\'m agree to the ',
+      name: 'text_agreed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Service`
+  String get text_terms {
+    return Intl.message(
+      'Terms of Service',
+      name: 'text_terms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get text_privacy_policy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'text_privacy_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` and `
+  String get text_and {
+    return Intl.message(
+      ' and ',
+      name: 'text_and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Didn’t get the OTP?`
+  String get text_didnt_get_otp {
+    return Intl.message(
+      'Didn’t get the OTP?',
+      name: 'text_didnt_get_otp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Resend OTP`
+  String get text_resend_otp {
+    return Intl.message(
+      ' Resend OTP',
+      name: 'text_resend_otp',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter your email`
   String get hint_enter_email {
     return Intl.message(
@@ -285,6 +415,16 @@ class LocalizedStrings {
     return Intl.message(
       'Enter confirm password',
       name: 'hint_enter_confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter new password`
+  String get hint_enter_new_password {
+    return Intl.message(
+      'Enter new password',
+      name: 'hint_enter_new_password',
       desc: '',
       args: [],
     );

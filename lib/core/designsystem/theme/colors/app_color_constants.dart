@@ -60,4 +60,5 @@ final class AppColorConstants {
   static const black = Color(0xFF000000);
 
   static const introductionBackgroundColor = Color(0xFF3B4054);
+  static const disableButtonColor = Color.fromARGB(89, 4, 146, 255);
 }

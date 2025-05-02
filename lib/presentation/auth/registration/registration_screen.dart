@@ -3,18 +3,26 @@ import 'package:flutter_component_playground/core/designsystem/extensions/theme_
 import 'package:flutter_component_playground/core/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
 import 'package:flutter_component_playground/core/ui/widgets/app_button.dart';
+import 'package:flutter_component_playground/core/ui/widgets/app_checkbox.dart';
 import 'package:flutter_component_playground/core/ui/widgets/app_text_field.dart';
+import 'package:flutter_component_playground/core/ui/widgets/multi_color_text.dart';
 import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
-import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     final spacingSizes = context.spacingSizes;
@@ -43,8 +51,8 @@ class RegistrationScreen extends StatelessWidget {
                     onTap: () {
                       context.pop();
                     },
-                    child: Image.asset(
-                      AppIcons.ic_back,
+                    child: SvgPicture.asset(
+                      AppIcons.icBack,
                       width: 30.w,
                       height: 30.h,
                     ),
@@ -142,6 +150,41 @@ class RegistrationScreen extends StatelessWidget {
                 ],
               ),
               SpacerBox(
+                height: spacingSizes.base,
+              ),
+              AppCheckbox(
+                value: isChecked,
+                onChanged: (value) {
+                  setState(() {
+                    isChecked = value ?? false;
+                  });
+                },
+                labelText: MultiColorText(
+                  textSpans: [
+                    TextSpan(
+                      text: getString.text_agreed,
+                      style: typography.bodyMediumLight
+                          .copyWith(color: textColors.secondaryTextColor),
+                    ),
+                    TextSpan(
+                      text: getString.text_terms,
+                      style: typography.bodyMediumBold
+                          .copyWith(color: textColors.primaryTextColor),
+                    ),
+                    TextSpan(
+                      text: getString.text_and,
+                      style: typography.bodyMediumLight
+                          .copyWith(color: textColors.secondaryTextColor),
+                    ),
+                    TextSpan(
+                      text: getString.text_privacy_policy,
+                      style: typography.bodyMediumBold
+                          .copyWith(color: textColors.primaryTextColor),
+                    ),
+                  ],
+                ),
+              ),
+              SpacerBox(
                 height: spacingSizes.xLarge,
               ),
               AppButton(
@@ -149,6 +192,7 @@ class RegistrationScreen extends StatelessWidget {
                 onPressed: () {
                   Fluttertoast.showToast(msg: "Create account button clicked");
                 },
+                isDisabled: !isChecked,
               ),
               SpacerBox(
                 height: spacingSizes.base,
@@ -166,7 +210,7 @@ class RegistrationScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.pushNamed(AppRoute.registrationScreen);
+                      context.pop();
                     },
                     child: Text(
                       getString.text_sign_in,

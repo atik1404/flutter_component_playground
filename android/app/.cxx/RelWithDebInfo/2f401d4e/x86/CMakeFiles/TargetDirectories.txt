@@ -1,0 +1,2 @@
+/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/android/app/.cxx/RelWithDebInfo/2f401d4e/x86/CMakeFiles/edit_cache.dir
+/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/android/app/.cxx/RelWithDebInfo/2f401d4e/x86/CMakeFiles/rebuild_cache.dir

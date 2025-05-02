@@ -22,19 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "button_continue": MessageLookupByLibrary.simpleMessage("Continue"),
         "button_create_account":
             MessageLookupByLibrary.simpleMessage("Create Account"),
         "button_get_started":
             MessageLookupByLibrary.simpleMessage("Get Started"),
         "button_login": MessageLookupByLibrary.simpleMessage("Login"),
+        "button_reset_password":
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "button_sumit": MessageLookupByLibrary.simpleMessage("Submit"),
         "hint_enter_confirm_password":
             MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "hint_enter_email":
             MessageLookupByLibrary.simpleMessage("Enter your email"),
         "hint_enter_name":
             MessageLookupByLibrary.simpleMessage("Enter your name"),
+        "hint_enter_new_password":
+            MessageLookupByLibrary.simpleMessage("Enter new password"),
         "hint_enter_password":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
+        "msg_forgot_password": MessageLookupByLibrary.simpleMessage(
+            "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "msg_introduction_1": MessageLookupByLibrary.simpleMessage(
             "Your perfect movie night starts here. Explore, stream, and love every scene.!"),
         "msg_introduction_2": MessageLookupByLibrary.simpleMessage(
@@ -43,6 +51,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "msg_sign_up": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
+        "text_agreed":
+            MessageLookupByLibrary.simpleMessage("I\'m agree to the "),
+        "text_and": MessageLookupByLibrary.simpleMessage(" and "),
+        "text_didnt_get_otp":
+            MessageLookupByLibrary.simpleMessage("Didn’t get the OTP?"),
         "text_dont_have_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "text_facebook": MessageLookupByLibrary.simpleMessage("Facebook"),
@@ -52,9 +65,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "text_have_account":
             MessageLookupByLibrary.simpleMessage("Do you have an account?"),
         "text_or": MessageLookupByLibrary.simpleMessage("Or"),
+        "text_privacy_policy":
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "text_resend_otp": MessageLookupByLibrary.simpleMessage(" Resend OTP"),
         "text_sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "text_sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "text_terms": MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "title_app_name": MessageLookupByLibrary.simpleMessage("Movie Hub"),
+        "title_forgot_password":
+            MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "title_home": MessageLookupByLibrary.simpleMessage("Home"),
         "title_introduction_1":
             MessageLookupByLibrary.simpleMessage("The Simple Way to"),
@@ -63,6 +82,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_introduction_sub_1":
             MessageLookupByLibrary.simpleMessage("find the best!"),
         "title_introduction_sub_2":
-            MessageLookupByLibrary.simpleMessage("Strategy!")
+            MessageLookupByLibrary.simpleMessage("Strategy!"),
+        "title_otp": MessageLookupByLibrary.simpleMessage("Enter OTP"),
+        "title_reset_password":
+            MessageLookupByLibrary.simpleMessage("Reset Password")
       };
 }

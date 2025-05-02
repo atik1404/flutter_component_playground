@@ -6,4 +6,5 @@ class AppRoute {
   static const String loginScreen = '/loginScreen';
   static const String onboardingScreen = '/onboardingScreen';
   static const String registrationScreen = '/registrationScreen';
+  static const String forgotPasswordScreen = '/forgotPasswordScreen';
 }
