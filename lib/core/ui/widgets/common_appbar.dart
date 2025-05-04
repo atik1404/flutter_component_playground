@@ -4,7 +4,7 @@ import 'package:flutter_component_playground/core/designsystem/extensions/theme_
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isBackButtonVisible;
-  final Function? onClickBackButton;
+  final VoidCallback? onClickBackButton;
 
   const CommonAppbar(
       {super.key,
@@ -24,7 +24,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: context.appBarColors.onPrimaryContainer,
       leading: isBackButtonVisible
           ? IconButton(
-              onPressed: () => onClickBackButton,
+              onPressed: onClickBackButton,
               icon: const Icon(Icons.arrow_back_ios_new_sharp),)
           : null,
     );

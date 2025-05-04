@@ -8,7 +8,12 @@ final class HomeScreenRoute extends BaseRouter {
   List<GoRoute> get routes => [
         GoRoute(
           path: AppRoute.homeScreen,
-          builder: (context, state) => const HomeScreen(),
+          name: AppRoute.homeScreen,
+          pageBuilder: (context, state) {
+            return buildAnimatedPage(
+              child: const HomeScreen(),
+            );
+          },
         ),
       ];
 }

@@ -25,7 +25,8 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<SplashCubit, SplashScreenState>(
       listener: (context, state) {
         if (state.shouldNavigateToNextScreen) {
-          context.goNamed(AppRoute.onboardingScreen); //navigate to onboarding screen
+          //context.goNamed(AppRoute.onboardingScreen); //navigate to onboarding screen
+          context.goNamed(AppRoute.homeScreen); //navigate to onboarding screen
         }
       },
       child: ScaffoldAppbar(

@@ -134,7 +134,7 @@ class LoginScreen extends StatelessWidget {
               AppButton(
                 text: context.getString.button_login,
                 onPressed: () {
-                  Fluttertoast.showToast(msg: "Login button clicked");
+                  context.goNamed(AppRoute.homeScreen);
                 },
               ),
               SpacerBox(

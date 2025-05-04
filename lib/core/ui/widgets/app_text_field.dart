@@ -112,10 +112,10 @@ class _AppTextFieldState extends State<AppTextField> {
       maxLines: widget.maxLines,
       maxLength: widget.maxLength,
       enabled: widget.enabled,
-      onFieldSubmitted: (value){
-        if(widget.textInputAction == TextInputAction.next){
+      onFieldSubmitted: (value) {
+        if (widget.textInputAction == TextInputAction.next) {
           FocusScope.of(context).nextFocus();
-        } else if(widget.textInputAction == TextInputAction.done){
+        } else if (widget.textInputAction == TextInputAction.done) {
           FocusScope.of(context).unfocus();
         }
       },
