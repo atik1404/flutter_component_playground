@@ -72,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "text_sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "text_terms": MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "title_app_name": MessageLookupByLibrary.simpleMessage("Movie Hub"),
+        "title_category": MessageLookupByLibrary.simpleMessage("Categories"),
         "title_forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "title_home": MessageLookupByLibrary.simpleMessage("Home"),

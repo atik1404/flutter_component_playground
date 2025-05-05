@@ -140,6 +140,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `Categories`
+  String get title_category {
+    return Intl.message(
+      'Categories',
+      name: 'title_category',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
   String get msg_introduction_1 {
     return Intl.message(

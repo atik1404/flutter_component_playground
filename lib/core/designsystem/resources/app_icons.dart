@@ -5,4 +5,6 @@ final class AppIcons {
   static const String icFacebook = 'assets/icons/ic_facebook.png';
   static const String icGoogle = 'assets/icons/ic_google.png';
   static const icBack = "assets/icons/ic_back.svg";
+  static const icFilter = "assets/icons/ic_filter.svg";
+  static const icNavMenu = "assets/icons/ic_nav_menu.svg";
 }
