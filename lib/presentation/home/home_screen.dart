@@ -9,6 +9,7 @@ import 'package:flutter_component_playground/core/ui/widgets/app_text_field.dart
 import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,13 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final spacingSizes = context.spacingSizes;
+    final mediaQuery = MediaQuery.of(context);
 
     return ScaffoldAppbar(
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Container(
           padding: EdgeInsets.all(context.spacingSizes.base),
-          width: double.infinity,
+          width: mediaQuery.size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -42,6 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
               _buildSlider(),
               SizedBox(height: spacingSizes.large),
               _buildMovieCategory(),
+              SizedBox(height: spacingSizes.large),
+              _buildMovieItemList(),
             ],
           ),
         ),
@@ -203,16 +207,14 @@ class _HomeScreenState extends State<HomeScreen> {
             color: context.textColors.primaryTextColor,
           ),
         ),
-        
         SizedBox(height: context.spacingSizes.base),
-        
         SizedBox(
           height: 35.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemCount: 5,
-            itemBuilder: (context, index) {d
+            itemBuilder: (context, index) {
               return _buildCategoryItem(index);
             },
           ),
@@ -255,5 +257,54 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildMovieItemList() {
+    return GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: context.spacingSizes.large,
+        mainAxisSpacing: context.spacingSizes.xLarge,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        childAspectRatio: .65,
+        children: List.generate(5, (index) {
+          return _buildMovieItem();
+        }),
+      );
+  }
+
+  Widget _buildMovieItem() {
+    return Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(context.shapeRadius.medium),
+            child: Image.network(
+              AppImages.moviePoster,
+              width: double.infinity,
+              height: 200.h,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: context.spacingSizes.medium),
+          Text(
+            textAlign: TextAlign.center,
+            "Movie Title",
+            style: context.typography.bodyLargeBold.copyWith(
+              color: context.textColors.primaryTextColor,
+            ),
+          ),
+          SizedBox(height: context.spacingSizes.xSmall),
+
+          RatingBarIndicator(
+            rating: 5,
+            itemBuilder: (context, index) => const Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            itemSize: 16,
+          ),
+          
+        ],
+      );
   }
 }
