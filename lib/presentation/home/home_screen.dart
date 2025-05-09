@@ -24,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _sliderIndex = 0;
   int _selectedCategory = 0;
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      navigationBar: _buildNavigationBar(context),
     );
   }
 
@@ -315,6 +317,60 @@ class _HomeScreenState extends State<HomeScreen> {
           itemSize: 16,
         ),
       ],
+    );
+  }
+
+  NavigationBar _buildNavigationBar(BuildContext context) {
+    return NavigationBar(
+      onDestinationSelected: (index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      selectedIndex: _selectedIndex,
+      destinations: [
+        _buildNavigationDestination(
+          context,
+          AppIcons.icHome,
+          context.getString.title_home,
+        ),
+        _buildNavigationDestination(
+          context,
+          AppIcons.icWishList,
+          context.getString.menu_wishlist,
+        ),
+        _buildNavigationDestination(
+          context,
+          AppIcons.icProfile,
+          context.getString.menu_profile,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNavigationDestination(
+    BuildContext context,
+    String icon,
+    String label,
+  ) {
+    final iconSizes = context.iconSizes;
+
+    return NavigationDestination(
+      icon: SvgPicture.asset(
+        icon,
+        width: iconSizes.base,
+        height: iconSizes.base,
+      ),
+      selectedIcon: SvgPicture.asset(
+        icon,
+        width: iconSizes.base,
+        height: iconSizes.base,
+        colorFilter: ColorFilter.mode(
+          context.materialColors.primary,
+          BlendMode.srcIn,
+        ),
+      ),
+      label: label,
     );
   }
 }

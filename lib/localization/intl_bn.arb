@@ -45,5 +45,9 @@
     "hint_enter_password": "Enter your password",
     "hint_enter_confirm_password": "Enter confirm password",
     "hint_enter_new_password": "Enter new password",
-    "hint_enter_name": "Enter your name"
+    "hint_enter_name": "Enter your name",
+
+    "menu_home": "Home",
+    "menu_profile": "Profile",
+    "menu_wishlist": "Favorites"
 }

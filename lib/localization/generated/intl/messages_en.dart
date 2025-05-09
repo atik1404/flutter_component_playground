@@ -41,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter new password"),
         "hint_enter_password":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
+        "menu_home": MessageLookupByLibrary.simpleMessage("Home"),
+        "menu_profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "menu_wishlist": MessageLookupByLibrary.simpleMessage("Favorites"),
         "msg_forgot_password": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "msg_introduction_1": MessageLookupByLibrary.simpleMessage(

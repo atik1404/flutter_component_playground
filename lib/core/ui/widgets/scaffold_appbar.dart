@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ScaffoldAppbar extends StatelessWidget {
   final PreferredSizeWidget? appbar;
+  final NavigationBar? navigationBar;
   final List<Widget>? actions;
   final Widget? body;
   final bool centerTitle;
@@ -16,6 +17,7 @@ class ScaffoldAppbar extends StatelessWidget {
     this.centerTitle = true,
     this.isIgnoreSafeArea = false,
     this.reisizeToAvoidBottomInset = false,
+    this.navigationBar,
   });
 
   @override
@@ -26,6 +28,7 @@ class ScaffoldAppbar extends StatelessWidget {
       appBar: appbar,
       resizeToAvoidBottomInset: reisizeToAvoidBottomInset,
       body: isIgnoreSafeArea ? body : SafeArea(child: body),
+      bottomNavigationBar: navigationBar ?? const SizedBox.shrink(),
     );
   }
 

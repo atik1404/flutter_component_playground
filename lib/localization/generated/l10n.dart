@@ -449,6 +449,36 @@ class LocalizedStrings {
       args: [],
     );
   }
+
+  /// `Home`
+  String get menu_home {
+    return Intl.message(
+      'Home',
+      name: 'menu_home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get menu_profile {
+    return Intl.message(
+      'Profile',
+      name: 'menu_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorites`
+  String get menu_wishlist {
+    return Intl.message(
+      'Favorites',
+      name: 'menu_wishlist',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<LocalizedStrings> {
