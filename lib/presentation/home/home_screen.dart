@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Padding(
             padding:
-                EdgeInsets.symmetric(horizontal: context.spacingSizes.base),
+                EdgeInsets.symmetric(horizontal: spacingSizes.base, vertical: spacingSizes.base),
             child: Column(
               children: [
                 _buildToolbar(context), // Toolbar at the top
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
               child: Container(
-                padding: EdgeInsets.all(context.spacingSizes.base),
+                padding: EdgeInsets.all(spacingSizes.base),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisSpacing: context.spacingSizes.xLarge,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      childAspectRatio: .65,
+      childAspectRatio: .62,
       children: List.generate(50, (index) {
         return _buildMovieItem(context);
       }),
@@ -290,14 +290,34 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildMovieItem(BuildContext context) {
     return Column(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(context.shapeRadius.medium),
-          child: Image.network(
-            AppImages.moviePoster,
-            width: double.infinity,
-            height: 200.h,
-            fit: BoxFit.cover,
-          ),
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(context.shapeRadius.medium),
+              child: Image.network(
+                AppImages.moviePoster,
+                width: double.infinity,
+                height: 200.h,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              top: 8.h, // Position the container at the bottom of the Stack
+              right: 8.w,
+              child: Container(
+                padding: EdgeInsets.all(context.spacingSizes.xSmall),
+                decoration: BoxDecoration(
+                  color: context.buttonColors.onPrimary.withAlpha(30),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.favorite_border,
+                  size: 20.w,
+                  color: Colors.pink.shade200,
+                ),
+              ),
+            ),
+          ],
         ),
         SizedBox(height: context.spacingSizes.medium),
         Text(
