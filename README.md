@@ -7,16 +7,24 @@ Movie Hub is a hobby Flutter application built to explore core Flutter concepts,
   
 
 ## 📱 Preview
+<p align="center">
+  <img src="screenshots/splash_screen.png" alt="Splash" width="150"/>
+  <img src="screenshots/introduction_screen_1.png" alt="Onboard 1" width="150"/>
+  <img src="screenshots/introduction_screen2.png" alt="Onboard 2" width="150"/>
+</p>
 
-![/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.19.41.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.25.47.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.25.50.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.25.52.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.25.55.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.25.59.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.26.06.png
-/Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-05-10 at 13.26.14.png](file:///Volumes/MyFiles/Projects/PetProject/flutter_component_playground/screenshots/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202025-05-10%20at%2013.19.41.png)
-  
+<p align="center">
+  <img src="screenshots/login_screen.png" alt="Splash" width="150"/>
+  <img src="screenshots/sign_up_screen.png" alt="Onboard 1" width="150"/>
+  <img src="screenshots/home_screen.png" alt="Onboard 2" width="150"/>
+</p>
+
+<p align="center">
+  <img src="screenshots/forgot_password_screen.png" alt="Splash" width="150"/>
+  <img src="screenshots/otp_screen.png" alt="Onboard 1" width="150"/>
+  <img src="screenshots/reset_password_screen.png" alt="Onboard 2" width="150"/>
+</p>
+
 ## 🛠️ Built With
 
 - **Flutter** – UI toolkit for crafting beautiful apps
