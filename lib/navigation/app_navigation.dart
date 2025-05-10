@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_component_playground/presentation/auth/forgot_password/forgot_password_screen_route.dart';
 import 'package:flutter_component_playground/presentation/auth/onboarding/onboarding_route.dart';
 import 'package:flutter_component_playground/presentation/auth/login/login_screen_route.dart';
+import 'package:flutter_component_playground/presentation/auth/profile/profile_screen_route.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/registration_route.dart';
 import 'package:flutter_component_playground/presentation/auth/splash/splash_screen_route.dart';
+import 'package:flutter_component_playground/presentation/favorites/favorites_screen_route.dart';
 import 'package:flutter_component_playground/presentation/home/home_screen_route.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/navigation/base_router.dart';
@@ -15,6 +17,8 @@ List<BaseRouter> get routers => [
       LoginScreenRoute(),
       RegistrationRoute(),
       HomeScreenRoute(),
+      FavoritesScreenRoute(),
+      ProfileScreenRoute(),
       ForgotPasswordScreenRoute(),
     ];
 
