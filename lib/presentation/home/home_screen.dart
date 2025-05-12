@@ -4,12 +4,10 @@ import 'package:flutter_component_playground/core/designsystem/extensions/theme_
 import 'package:flutter_component_playground/core/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
-import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/presentation/auth/profile/profile_screen.dart';
 import 'package:flutter_component_playground/presentation/favorites/favorites_screen.dart';
 import 'package:flutter_component_playground/presentation/home/home_screen_content.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

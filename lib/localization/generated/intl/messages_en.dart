@@ -30,7 +30,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "button_login": MessageLookupByLibrary.simpleMessage("Login"),
         "button_reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "button_retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "button_sumit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "error_message_no_data_found": MessageLookupByLibrary.simpleMessage(
+            "No data found, Please try again later."),
         "hint_enter_confirm_password":
             MessageLookupByLibrary.simpleMessage("Enter confirm password"),
         "hint_enter_email":
@@ -76,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "text_terms": MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "title_app_name": MessageLookupByLibrary.simpleMessage("Movie Hub"),
         "title_category": MessageLookupByLibrary.simpleMessage("Categories"),
+        "title_error_title": MessageLookupByLibrary.simpleMessage("Opps!"),
         "title_forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "title_home": MessageLookupByLibrary.simpleMessage("Home"),

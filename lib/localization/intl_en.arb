@@ -12,6 +12,9 @@
     "title_otp": "Enter OTP",
     "title_reset_password": "Reset Password",
     "title_category": "Categories",
+    "title_error_title": "Opps!",
+
+    "error_message_no_data_found": "No data found, Please try again later.",
 
     "msg_introduction_1": "Your perfect movie night starts here. Explore, stream, and love every scene.!",
     "msg_introduction_2": "From Oscar winners to hidden gems—every film awaits your spotlight.",
@@ -25,6 +28,7 @@
     "button_continue": "Continue",
     "button_reset_password": "Reset Password",
     "button_sumit": "Submit",
+    "button_retry": "Retry",
 
     "text_facebook": "Facebook",
     "text_google": "Google",

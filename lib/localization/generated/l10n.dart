@@ -150,6 +150,26 @@ class LocalizedStrings {
     );
   }
 
+  /// `Opps!`
+  String get title_error_title {
+    return Intl.message(
+      'Opps!',
+      name: 'title_error_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data found, Please try again later.`
+  String get error_message_no_data_found {
+    return Intl.message(
+      'No data found, Please try again later.',
+      name: 'error_message_no_data_found',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
   String get msg_introduction_1 {
     return Intl.message(
@@ -255,6 +275,16 @@ class LocalizedStrings {
     return Intl.message(
       'Submit',
       name: 'button_sumit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retry`
+  String get button_retry {
+    return Intl.message(
+      'Retry',
+      name: 'button_retry',
       desc: '',
       args: [],
     );
