@@ -9,161 +9,40 @@ import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
+/// Refactored LoginScreen using private builder methods
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final spacingSizes = context.spacingSizes;
-    final typography = context.typography;
-    final textColors = context.textColors;
-    final getString = context.getString;
-    final mediaQuery = MediaQuery.of(context);
+    final spacing = context.spacingSizes;
 
     return ScaffoldAppbar(
       reisizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Container(
-          padding: EdgeInsets.all(context.spacingSizes.large),
-          width: double.infinity,
-          height: mediaQuery.size.height,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          padding: EdgeInsets.all(spacing.large),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SpacerBox(
-                height: context.spacingSizes.large,
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(context.shapeRadius.base),
-                child: Image.asset(
-                  AppImages.appLogo,
-                  width: 110,
-                  height: 110,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              SpacerBox(
-                height: spacingSizes.large,
-              ),
-              Text(
-                getString.text_sign_in,
-                style: typography.titleLargeBold
-                    .copyWith(color: textColors.primaryTextColor),
-              ),
-              SpacerBox(
-                height: spacingSizes.base,
-              ),
-              Text(
-                context.getString.msg_login,
-                style: typography.bodyMediumLight
-                    .copyWith(color: context.materialColors.onPrimaryContainer),
-                textAlign: TextAlign.center,
-              ),
-              SpacerBox(
-                height: spacingSizes.large,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildSocialLoginButton(
-                      context,
-                      AppIcons.icFacebook,
-                      context.getString.text_facebook,
-                    ),
-                  ),
-                  SpacerBox(
-                    width: spacingSizes.base,
-                  ),
-                  Expanded(
-                    child: _buildSocialLoginButton(
-                      context,
-                      AppIcons.icGoogle,
-                      context.getString.text_google,
-                    ),
-                  ),
-                ],
-              ),
-              SpacerBox(
-                height: spacingSizes.large,
-              ),
+              _buildLogo(context),
+              SpacerBox(height: spacing.large),
+              _buildTitle(context),
+              SpacerBox(height: spacing.large),
+              _buildSocialRow(context),
+              SpacerBox(height: spacing.large),
               _buildDivider(context),
-              SpacerBox(
-                height: spacingSizes.large,
-              ),
-              Column(
-                children: [
-                  AppTextField(
-                    hintText: context.getString.hint_enter_email,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SpacerBox(
-                    height: spacingSizes.base,
-                  ),
-                  AppTextField(
-                    textInputAction: TextInputAction.done,
-                    hintText: context.getString.hint_enter_password,
-                    obscureText: true,
-                  ),
-                ],
-              ),
-              SpacerBox(
-                height: spacingSizes.base,
-              ),
-              Row(
-                children: [
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      context.pushNamed(AppRoute.forgotPasswordScreen);
-                    },
-                    child: Text(
-                      context.getString.text_forget_password,
-                      style: typography.bodyMediumSemiBold
-                          .copyWith(color: textColors.primaryTextColor),
-                    ),
-                  ),
-                ],
-              ),
-              SpacerBox(
-                height: spacingSizes.large,
-              ),
-              AppButton(
-                text: context.getString.button_login,
-                onPressed: () {
-                  context.goNamed(AppRoute.homeScreen);
-                },
-              ),
-              SpacerBox(
-                height: spacingSizes.base,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    context.getString.text_dont_have_account,
-                    style: typography.bodyMediumLight
-                        .copyWith(color: textColors.primaryTextColor),
-                  ),
-                  SpacerBox(
-                    width: spacingSizes.small,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.pushNamed(AppRoute.registrationScreen);
-                    },
-                    child: Text(
-                      getString.text_sign_up,
-                      style: typography.bodyMedium.copyWith(
-                        color: textColors.primaryTextColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              SpacerBox(height: spacing.large),
+              _buildForm(context),
+              SpacerBox(height: spacing.base),
+              _buildForgotPassword(context),
+              SpacerBox(height: spacing.large),
+              _buildLoginButton(context),
+              SpacerBox(height: spacing.base),
+              _buildSignUpText(context),
             ],
           ),
         ),
@@ -171,76 +50,205 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSocialLoginButton(
-    BuildContext context,
-    String imagePath,
-    String text,
-  ) {
-    final spacingSizes = context.spacingSizes;
-    final iconSizes = context.iconSizes;
-    final backgroundColors = context.backgroundColors;
+  /// App logo at the top
+  Widget _buildLogo(BuildContext context) => Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(context.shapeRadius.base),
+          child: Image.asset(
+            AppImages.appLogo,
+            width: 110,
+            height: 110,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
 
-    return Container(
-      height: 50.h,
-      padding: EdgeInsets.symmetric(
-        horizontal: spacingSizes.large,
-      ),
-      decoration: BoxDecoration(
-        color: backgroundColors.primaryBackgroundColor,
-        borderRadius: BorderRadius.circular(context.shapeRadius.base),
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            imagePath,
-            width: iconSizes.medium,
-            height: iconSizes.medium,
+  /// Sign-in title and subtitle
+  Widget _buildTitle(BuildContext context) {
+    final typography = context.typography;
+    final textColors = context.textColors;
+    final getString = context.getString;
+
+    return Column(
+      children: [
+        Text(
+          getString.text_sign_in,
+          style: typography.titleLargeBold
+              .copyWith(color: textColors.primaryTextColor),
+        ),
+        SpacerBox(height: context.spacingSizes.base),
+        Text(
+          getString.msg_login,
+          style: typography.bodyMediumLight
+              .copyWith(color: context.materialColors.onPrimaryContainer),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  /// Row of Facebook and Google login buttons
+  Widget _buildSocialRow(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildSocialButton(
+            context,
+            AppIcons.icFacebook,
+            context.getString.text_facebook,
+            () => context.goNamed(AppRoute.homeScreen),
           ),
-          SpacerBox(
-            width: spacingSizes.base,
+        ),
+        SpacerBox(width: context.spacingSizes.base),
+        Expanded(
+          child: _buildSocialButton(
+            context,
+            AppIcons.icGoogle,
+            context.getString.text_google,
+            () => context.goNamed(AppRoute.homeScreen),
           ),
-          Expanded(
-            child: Text(
-              text,
-              style: context.typography.bodyMedium
-                  .copyWith(color: context.textColors.primaryTextColor),
+        ),
+      ],
+    );
+  }
+
+  /// Individual social login button
+  Widget _buildSocialButton(
+    BuildContext context,
+    String asset,
+    String label,
+    VoidCallback onTap,
+  ) {
+    final spacing = context.spacingSizes;
+    final iconSizes = context.iconSizes;
+    final bgColor = context.backgroundColors.primaryBackgroundColor;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 50.h,
+        padding: EdgeInsets.symmetric(horizontal: spacing.large),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(context.shapeRadius.base),
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              asset,
+              width: iconSizes.medium,
+              height: iconSizes.medium,
             ),
-          ),
-        ],
+            SpacerBox(width: spacing.base),
+            Expanded(
+              child: Text(
+                label,
+                style: context.typography.bodyMedium.copyWith(
+                  color: context.textColors.primaryTextColor,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
+  /// Divider with "OR" text
   Widget _buildDivider(BuildContext context) {
-    final spacingSizes = context.spacingSizes;
-    final typography = context.typography;
-    final textColors = context.textColors;
+    final spacing = context.spacingSizes;
     final strokeColors = context.strokeColors;
     final lineSizes = context.lineSizes;
+    final typography = context.typography;
+    final textColors = context.textColors;
 
     return Row(
       children: [
         Expanded(
-          child: Container(
-            height: lineSizes.thin,
+          child: Divider(
+            thickness: lineSizes.thin,
             color: strokeColors.secondaryStrokeColor,
           ),
         ),
-        SpacerBox(
-          width: spacingSizes.base,
-        ),
+        SpacerBox(width: spacing.base),
         Text(
           context.getString.text_or,
           style: typography.bodyMedium
               .copyWith(color: textColors.primaryTextColor),
         ),
-        SpacerBox(
-          width: spacingSizes.base,
-        ),
+        SpacerBox(width: spacing.base),
         Expanded(
-          child: Container(
-            height: lineSizes.thin,
+          child: Divider(
+            thickness: lineSizes.thin,
             color: strokeColors.secondaryStrokeColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Email and password input fields
+  Widget _buildForm(BuildContext context) {
+    final spacing = context.spacingSizes;
+
+    return Column(
+      children: [
+        AppTextField(
+          hintText: context.getString.hint_enter_email,
+          keyboardType: TextInputType.emailAddress,
+        ),
+        SpacerBox(height: spacing.base),
+        AppTextField(
+          hintText: context.getString.hint_enter_password,
+          obscureText: true,
+          textInputAction: TextInputAction.done,
+        ),
+      ],
+    );
+  }
+
+  /// "Forgot password" link
+  Widget _buildForgotPassword(BuildContext context) => Align(
+        alignment: Alignment.centerRight,
+        child: GestureDetector(
+          onTap: () => context.pushNamed(AppRoute.forgotPasswordScreen),
+          child: Text(
+            context.getString.text_forget_password,
+            style: context.typography.bodyMediumSemiBold.copyWith(
+              color: context.textColors.primaryTextColor,
+            ),
+          ),
+        ),
+      );
+
+  /// Login button
+  Widget _buildLoginButton(BuildContext context) => AppButton(
+        text: context.getString.button_login,
+        onPressed: () => context.goNamed(AppRoute.homeScreen),
+      );
+
+  /// Sign-up prompt at bottom
+  Widget _buildSignUpText(BuildContext context) {
+    final spacing = context.spacingSizes;
+    final textColors = context.textColors;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          context.getString.text_dont_have_account,
+          style: context.typography.bodyMediumLight.copyWith(
+            color: textColors.primaryTextColor,
+          ),
+        ),
+        SpacerBox(width: spacing.small),
+        GestureDetector(
+          onTap: () => context.pushNamed(AppRoute.registrationScreen),
+          child: Text(
+            context.getString.text_sign_up,
+            style: context.typography.bodyMedium.copyWith(
+              color: textColors.primaryTextColor,
+            ),
           ),
         ),
       ],
