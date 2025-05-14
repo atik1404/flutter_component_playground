@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/core/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
@@ -8,8 +9,14 @@ import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dar
 import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
+import 'package:flutter_component_playground/presentation/auth/login/bloc/login_bloc.dart';
+import 'package:flutter_component_playground/presentation/auth/login/bloc/login_event.dart';
+import 'package:flutter_component_playground/presentation/auth/login/bloc/login_state.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logging/logging.dart';
 
 /// Refactored LoginScreen using private builder methods
 class LoginScreen extends StatelessWidget {
@@ -19,31 +26,44 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final spacing = context.spacingSizes;
 
-    return ScaffoldAppbar(
-      reisizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          padding: EdgeInsets.all(spacing.large),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildLogo(context),
-              SpacerBox(height: spacing.large),
-              _buildTitle(context),
-              SpacerBox(height: spacing.large),
-              _buildSocialRow(context),
-              SpacerBox(height: spacing.large),
-              _buildDivider(context),
-              SpacerBox(height: spacing.large),
-              _buildForm(context),
-              SpacerBox(height: spacing.base),
-              _buildForgotPassword(context),
-              SpacerBox(height: spacing.large),
-              _buildLoginButton(context),
-              SpacerBox(height: spacing.base),
-              _buildSignUpText(context),
-            ],
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.formValidationStatus.isSuccess) {
+          Fluttertoast.showToast(msg: "Login Successful, go to home screen");
+        } else if (state.formValidationStatus.isFailure) {
+          Logger.root.info(state.email.isValid);
+        } else if (state.formValidationStatus.isInProgress) {
+          Logger.root.info('State is in progress');
+        } else {
+          Logger.root.info('State is not success or failure');
+        }
+      },
+      child: ScaffoldAppbar(
+        reisizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            padding: EdgeInsets.all(spacing.large),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildLogo(context),
+                SpacerBox(height: spacing.large),
+                _buildTitle(context),
+                SpacerBox(height: spacing.large),
+                _buildSocialRow(context),
+                SpacerBox(height: spacing.large),
+                _buildDivider(context),
+                SpacerBox(height: spacing.large),
+                _buildForm(context),
+                SpacerBox(height: spacing.base),
+                _buildForgotPassword(context),
+                SpacerBox(height: spacing.large),
+                _buildLoginButton(),
+                SpacerBox(height: spacing.base),
+                _buildSignUpText(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -190,20 +210,56 @@ class LoginScreen extends StatelessWidget {
   /// Email and password input fields
   Widget _buildForm(BuildContext context) {
     final spacing = context.spacingSizes;
+    final materialColors = context.materialColors;
+    final typography = context.typography;
 
-    return Column(
-      children: [
-        AppTextField(
-          hintText: context.getString.hint_enter_email,
-          keyboardType: TextInputType.emailAddress,
-        ),
-        SpacerBox(height: spacing.base),
-        AppTextField(
-          hintText: context.getString.hint_enter_password,
-          obscureText: true,
-          textInputAction: TextInputAction.done,
-        ),
-      ],
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppTextField(
+              onChanged: (value) =>
+                  context.read<LoginBloc>().add(LoginEvent.emailChanged(value)),
+              hintText: context.getString.hint_enter_email,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            if (state.isErrorVisible && state.email.isNotValid)
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: spacing.medium,
+                  horizontal: spacing.medium,
+                ),
+                child: Text(
+                  "Invalid email",
+                  style: typography.bodyMediumLight
+                      .copyWith(color: materialColors.error),
+                ),
+              ),
+            SpacerBox(height: spacing.base),
+            AppTextField(
+              onChanged: (value) => context
+                  .read<LoginBloc>()
+                  .add(LoginEvent.passwordChanged(value)),
+              hintText: context.getString.hint_enter_password,
+              obscureText: true,
+              textInputAction: TextInputAction.done,
+            ),
+            if (state.isErrorVisible && state.password.isNotValid)
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: spacing.medium,
+                  horizontal: spacing.medium,
+                ),
+                child: Text(
+                  "Invalid password",
+                  style: context.typography.bodyMediumLight
+                      .copyWith(color: materialColors.error),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 
@@ -222,10 +278,23 @@ class LoginScreen extends StatelessWidget {
       );
 
   /// Login button
-  Widget _buildLoginButton(BuildContext context) => AppButton(
-        text: context.getString.button_login,
-        onPressed: () => context.goNamed(AppRoute.homeScreen),
-      );
+  Widget _buildLoginButton() {
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final isLoading = state.formValidationStatus.isInProgress;
+        
+        return AppButton(
+          text: context.getString.button_login,
+          isLoading: isLoading,
+          onPressed: () {
+            context.read<LoginBloc>().add(
+                  const LoginSubmitted(),
+                );
+          },
+        );
+      },
+    );
+  }
 
   /// Sign-up prompt at bottom
   Widget _buildSignUpText(BuildContext context) {

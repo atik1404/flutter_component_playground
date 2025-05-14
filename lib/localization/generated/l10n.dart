@@ -290,6 +290,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `Please wait...`
+  String get button_please_wait {
+    return Intl.message(
+      'Please wait...',
+      name: 'button_please_wait',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Facebook`
   String get text_facebook {
     return Intl.message(

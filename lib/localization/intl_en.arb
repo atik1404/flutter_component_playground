@@ -29,6 +29,7 @@
     "button_reset_password": "Reset Password",
     "button_sumit": "Submit",
     "button_retry": "Retry",
+    "button_please_wait": "Please wait...",
 
     "text_facebook": "Facebook",
     "text_google": "Google",

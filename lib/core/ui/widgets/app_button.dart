@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
+import 'package:flutter_component_playground/localization/localize_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
@@ -11,6 +13,7 @@ class AppButton extends StatelessWidget {
   final double borderRadius;
   final EdgeInsetsGeometry? padding;
   final bool isDisabled;
+  final bool isLoading;
 
   const AppButton({
     super.key,
@@ -23,10 +26,15 @@ class AppButton extends StatelessWidget {
     this.borderRadius = 15.0,
     this.padding,
     this.isDisabled = false,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final buttonStyle = context.typography.bodyLargeSemiBold.copyWith(
+      color: textColor ?? context.textColors.whiteTextColor,
+    );
+
     final buttonBackgroundColor = isDisabled
         ? context.buttonColors.disable
         : (backgroundColor ?? context.buttonColors.primary);
@@ -34,7 +42,7 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       width: isFullWidth ? double.infinity : width,
       child: ElevatedButton(
-        onPressed: isDisabled ? null : onPressed,
+        onPressed: isDisabled ? null : (isLoading ? () {} : onPressed),
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonBackgroundColor,
           shape: RoundedRectangleBorder(
@@ -45,12 +53,29 @@ class AppButton extends StatelessWidget {
                 vertical: context.spacingSizes.base,
               ),
         ),
-        child: Text(
-          text,
-          style: context.typography.bodyLargeSemiBold.copyWith(
-            color: textColor ?? context.textColors.whiteTextColor,
-          ),
-        ),
+        child: isLoading
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 15.h, // Set the height
+                    width: 15.w, // Set the width
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: context.lineSizes.thin,
+                    ),
+                  ),
+                  SizedBox(width: context.spacingSizes.medium),
+                  Text(
+                    context.getString.button_please_wait,
+                    style: buttonStyle,
+                  ),
+                ],
+              )
+            : Text(
+                text,
+                style: buttonStyle,
+              ),
       ),
     );
   }

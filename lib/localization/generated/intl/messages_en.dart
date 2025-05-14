@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "button_get_started":
             MessageLookupByLibrary.simpleMessage("Get Started"),
         "button_login": MessageLookupByLibrary.simpleMessage("Login"),
+        "button_please_wait":
+            MessageLookupByLibrary.simpleMessage("Please wait..."),
         "button_reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "button_retry": MessageLookupByLibrary.simpleMessage("Retry"),
