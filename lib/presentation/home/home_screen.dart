@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
-import 'package:flutter_component_playground/core/designsystem/resources/app_icons.dart';
-import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
+import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
+import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
+import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_component_playground/presentation/auth/profile/profile_screen.dart';
 import 'package:flutter_component_playground/presentation/favorites/favorites_screen.dart';

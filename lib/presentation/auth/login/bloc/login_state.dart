@@ -1,5 +1,5 @@
-import 'package:flutter_component_playground/core/common/formvalidator/email_validator.dart';
-import 'package:flutter_component_playground/core/common/formvalidator/password_validator.dart';
+import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
+import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

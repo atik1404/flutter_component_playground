@@ -1,0 +1,2 @@
+
+enum  DIAnnotation{ baseURL, imageUrl}

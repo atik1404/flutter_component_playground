@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
+import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});

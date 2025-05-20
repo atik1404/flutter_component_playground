@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
-import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
-import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
-import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
+import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
+import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
+import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/presentation/auth/splash/block/splash_cubit.dart';

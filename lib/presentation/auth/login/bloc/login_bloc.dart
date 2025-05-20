@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_component_playground/core/common/formvalidator/email_validator.dart';
-import 'package:flutter_component_playground/core/common/formvalidator/password_validator.dart';
+import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
+import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_event.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_state.dart';
 import 'package:formz/formz.dart';

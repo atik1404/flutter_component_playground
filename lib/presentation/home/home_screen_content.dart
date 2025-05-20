@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_component_playground/core/designsystem/extensions/theme_context_extension.dart';
-import 'package:flutter_component_playground/core/designsystem/resources/app_icons.dart';
-import 'package:flutter_component_playground/core/designsystem/resources/app_images.dart';
-import 'package:flutter_component_playground/core/ui/widgets/app_text_field.dart';
-import 'package:flutter_component_playground/core/ui/widgets/scaffold_appbar.dart';
-import 'package:flutter_component_playground/core/ui/widgets/spacer_box.dart';
+import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
+import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
+import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/ui/widgets/app_text_field.dart';
+import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
+import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
