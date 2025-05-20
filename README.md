@@ -83,18 +83,29 @@ Movie Hub is a hobby Flutter application built to explore core Flutter concepts,
 ### Folder Structure
 
 lib/
-
-├── main.dart
-
-├── routes/ # go_router setup
-
-├── screens/ # UI pages like Login, Home, etc.
-
-├── widgets/ # Reusable components
-
-├── services/ # API and Firebase services
-
-└── models/ # Data models
+├── core/                      ← things used app-wide
+│   ├── error/                 ← error types, exceptions, failures
+│   ├── network/               ← HTTP client, interceptors
+│   └── usecase/               ← base UseCase class
+│
+├── data/                      ← data layer: DTOs, API, repo impl
+│   ├── models/                ← response models (e.g. JSON serializable)
+│   ├── mappers/               ← convert models ↔ entities
+│   ├── datasources/           ← ApiServices, local DB, cache
+│   │   └── remote/            ← REST APIs
+│   ├── repositories/          ← RepoImpl: implements interface
+│   └── data_module.dart       ← DI bindings for data layer
+│
+├── domain/                    ← domain layer: pure business logic
+│   ├── entities/              ← Entity (used in app core logic)
+│   ├── repositories/          ← abstract Repository interfaces
+│   ├── usecases/              ← UseCase classes (one per action)
+│   └── domain_module.dart     ← DI bindings for domain layer
+│
+└── presentation/              ← UI layer: widgets, state management
+    ├── blocs/ or cubits/      ← BLoC/Cubit classes (controllers)
+    ├── pages/                 ← Screens, Widgets
+    └── presentation_module.dart ← DI bindings for presentation
 
 ### ## Why I Built This
 
