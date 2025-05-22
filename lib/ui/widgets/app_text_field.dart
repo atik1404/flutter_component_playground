@@ -175,6 +175,7 @@ class _AppTextFieldState extends State<AppTextField> {
             width: lineSizes.thin,
           ),
         ),
+        counterText: '',
       ),
     );
   }

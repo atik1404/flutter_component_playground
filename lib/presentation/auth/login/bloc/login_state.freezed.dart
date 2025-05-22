@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$LoginState {
-  EmailValidator get email;
+  PhoneNumberValidator get phone;
   PasswordValidator get password;
   FormzSubmissionStatus get formValidationStatus;
   bool get isErrorVisible;
@@ -33,7 +33,7 @@ mixin _$LoginState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is LoginState &&
-            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.formValidationStatus, formValidationStatus) ||
@@ -45,12 +45,12 @@ mixin _$LoginState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password,
+  int get hashCode => Object.hash(runtimeType, phone, password,
       formValidationStatus, isErrorVisible, errorMessage);
 
   @override
   String toString() {
-    return 'LoginState(email: $email, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, errorMessage: $errorMessage)';
+    return 'LoginState(phone: $phone, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, errorMessage: $errorMessage)';
   }
 }
 
@@ -61,7 +61,7 @@ abstract mixin class $LoginStateCopyWith<$Res> {
       _$LoginStateCopyWithImpl;
   @useResult
   $Res call(
-      {EmailValidator email,
+      {PhoneNumberValidator phone,
       PasswordValidator password,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
@@ -80,17 +80,17 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
+    Object? phone = null,
     Object? password = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
     Object? errorMessage = null,
   }) {
     return _then(_self.copyWith(
-      email: null == email
-          ? _self.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as EmailValidator,
+      phone: null == phone
+          ? _self.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as PhoneNumberValidator,
       password: null == password
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
 
 class _LoginState implements LoginState {
   const _LoginState(
-      {this.email = const EmailValidator.pure(),
+      {this.phone = const PhoneNumberValidator.pure(),
       this.password = const PasswordValidator.pure(),
       this.formValidationStatus = FormzSubmissionStatus.initial,
       this.isErrorVisible = false,
@@ -123,7 +123,7 @@ class _LoginState implements LoginState {
 
   @override
   @JsonKey()
-  final EmailValidator email;
+  final PhoneNumberValidator phone;
   @override
   @JsonKey()
   final PasswordValidator password;
@@ -150,7 +150,7 @@ class _LoginState implements LoginState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LoginState &&
-            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.formValidationStatus, formValidationStatus) ||
@@ -162,12 +162,12 @@ class _LoginState implements LoginState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, password,
+  int get hashCode => Object.hash(runtimeType, phone, password,
       formValidationStatus, isErrorVisible, errorMessage);
 
   @override
   String toString() {
-    return 'LoginState(email: $email, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, errorMessage: $errorMessage)';
+    return 'LoginState(phone: $phone, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, errorMessage: $errorMessage)';
   }
 }
 
@@ -180,7 +180,7 @@ abstract mixin class _$LoginStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {EmailValidator email,
+      {PhoneNumberValidator phone,
       PasswordValidator password,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
@@ -199,17 +199,17 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? email = null,
+    Object? phone = null,
     Object? password = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
     Object? errorMessage = null,
   }) {
     return _then(_LoginState(
-      email: null == email
-          ? _self.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as EmailValidator,
+      phone: null == phone
+          ? _self.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as PhoneNumberValidator,
       password: null == password
           ? _self.password
           : password // ignore: cast_nullable_to_non_nullable

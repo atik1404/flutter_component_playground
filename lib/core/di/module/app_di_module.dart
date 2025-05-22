@@ -3,6 +3,7 @@ import 'package:flutter_component_playground/core/di/module/api_service_di_modul
 import 'package:flutter_component_playground/core/di/module/bloc_di_module.dart';
 import 'package:flutter_component_playground/core/di/module/mapper_di_module.dart';
 import 'package:flutter_component_playground/core/di/module/repository_di_module.dart';
+import 'package:flutter_component_playground/core/di/module/usecase_di_module.dart';
 import 'package:flutter_component_playground/core/network/netwrok_client.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:get_it/get_it.dart';
@@ -25,4 +26,7 @@ Future<void> initDi() async {
   await registerApiServiceModule();
 
   await registerMapperModule();
+
+  await registerUseCaseModule();
+
 }

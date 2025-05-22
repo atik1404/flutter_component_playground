@@ -34,6 +34,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "button_retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "button_sumit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "error_invalid_password": MessageLookupByLibrary.simpleMessage(
+            "Invalid password, Password must be at least 6 characters."),
+        "error_invalid_phone_number": MessageLookupByLibrary.simpleMessage(
+            "Invalid phone, Phone number must be at least 11 digits."),
         "error_message_no_data_found": MessageLookupByLibrary.simpleMessage(
             "No data found, Please try again later."),
         "hint_enter_confirm_password":
@@ -46,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter new password"),
         "hint_enter_password":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
+        "hint_enter_phone":
+            MessageLookupByLibrary.simpleMessage("Enter your phone number"),
         "menu_home": MessageLookupByLibrary.simpleMessage("Home"),
         "menu_profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "menu_wishlist": MessageLookupByLibrary.simpleMessage("Favorites"),

@@ -7,7 +7,9 @@ Future<void> registerBlocModule() async{
 
   di..registerFactory<SplashCubit>(SplashCubit.new)
 
-  ..registerFactory<LoginBloc>(LoginBloc.new);
+  ..registerFactory<LoginBloc>(()=> LoginBloc(
+        postLoginUseCase: di.get(),
+      ));
 
   return;
 }

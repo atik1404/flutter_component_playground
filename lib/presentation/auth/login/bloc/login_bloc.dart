@@ -1,22 +1,30 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
+import 'package:flutter_component_playground/common/formvalidator/phone_number_validator.dart';
+import 'package:flutter_component_playground/core/network/result.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/login_entity.dart';
+import 'package:flutter_component_playground/domain/params/login_params.dart';
+import 'package:flutter_component_playground/domain/usecase/auth/post_login_api_usecase.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_event.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_state.dart';
 import 'package:formz/formz.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(const LoginState()) {
-    on<EmailChanged>(_onEmailChanged);
+  final PostLoginApiUsecase _postLoginApiUsecase;
+
+  LoginBloc({required PostLoginApiUsecase postLoginUseCase})
+      : _postLoginApiUsecase = postLoginUseCase,
+        super(const LoginState()) {
+    on<PhoneChanged>(_onPhoneChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onLoginSubmitted);
-    //on<NavigateToHomeScreen>(_onNavigateToHomeScreen);
   }
 
-  void _onEmailChanged(EmailChanged event, Emitter<LoginState> emit) {
-    final email = EmailValidator.dirty(event.email);
+  void _onPhoneChanged(PhoneChanged event, Emitter<LoginState> emit) {
+    final phone = PhoneNumberValidator.dirty(event.phone);
     emit(state.copyWith(
-      email: email,
+      phone: phone,
       isErrorVisible: false,
       formValidationStatus: FormzSubmissionStatus.initial,
       errorMessage: '',
@@ -37,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    if (state.email.isNotValid || state.password.isNotValid) {
+    if (state.phone.isNotValid || state.password.isNotValid) {
       emit(state.copyWith(
         isErrorVisible: true,
         formValidationStatus: FormzSubmissionStatus.failure,
@@ -50,7 +58,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     try {
       await Future.delayed(const Duration(seconds: 2));
-      emit(state.copyWith(formValidationStatus: FormzSubmissionStatus.success));
+      final result = await _postLoginApiUsecase.invoke(
+        LoginParams(
+          phone: state.phone.value,
+          password: state.password.value,
+        ),
+      );
+
+      switch (result) {
+        case SuccessResult<LoginEntity>():
+          return emit(state.copyWith(formValidationStatus: FormzSubmissionStatus.success));
+        case FailureResult<LoginEntity>():
+          return emit(state.copyWith(
+            isErrorVisible: true,
+            formValidationStatus: FormzSubmissionStatus.failure,
+            errorMessage: result.exception.description,
+          ));
+      }
     } catch (error) {
       emit(state.copyWith(
         isErrorVisible: true,
@@ -58,13 +82,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         errorMessage: 'Login failed. Please try again.',
       ));
     }
-  }
-
-  void _onNavigateToHomeScreen(
-    NavigateToHomeScreen event,
-    Emitter<LoginState> emit,
-  ) {
-    // Handle navigation to the home screen if needed
-    // This is typically handled in the UI layer using BlocListener
   }
 }

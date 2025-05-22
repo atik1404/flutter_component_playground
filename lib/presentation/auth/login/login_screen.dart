@@ -31,7 +31,8 @@ class LoginScreen extends StatelessWidget {
         if (state.formValidationStatus.isSuccess) {
           Fluttertoast.showToast(msg: "Login Successful, go to home screen");
         } else if (state.formValidationStatus.isFailure) {
-          Logger.root.info(state.email.isValid);
+          Fluttertoast.showToast(msg: state.errorMessage);
+          Logger.root.info(state.phone.isValid);
         } else if (state.formValidationStatus.isInProgress) {
           Logger.root.info('State is in progress');
         } else {
@@ -220,19 +221,20 @@ class LoginScreen extends StatelessWidget {
           children: [
             AppTextField(
               onChanged: (value) =>
-                  context.read<LoginBloc>().add(LoginEvent.emailChanged(value)),
-              hintText: context.getString.hint_enter_email,
-              keyboardType: TextInputType.emailAddress,
+                  context.read<LoginBloc>().add(LoginEvent.phoneChanged(value)),
+              hintText: context.getString.hint_enter_phone,
+              keyboardType: TextInputType.phone,
+              maxLength: 11,
             ),
-            if (state.isErrorVisible && state.email.isNotValid)
+            if (state.isErrorVisible && state.phone.isNotValid)
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: spacing.medium,
                   horizontal: spacing.medium,
                 ),
                 child: Text(
-                  "Invalid email",
-                  style: typography.bodyMediumLight
+                  context.getString.error_invalid_phone_number,
+                  style: typography.bodySmallLight
                       .copyWith(color: materialColors.error),
                 ),
               ),
@@ -243,6 +245,7 @@ class LoginScreen extends StatelessWidget {
                   .add(LoginEvent.passwordChanged(value)),
               hintText: context.getString.hint_enter_password,
               obscureText: true,
+              maxLength: 20,
               textInputAction: TextInputAction.done,
             ),
             if (state.isErrorVisible && state.password.isNotValid)
@@ -252,8 +255,8 @@ class LoginScreen extends StatelessWidget {
                   horizontal: spacing.medium,
                 ),
                 child: Text(
-                  "Invalid password",
-                  style: context.typography.bodyMediumLight
+                  context.getString.error_invalid_password,
+                  style: context.typography.bodySmallLight
                       .copyWith(color: materialColors.error),
                 ),
               ),

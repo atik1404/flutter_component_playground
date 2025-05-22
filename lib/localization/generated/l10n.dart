@@ -170,6 +170,26 @@ class LocalizedStrings {
     );
   }
 
+  /// `Invalid phone, Phone number must be at least 11 digits.`
+  String get error_invalid_phone_number {
+    return Intl.message(
+      'Invalid phone, Phone number must be at least 11 digits.',
+      name: 'error_invalid_phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid password, Password must be at least 6 characters.`
+  String get error_invalid_password {
+    return Intl.message(
+      'Invalid password, Password must be at least 6 characters.',
+      name: 'error_invalid_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
   String get msg_introduction_1 {
     return Intl.message(
@@ -445,6 +465,16 @@ class LocalizedStrings {
     return Intl.message(
       'Enter your email',
       name: 'hint_enter_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your phone number`
+  String get hint_enter_phone {
+    return Intl.message(
+      'Enter your phone number',
+      name: 'hint_enter_phone',
       desc: '',
       args: [],
     );

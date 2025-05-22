@@ -15,6 +15,8 @@
     "title_error_title": "Opps!",
 
     "error_message_no_data_found": "No data found, Please try again later.",
+    "error_invalid_phone_number": "Invalid phone, Phone number must be at least 11 digits.",
+    "error_invalid_password": "Invalid password, Password must be at least 6 characters.",
 
     "msg_introduction_1": "Your perfect movie night starts here. Explore, stream, and love every scene.!",
     "msg_introduction_2": "From Oscar winners to hidden gems—every film awaits your spotlight.",
@@ -47,6 +49,7 @@
     "text_resend_otp": " Resend OTP",
 
     "hint_enter_email": "Enter your email",
+    "hint_enter_phone": "Enter your phone number",
     "hint_enter_password": "Enter your password",
     "hint_enter_confirm_password": "Enter confirm password",
     "hint_enter_new_password": "Enter new password",
