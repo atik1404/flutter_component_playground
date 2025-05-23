@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_component_playground/core/network/network_exception.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/login_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/auth/registration_api_response.dart';
+import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
 import 'package:flutter_component_playground/domain/params/login_params.dart';
 
 class AuthApiServices {
@@ -9,11 +11,23 @@ class AuthApiServices {
 
   AuthApiServices({required this.dio});
 
-  Future<Result<LoginApiResponse>> login(LoginParams params) async {
+  Future<Result<LoginApiResponse>> userLogin(LoginParams params) async {
     try {
       final response = await dio.post("/login", data: params.toJson());
-      
+
       return SuccessResult(LoginApiResponse.fromJson(response.data));
+    } on NetworkException catch (e) {
+      return FailureResult(e);
+    }
+  }
+
+  Future<Result<RegistrationApiResponse>> userRegistration(
+    RegistrationParams params,
+  ) async {
+    try {
+      final response = await dio.post("/registration", data: params.toJson());
+
+      return SuccessResult(RegistrationApiResponse.fromJson(response.data));
     } on NetworkException catch (e) {
       return FailureResult(e);
     }

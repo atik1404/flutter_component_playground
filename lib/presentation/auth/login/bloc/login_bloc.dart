@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/phone_number_validator.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
@@ -27,7 +26,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       phone: phone,
       isErrorVisible: false,
       formValidationStatus: FormzSubmissionStatus.initial,
-      errorMessage: '',
     ));
   }
 
@@ -37,7 +35,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       password: password,
       isErrorVisible: false,
       formValidationStatus: FormzSubmissionStatus.initial,
-      errorMessage: '',
     ));
   }
 
@@ -49,12 +46,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(
         isErrorVisible: true,
         formValidationStatus: FormzSubmissionStatus.failure,
-        errorMessage: 'Please fix the errors in the form.',
+        loginErrorMessage: '',
       ));
 
       return;
     }
-    emit(state.copyWith(formValidationStatus: FormzSubmissionStatus.inProgress));
+    emit(
+      state.copyWith(
+        formValidationStatus: FormzSubmissionStatus.inProgress,
+        loginErrorMessage: '',
+      ),
+    );
 
     try {
       await Future.delayed(const Duration(seconds: 2));
@@ -67,19 +69,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       switch (result) {
         case SuccessResult<LoginEntity>():
-          return emit(state.copyWith(formValidationStatus: FormzSubmissionStatus.success));
+          return emit(state.copyWith(
+            formValidationStatus: FormzSubmissionStatus.success,
+          ));
         case FailureResult<LoginEntity>():
           return emit(state.copyWith(
             isErrorVisible: true,
             formValidationStatus: FormzSubmissionStatus.failure,
-            errorMessage: result.exception.description,
+            loginErrorMessage: result.exception.description,
           ));
       }
     } catch (error) {
       emit(state.copyWith(
         isErrorVisible: true,
         formValidationStatus: FormzSubmissionStatus.failure,
-        errorMessage: 'Login failed. Please try again.',
+        loginErrorMessage: 'Login failed. Please try again.',
       ));
     }
   }

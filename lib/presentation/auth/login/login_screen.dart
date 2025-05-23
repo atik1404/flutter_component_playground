@@ -12,11 +12,11 @@ import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_bloc.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_event.dart';
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_state.dart';
+import 'package:flutter_component_playground/ui/widgets/text_field_error_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 
 /// Refactored LoginScreen using private builder methods
 class LoginScreen extends StatelessWidget {
@@ -31,12 +31,9 @@ class LoginScreen extends StatelessWidget {
         if (state.formValidationStatus.isSuccess) {
           Fluttertoast.showToast(msg: "Login Successful, go to home screen");
         } else if (state.formValidationStatus.isFailure) {
-          Fluttertoast.showToast(msg: state.errorMessage);
-          Logger.root.info(state.phone.isValid);
-        } else if (state.formValidationStatus.isInProgress) {
-          Logger.root.info('State is in progress');
-        } else {
-          Logger.root.info('State is not success or failure');
+          if (state.loginErrorMessage.isNotEmpty) {
+            Fluttertoast.showToast(msg: state.loginErrorMessage);
+          }
         }
       },
       child: ScaffoldAppbar(
@@ -211,8 +208,6 @@ class LoginScreen extends StatelessWidget {
   /// Email and password input fields
   Widget _buildForm(BuildContext context) {
     final spacing = context.spacingSizes;
-    final materialColors = context.materialColors;
-    final typography = context.typography;
 
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
@@ -227,16 +222,8 @@ class LoginScreen extends StatelessWidget {
               maxLength: 11,
             ),
             if (state.isErrorVisible && state.phone.isNotValid)
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: spacing.medium,
-                  horizontal: spacing.medium,
-                ),
-                child: Text(
-                  context.getString.error_invalid_phone_number,
-                  style: typography.bodySmallLight
-                      .copyWith(color: materialColors.error),
-                ),
+              TextFieldErrorText(
+                errorMessage: context.getString.error_invalid_phone_number,
               ),
             SpacerBox(height: spacing.base),
             AppTextField(
@@ -249,16 +236,8 @@ class LoginScreen extends StatelessWidget {
               textInputAction: TextInputAction.done,
             ),
             if (state.isErrorVisible && state.password.isNotValid)
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: spacing.medium,
-                  horizontal: spacing.medium,
-                ),
-                child: Text(
-                  context.getString.error_invalid_password,
-                  style: context.typography.bodySmallLight
-                      .copyWith(color: materialColors.error),
-                ),
+              TextFieldErrorText(
+                errorMessage: context.getString.error_invalid_password,
               ),
           ],
         );
@@ -285,7 +264,7 @@ class LoginScreen extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         final isLoading = state.formValidationStatus.isInProgress;
-        
+
         return AppButton(
           text: context.getString.button_login,
           isLoading: isLoading,

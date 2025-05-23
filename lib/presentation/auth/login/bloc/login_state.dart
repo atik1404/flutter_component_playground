@@ -12,6 +12,6 @@ abstract class LoginState with _$LoginState {
     @Default(PasswordValidator.pure()) PasswordValidator password,
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus formValidationStatus,
     @Default(false) bool isErrorVisible,
-    @Default('') String errorMessage,
+    @Default('') String loginErrorMessage,
   }) = _LoginState;
 }

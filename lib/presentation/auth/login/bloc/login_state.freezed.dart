@@ -19,7 +19,7 @@ mixin _$LoginState {
   PasswordValidator get password;
   FormzSubmissionStatus get formValidationStatus;
   bool get isErrorVisible;
-  String get errorMessage;
+  String get loginErrorMessage;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -40,17 +40,17 @@ mixin _$LoginState {
                 other.formValidationStatus == formValidationStatus) &&
             (identical(other.isErrorVisible, isErrorVisible) ||
                 other.isErrorVisible == isErrorVisible) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+            (identical(other.loginErrorMessage, loginErrorMessage) ||
+                other.loginErrorMessage == loginErrorMessage));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, phone, password,
-      formValidationStatus, isErrorVisible, errorMessage);
+      formValidationStatus, isErrorVisible, loginErrorMessage);
 
   @override
   String toString() {
-    return 'LoginState(phone: $phone, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, errorMessage: $errorMessage)';
+    return 'LoginState(phone: $phone, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, loginErrorMessage: $loginErrorMessage)';
   }
 }
 
@@ -65,7 +65,7 @@ abstract mixin class $LoginStateCopyWith<$Res> {
       PasswordValidator password,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
-      String errorMessage});
+      String loginErrorMessage});
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object? password = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
-    Object? errorMessage = null,
+    Object? loginErrorMessage = null,
   }) {
     return _then(_self.copyWith(
       phone: null == phone
@@ -103,9 +103,9 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _self.isErrorVisible
           : isErrorVisible // ignore: cast_nullable_to_non_nullable
               as bool,
-      errorMessage: null == errorMessage
-          ? _self.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
+      loginErrorMessage: null == loginErrorMessage
+          ? _self.loginErrorMessage
+          : loginErrorMessage // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -119,7 +119,7 @@ class _LoginState implements LoginState {
       this.password = const PasswordValidator.pure(),
       this.formValidationStatus = FormzSubmissionStatus.initial,
       this.isErrorVisible = false,
-      this.errorMessage = ''});
+      this.loginErrorMessage = ''});
 
   @override
   @JsonKey()
@@ -135,7 +135,7 @@ class _LoginState implements LoginState {
   final bool isErrorVisible;
   @override
   @JsonKey()
-  final String errorMessage;
+  final String loginErrorMessage;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -157,17 +157,17 @@ class _LoginState implements LoginState {
                 other.formValidationStatus == formValidationStatus) &&
             (identical(other.isErrorVisible, isErrorVisible) ||
                 other.isErrorVisible == isErrorVisible) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+            (identical(other.loginErrorMessage, loginErrorMessage) ||
+                other.loginErrorMessage == loginErrorMessage));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, phone, password,
-      formValidationStatus, isErrorVisible, errorMessage);
+      formValidationStatus, isErrorVisible, loginErrorMessage);
 
   @override
   String toString() {
-    return 'LoginState(phone: $phone, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, errorMessage: $errorMessage)';
+    return 'LoginState(phone: $phone, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, loginErrorMessage: $loginErrorMessage)';
   }
 }
 
@@ -184,7 +184,7 @@ abstract mixin class _$LoginStateCopyWith<$Res>
       PasswordValidator password,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
-      String errorMessage});
+      String loginErrorMessage});
 }
 
 /// @nodoc
@@ -203,7 +203,7 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
     Object? password = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
-    Object? errorMessage = null,
+    Object? loginErrorMessage = null,
   }) {
     return _then(_LoginState(
       phone: null == phone
@@ -222,9 +222,9 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
           ? _self.isErrorVisible
           : isErrorVisible // ignore: cast_nullable_to_non_nullable
               as bool,
-      errorMessage: null == errorMessage
-          ? _self.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
+      loginErrorMessage: null == loginErrorMessage
+          ? _self.loginErrorMessage
+          : loginErrorMessage // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

@@ -12,7 +12,7 @@ final class PostLoginApiUsecase
 
   @override
   Future<Result<LoginEntity>> invoke(LoginParams params) async{
-    final result = await _repository.login(params);
+    final result = await _repository.userLogin(params);
     
     return result;
   }

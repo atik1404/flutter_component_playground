@@ -17,6 +17,8 @@
     "error_message_no_data_found": "No data found, Please try again later.",
     "error_invalid_phone_number": "Invalid phone, Phone number must be at least 11 digits.",
     "error_invalid_password": "Invalid password, Password must be at least 6 characters.",
+    "error_invalid_confirm_password": "Password and confirm password do not match.",
+    "error_invalid_name": "Invalid name, Name must be at least 5 characters.",
 
     "msg_introduction_1": "Your perfect movie night starts here. Explore, stream, and love every scene.!",
     "msg_introduction_2": "From Oscar winners to hidden gems—every film awaits your spotlight.",

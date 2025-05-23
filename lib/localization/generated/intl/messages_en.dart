@@ -34,6 +34,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "button_retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "button_sumit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "error_invalid_confirm_password": MessageLookupByLibrary.simpleMessage(
+            "Password and confirm password do not match."),
+        "error_invalid_name": MessageLookupByLibrary.simpleMessage(
+            "Invalid name, Name must be at least 5 characters."),
         "error_invalid_password": MessageLookupByLibrary.simpleMessage(
             "Invalid password, Password must be at least 6 characters."),
         "error_invalid_phone_number": MessageLookupByLibrary.simpleMessage(

@@ -8,7 +8,7 @@ abstract class BaseRouter {
 CustomTransitionPage buildAnimatedPage({
   required Widget child,
   Duration duration =
-      const Duration(milliseconds: 800), // Default animation duration
+      const Duration(milliseconds: 500), // Default animation duration
   Offset enterBegin =
       const Offset(1, 0), // Default enter animation (from bottom)
   Offset exitEnd = Offset.zero, // Default exit animation (to top)

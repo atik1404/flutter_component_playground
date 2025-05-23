@@ -190,6 +190,26 @@ class LocalizedStrings {
     );
   }
 
+  /// `Password and confirm password do not match.`
+  String get error_invalid_confirm_password {
+    return Intl.message(
+      'Password and confirm password do not match.',
+      name: 'error_invalid_confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid name, Name must be at least 5 characters.`
+  String get error_invalid_name {
+    return Intl.message(
+      'Invalid name, Name must be at least 5 characters.',
+      name: 'error_invalid_name',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
   String get msg_introduction_1 {
     return Intl.message(

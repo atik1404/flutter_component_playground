@@ -6,6 +6,7 @@ Future<void> registerRepositoryModule() async {
   di.registerLazySingleton<AuthRepository>(() => AuthRepoImpl(
         authApiServices: di.get(),
         loginApiMapper: di.get(),
+        registrationApiMapper: di.get(),
       ));
 
   return;
