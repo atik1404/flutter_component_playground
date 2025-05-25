@@ -1,2 +1,2 @@
 
-enum  DIAnnotation{ baseURL, imageUrl}
+enum  DIAnnotation{ baseURL, authBaseUrl, imageUrl}

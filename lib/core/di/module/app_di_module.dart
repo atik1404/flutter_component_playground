@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_component_playground/core/config/app_core_env.dart';
+import 'package:flutter_component_playground/core/di/annotation/di_annotation.dart';
 import 'package:flutter_component_playground/core/di/module/api_service_di_module.dart';
 import 'package:flutter_component_playground/core/di/module/bloc_di_module.dart';
 import 'package:flutter_component_playground/core/di/module/mapper_di_module.dart';
 import 'package:flutter_component_playground/core/di/module/repository_di_module.dart';
 import 'package:flutter_component_playground/core/di/module/usecase_di_module.dart';
-import 'package:flutter_component_playground/core/network/netwrok_client.dart';
+import 'package:flutter_component_playground/core/network/network_client.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:get_it/get_it.dart';
 
@@ -16,8 +18,8 @@ Future<void> initDi() async {
 
   di
     ..registerSingleton<SharedPrefs>(SharedPrefs())
-    ..registerSingleton<NetwrokClient>(NetwrokClient())
-    ..registerSingleton<Dio>(NetwrokClient().dio);
+    ..registerLazySingleton<NetworkClient>(() => NetworkClient(baseUrl: AppCoreEnv().appBaseUrl), instanceName: DIAnnotation.baseURL.toString())
+    ..registerLazySingleton<NetworkClient>(() => NetworkClient(baseUrl: AppCoreEnv().authBaseUrl), instanceName: DIAnnotation.authBaseUrl.toString());
 
   await registerBlocModule();
 

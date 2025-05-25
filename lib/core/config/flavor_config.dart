@@ -3,13 +3,12 @@ import 'package:flutter_component_playground/common/utils/logger_utils';
 
 final class FlavorConfig {
   static final FlavorConfig _instance = FlavorConfig._internal();
+  factory FlavorConfig() => _instance;
 
   Flavor _appFlavor = Flavor.development;
 
   Flavor get appFlavor => _appFlavor;
   FlavorConfig._internal();
-
-  factory FlavorConfig() => _instance;
 
   Future<void> initialize() async {
     try {
@@ -29,7 +28,7 @@ final class FlavorConfig {
 
   bool isDevelopment() => _appFlavor == Flavor.development;
   bool isStaging() => _appFlavor == Flavor.staging;
-  bool isProduction() => _appFlavor == Flavor.production;  
+  bool isProduction() => _appFlavor == Flavor.production;
 }
 
 enum Flavor {

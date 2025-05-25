@@ -6,17 +6,18 @@ part 'app_dev_env.g.dart';
 
 @Envied(name: 'DevelopmentEnv', path: '.env_dev')
 final class AppDevEnv implements AppCoreEnv, AppEnvFields {
+
   AppDevEnv();
 
   @override
   @EnviedField(varName: 'APP_BASE_URL', obfuscate: true)
-  String get appBaseUrl => throw UnimplementedError();
+  final String appBaseUrl = _DevelopmentEnv.appBaseUrl;
 
   @override
   @EnviedField(varName: 'AUTH_BASE_URL', obfuscate: true)
-  String get authBaseUrl => throw UnimplementedError();
+  final String authBaseUrl = _DevelopmentEnv.authBaseUrl;
 
   @override
   @EnviedField(varName: 'IMAGE_BASE_URL', obfuscate: true)
-  String get imageBaseUrl => throw UnimplementedError();
+  final String imageBaseUrl = _DevelopmentEnv.imageBaseUrl;
 }
