@@ -210,6 +210,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `Invalid email, Provide a valid email address.`
+  String get error_invalid_email {
+    return Intl.message(
+      'Invalid email, Provide a valid email address.',
+      name: 'error_invalid_email',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your perfect movie night starts here. Explore, stream, and love every scene.!`
   String get msg_introduction_1 {
     return Intl.message(

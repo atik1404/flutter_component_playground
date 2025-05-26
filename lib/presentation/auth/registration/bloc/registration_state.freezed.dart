@@ -18,7 +18,7 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
   NameValidator get name;
   PasswordValidator get password;
   PasswordValidator get confirmPassword;
-  PhoneNumberValidator get phoneNumber;
+  EmailValidator get email;
   FormzSubmissionStatus get formValidationStatus;
   bool get isErrorVisible;
   bool get isPrivacyPolicyAccepted;
@@ -39,7 +39,7 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('confirmPassword', confirmPassword))
-      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('formValidationStatus', formValidationStatus))
       ..add(DiagnosticsProperty('isErrorVisible', isErrorVisible))
       ..add(DiagnosticsProperty(
@@ -58,8 +58,7 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.formValidationStatus, formValidationStatus) ||
                 other.formValidationStatus == formValidationStatus) &&
             (identical(other.isErrorVisible, isErrorVisible) ||
@@ -78,7 +77,7 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
       name,
       password,
       confirmPassword,
-      phoneNumber,
+      email,
       formValidationStatus,
       isErrorVisible,
       isPrivacyPolicyAccepted,
@@ -86,7 +85,7 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, phoneNumber: $phoneNumber, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage)';
+    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, email: $email, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage)';
   }
 }
 
@@ -100,7 +99,7 @@ abstract mixin class $RegistrationStateCopyWith<$Res> {
       {NameValidator name,
       PasswordValidator password,
       PasswordValidator confirmPassword,
-      PhoneNumberValidator phoneNumber,
+      EmailValidator email,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
       bool isPrivacyPolicyAccepted,
@@ -123,7 +122,7 @@ class _$RegistrationStateCopyWithImpl<$Res>
     Object? name = null,
     Object? password = null,
     Object? confirmPassword = null,
-    Object? phoneNumber = null,
+    Object? email = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
     Object? isPrivacyPolicyAccepted = null,
@@ -142,10 +141,10 @@ class _$RegistrationStateCopyWithImpl<$Res>
           ? _self.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
               as PasswordValidator,
-      phoneNumber: null == phoneNumber
-          ? _self.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as PhoneNumberValidator,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as EmailValidator,
       formValidationStatus: null == formValidationStatus
           ? _self.formValidationStatus
           : formValidationStatus // ignore: cast_nullable_to_non_nullable
@@ -175,7 +174,7 @@ class _RegistrationState
       {this.name = const NameValidator.pure(),
       this.password = const PasswordValidator.pure(),
       this.confirmPassword = const PasswordValidator.pure(),
-      this.phoneNumber = const PhoneNumberValidator.pure(),
+      this.email = const EmailValidator.pure(),
       this.formValidationStatus = FormzSubmissionStatus.initial,
       this.isErrorVisible = false,
       this.isPrivacyPolicyAccepted = false,
@@ -192,7 +191,7 @@ class _RegistrationState
   final PasswordValidator confirmPassword;
   @override
   @JsonKey()
-  final PhoneNumberValidator phoneNumber;
+  final EmailValidator email;
   @override
   @JsonKey()
   final FormzSubmissionStatus formValidationStatus;
@@ -221,7 +220,7 @@ class _RegistrationState
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('confirmPassword', confirmPassword))
-      ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
+      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('formValidationStatus', formValidationStatus))
       ..add(DiagnosticsProperty('isErrorVisible', isErrorVisible))
       ..add(DiagnosticsProperty(
@@ -240,8 +239,7 @@ class _RegistrationState
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.formValidationStatus, formValidationStatus) ||
                 other.formValidationStatus == formValidationStatus) &&
             (identical(other.isErrorVisible, isErrorVisible) ||
@@ -260,7 +258,7 @@ class _RegistrationState
       name,
       password,
       confirmPassword,
-      phoneNumber,
+      email,
       formValidationStatus,
       isErrorVisible,
       isPrivacyPolicyAccepted,
@@ -268,7 +266,7 @@ class _RegistrationState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, phoneNumber: $phoneNumber, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage)';
+    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, email: $email, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage)';
   }
 }
 
@@ -284,7 +282,7 @@ abstract mixin class _$RegistrationStateCopyWith<$Res>
       {NameValidator name,
       PasswordValidator password,
       PasswordValidator confirmPassword,
-      PhoneNumberValidator phoneNumber,
+      EmailValidator email,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
       bool isPrivacyPolicyAccepted,
@@ -307,7 +305,7 @@ class __$RegistrationStateCopyWithImpl<$Res>
     Object? name = null,
     Object? password = null,
     Object? confirmPassword = null,
-    Object? phoneNumber = null,
+    Object? email = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
     Object? isPrivacyPolicyAccepted = null,
@@ -326,10 +324,10 @@ class __$RegistrationStateCopyWithImpl<$Res>
           ? _self.confirmPassword
           : confirmPassword // ignore: cast_nullable_to_non_nullable
               as PasswordValidator,
-      phoneNumber: null == phoneNumber
-          ? _self.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as PhoneNumberValidator,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as EmailValidator,
       formValidationStatus: null == formValidationStatus
           ? _self.formValidationStatus
           : formValidationStatus // ignore: cast_nullable_to_non_nullable

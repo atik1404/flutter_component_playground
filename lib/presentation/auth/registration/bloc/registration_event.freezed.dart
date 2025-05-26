@@ -232,64 +232,62 @@ class _$ConfirmPasswordChangedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class PhoneNumberChanged implements RegistrationEvent {
-  const PhoneNumberChanged(this.phoneNumber);
+class EmailChanged implements RegistrationEvent {
+  const EmailChanged(this.email);
 
-  final String phoneNumber;
+  final String email;
 
   /// Create a copy of RegistrationEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $PhoneNumberChangedCopyWith<PhoneNumberChanged> get copyWith =>
-      _$PhoneNumberChangedCopyWithImpl<PhoneNumberChanged>(this, _$identity);
+  $EmailChangedCopyWith<EmailChanged> get copyWith =>
+      _$EmailChangedCopyWithImpl<EmailChanged>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PhoneNumberChanged &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber));
+            other is EmailChanged &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, email);
 
   @override
   String toString() {
-    return 'RegistrationEvent.phoneNumberChanged(phoneNumber: $phoneNumber)';
+    return 'RegistrationEvent.emailChanged(email: $email)';
   }
 }
 
 /// @nodoc
-abstract mixin class $PhoneNumberChangedCopyWith<$Res>
+abstract mixin class $EmailChangedCopyWith<$Res>
     implements $RegistrationEventCopyWith<$Res> {
-  factory $PhoneNumberChangedCopyWith(
-          PhoneNumberChanged value, $Res Function(PhoneNumberChanged) _then) =
-      _$PhoneNumberChangedCopyWithImpl;
+  factory $EmailChangedCopyWith(
+          EmailChanged value, $Res Function(EmailChanged) _then) =
+      _$EmailChangedCopyWithImpl;
   @useResult
-  $Res call({String phoneNumber});
+  $Res call({String email});
 }
 
 /// @nodoc
-class _$PhoneNumberChangedCopyWithImpl<$Res>
-    implements $PhoneNumberChangedCopyWith<$Res> {
-  _$PhoneNumberChangedCopyWithImpl(this._self, this._then);
+class _$EmailChangedCopyWithImpl<$Res> implements $EmailChangedCopyWith<$Res> {
+  _$EmailChangedCopyWithImpl(this._self, this._then);
 
-  final PhoneNumberChanged _self;
-  final $Res Function(PhoneNumberChanged) _then;
+  final EmailChanged _self;
+  final $Res Function(EmailChanged) _then;
 
   /// Create a copy of RegistrationEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? phoneNumber = null,
+    Object? email = null,
   }) {
-    return _then(PhoneNumberChanged(
-      null == phoneNumber
-          ? _self.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
+    return _then(EmailChanged(
+      null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

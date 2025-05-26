@@ -37,62 +37,62 @@ class $LoginEventCopyWith<$Res> {
 
 /// @nodoc
 
-class PhoneChanged implements LoginEvent {
-  const PhoneChanged(this.phone);
+class EmailChanged implements LoginEvent {
+  const EmailChanged(this.email);
 
-  final String phone;
+  final String email;
 
   /// Create a copy of LoginEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $PhoneChangedCopyWith<PhoneChanged> get copyWith =>
-      _$PhoneChangedCopyWithImpl<PhoneChanged>(this, _$identity);
+  $EmailChangedCopyWith<EmailChanged> get copyWith =>
+      _$EmailChangedCopyWithImpl<EmailChanged>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PhoneChanged &&
-            (identical(other.phone, phone) || other.phone == phone));
+            other is EmailChanged &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phone);
+  int get hashCode => Object.hash(runtimeType, email);
 
   @override
   String toString() {
-    return 'LoginEvent.phoneChanged(phone: $phone)';
+    return 'LoginEvent.emailChanged(email: $email)';
   }
 }
 
 /// @nodoc
-abstract mixin class $PhoneChangedCopyWith<$Res>
+abstract mixin class $EmailChangedCopyWith<$Res>
     implements $LoginEventCopyWith<$Res> {
-  factory $PhoneChangedCopyWith(
-          PhoneChanged value, $Res Function(PhoneChanged) _then) =
-      _$PhoneChangedCopyWithImpl;
+  factory $EmailChangedCopyWith(
+          EmailChanged value, $Res Function(EmailChanged) _then) =
+      _$EmailChangedCopyWithImpl;
   @useResult
-  $Res call({String phone});
+  $Res call({String email});
 }
 
 /// @nodoc
-class _$PhoneChangedCopyWithImpl<$Res> implements $PhoneChangedCopyWith<$Res> {
-  _$PhoneChangedCopyWithImpl(this._self, this._then);
+class _$EmailChangedCopyWithImpl<$Res> implements $EmailChangedCopyWith<$Res> {
+  _$EmailChangedCopyWithImpl(this._self, this._then);
 
-  final PhoneChanged _self;
-  final $Res Function(PhoneChanged) _then;
+  final EmailChanged _self;
+  final $Res Function(EmailChanged) _then;
 
   /// Create a copy of LoginEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? phone = null,
+    Object? email = null,
   }) {
-    return _then(PhoneChanged(
-      null == phone
-          ? _self.phone
-          : phone // ignore: cast_nullable_to_non_nullable
+    return _then(EmailChanged(
+      null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

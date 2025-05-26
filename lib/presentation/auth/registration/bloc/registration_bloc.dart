@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/name_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
-import 'package:flutter_component_playground/common/formvalidator/phone_number_validator.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_event.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_state.dart';
 import 'package:formz/formz.dart';
@@ -11,7 +11,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<NameChanged>(_onNameChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<ConfirmPasswordChanged>(_onConfirmPasswordChanged);
-    on<PhoneNumberChanged>(_onPhoneNumberChanged);
+    on<EmailChanged>(_onEmailChanged);
     on<PrivacyPolicyAccepted>(_onPrivacyPolicyAccepted);
     on<RegistrationSubmitted>(_onRegistrationSubmitted);
   }
@@ -49,13 +49,12 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     ));
   }
 
-  void _onPhoneNumberChanged(
-    PhoneNumberChanged event,
+  void _onEmailChanged(
+    EmailChanged event,
     Emitter<RegistrationState> emit,
   ) {
-    final phone = PhoneNumberValidator.dirty(event.phoneNumber);
     emit(state.copyWith(
-      phoneNumber: phone,
+      email: EmailValidator.dirty(event.email),
       isErrorVisible: false,
       formValidationStatus: FormzSubmissionStatus.initial,
     ));
@@ -75,11 +74,11 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   void _onRegistrationSubmitted(
     RegistrationSubmitted event,
     Emitter<RegistrationState> emit,
-  ) async{
+  ) async {
     if (state.name.isNotValid ||
         state.password.isNotValid ||
         state.confirmPassword.isNotValid ||
-        state.phoneNumber.isNotValid) {
+        state.email.isNotValid) {
       emit(state.copyWith(
         isErrorVisible: true,
         formValidationStatus: FormzSubmissionStatus.failure,

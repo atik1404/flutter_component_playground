@@ -7,8 +7,8 @@ class LoginApiMapper
   @override
   LoginEntity map(LoginApiResponse response) {
     return LoginEntity(
-      message: response.message ?? "",
-      refreshToken:  "",
+      accessToken: response.access_token ?? "",
+      refreshToken:  response.refresh_token ?? "",
     );
   }
 }

@@ -6,8 +6,8 @@ class RegistrationApiMapper
     extends BaseMapper<LoginApiResponse, RegistrationEntity> {
   @override
   RegistrationEntity map(LoginApiResponse response) {
-    return RegistrationEntity(
-      message: response.message ?? "",
+    return const RegistrationEntity(
+      message:  "",
     );
   }
 }

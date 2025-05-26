@@ -216,14 +216,14 @@ class LoginScreen extends StatelessWidget {
           children: [
             AppTextField(
               onChanged: (value) =>
-                  context.read<LoginBloc>().add(LoginEvent.phoneChanged(value)),
-              hintText: context.getString.hint_enter_phone,
-              keyboardType: TextInputType.phone,
-              maxLength: 11,
+                  context.read<LoginBloc>().add(LoginEvent.emailChanged(value)),
+              hintText: context.getString.hint_enter_email,
+              keyboardType: TextInputType.emailAddress,
+              maxLength: 30,
             ),
-            if (state.isErrorVisible && state.phone.isNotValid)
+            if (state.isErrorVisible && state.email.isNotValid)
               TextFieldErrorText(
-                errorMessage: context.getString.error_invalid_phone_number,
+                errorMessage: context.getString.error_invalid_email,
               ),
             SpacerBox(height: spacing.base),
             AppTextField(

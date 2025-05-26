@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "button_sumit": MessageLookupByLibrary.simpleMessage("Submit"),
         "error_invalid_confirm_password": MessageLookupByLibrary.simpleMessage(
             "Password and confirm password do not match."),
+        "error_invalid_email": MessageLookupByLibrary.simpleMessage(
+            "Invalid email, Provide a valid email address."),
         "error_invalid_name": MessageLookupByLibrary.simpleMessage(
             "Invalid name, Name must be at least 5 characters."),
         "error_invalid_password": MessageLookupByLibrary.simpleMessage(

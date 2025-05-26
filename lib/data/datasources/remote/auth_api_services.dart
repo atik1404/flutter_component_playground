@@ -13,7 +13,7 @@ class AuthApiServices {
 
   Future<Result<LoginApiResponse>> userLogin(LoginParams params) async {
     try {
-      final response = await dio.post("/login", data: params.toJson());
+      final response = await dio.post("v1/auth/login", data: params.toJson());
 
       return SuccessResult(LoginApiResponse.fromJson(response.data));
     } on NetworkException catch (e) {

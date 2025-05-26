@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
-import 'package:flutter_component_playground/common/formvalidator/phone_number_validator.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/login_entity.dart';
 import 'package:flutter_component_playground/domain/params/login_params.dart';
@@ -15,15 +15,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({required PostLoginApiUsecase postLoginUseCase})
       : _postLoginApiUsecase = postLoginUseCase,
         super(const LoginState()) {
-    on<PhoneChanged>(_onPhoneChanged);
+    on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onLoginSubmitted);
   }
 
-  void _onPhoneChanged(PhoneChanged event, Emitter<LoginState> emit) {
-    final phone = PhoneNumberValidator.dirty(event.phone);
+  void _onEmailChanged(EmailChanged event, Emitter<LoginState> emit) {
     emit(state.copyWith(
-      phone: phone,
+      email: EmailValidator.dirty(event.email),
       isErrorVisible: false,
       formValidationStatus: FormzSubmissionStatus.initial,
     ));
@@ -42,7 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    if (state.phone.isNotValid || state.password.isNotValid) {
+    if (state.email.isNotValid || state.password.isNotValid) {
       emit(state.copyWith(
         isErrorVisible: true,
         formValidationStatus: FormzSubmissionStatus.failure,
@@ -62,7 +61,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await Future.delayed(const Duration(seconds: 2));
       final result = await _postLoginApiUsecase.invoke(
         LoginParams(
-          phone: state.phone.value,
+          email: state.email.value,
           password: state.password.value,
         ),
       );

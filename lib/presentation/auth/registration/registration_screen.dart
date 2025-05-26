@@ -274,16 +274,16 @@ class RegistrationScreen extends StatelessWidget {
               ),
             SpacerBox(height: spacingSizes.base),
             AppTextField(
-              hintText: getString.hint_enter_phone,
-              keyboardType: TextInputType.phone,
-              maxLength: 11,
+              hintText: getString.hint_enter_email,
+              keyboardType: TextInputType.emailAddress,
+              maxLength: 30,
               onChanged: (value) => context.read<RegistrationBloc>().add(
-                    RegistrationEvent.phoneNumberChanged(value),
+                    RegistrationEvent.emailChanged(value),
                   ),
             ),
-            if (state.isErrorVisible && state.phoneNumber.isNotValid)
+            if (state.isErrorVisible && state.email.isNotValid)
               TextFieldErrorText(
-                errorMessage: getString.error_invalid_phone_number,
+                errorMessage: getString.error_invalid_email,
               ),
             SpacerBox(height: spacingSizes.base),
             AppTextField(
