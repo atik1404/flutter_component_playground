@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
+import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
+import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/login_entity.dart';
 import 'package:flutter_component_playground/domain/params/login_params.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_login_api_usecase.dart';
@@ -11,9 +13,13 @@ import 'package:formz/formz.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final PostLoginApiUsecase _postLoginApiUsecase;
+  final SharedPrefs _sharedPrefs;
 
-  LoginBloc({required PostLoginApiUsecase postLoginUseCase})
-      : _postLoginApiUsecase = postLoginUseCase,
+  LoginBloc({
+    required PostLoginApiUsecase postLoginUseCase,
+    required SharedPrefs sharedPrefs,
+  })  : _postLoginApiUsecase = postLoginUseCase,
+        _sharedPrefs = sharedPrefs,
         super(const LoginState()) {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
@@ -68,6 +74,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       switch (result) {
         case SuccessResult<LoginEntity>():
+          _sharedPrefs.set(
+              key: SharedPrefKey.accessToken, value: result.data.accessToken,);
+          _sharedPrefs.set(
+              key: SharedPrefKey.refreshToken, value: result.data.refreshToken,);
+          _sharedPrefs.set(
+              key: SharedPrefKey.userLoggedInStatus,
+              value: result.data.refreshToken.isNotEmpty,);
           return emit(state.copyWith(
             formValidationStatus: FormzSubmissionStatus.success,
           ));

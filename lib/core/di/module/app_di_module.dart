@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_component_playground/core/config/app_core_env.dart';
 import 'package:flutter_component_playground/core/di/annotation/di_annotation.dart';
 import 'package:flutter_component_playground/core/di/module/api_service_di_module.dart';
