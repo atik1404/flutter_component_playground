@@ -23,6 +23,7 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
   bool get isErrorVisible;
   bool get isPrivacyPolicyAccepted;
   String get registrationErrorMessage;
+  String get registrationSuccessMessage;
 
   /// Create a copy of RegistrationState
   /// with the given fields replaced by the non-null parameter values.
@@ -45,7 +46,9 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty(
           'isPrivacyPolicyAccepted', isPrivacyPolicyAccepted))
       ..add(DiagnosticsProperty(
-          'registrationErrorMessage', registrationErrorMessage));
+          'registrationErrorMessage', registrationErrorMessage))
+      ..add(DiagnosticsProperty(
+          'registrationSuccessMessage', registrationSuccessMessage));
   }
 
   @override
@@ -68,7 +71,11 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
                 other.isPrivacyPolicyAccepted == isPrivacyPolicyAccepted) &&
             (identical(
                     other.registrationErrorMessage, registrationErrorMessage) ||
-                other.registrationErrorMessage == registrationErrorMessage));
+                other.registrationErrorMessage == registrationErrorMessage) &&
+            (identical(other.registrationSuccessMessage,
+                    registrationSuccessMessage) ||
+                other.registrationSuccessMessage ==
+                    registrationSuccessMessage));
   }
 
   @override
@@ -81,11 +88,12 @@ mixin _$RegistrationState implements DiagnosticableTreeMixin {
       formValidationStatus,
       isErrorVisible,
       isPrivacyPolicyAccepted,
-      registrationErrorMessage);
+      registrationErrorMessage,
+      registrationSuccessMessage);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, email: $email, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage)';
+    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, email: $email, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage, registrationSuccessMessage: $registrationSuccessMessage)';
   }
 }
 
@@ -103,7 +111,8 @@ abstract mixin class $RegistrationStateCopyWith<$Res> {
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
       bool isPrivacyPolicyAccepted,
-      String registrationErrorMessage});
+      String registrationErrorMessage,
+      String registrationSuccessMessage});
 }
 
 /// @nodoc
@@ -127,6 +136,7 @@ class _$RegistrationStateCopyWithImpl<$Res>
     Object? isErrorVisible = null,
     Object? isPrivacyPolicyAccepted = null,
     Object? registrationErrorMessage = null,
+    Object? registrationSuccessMessage = null,
   }) {
     return _then(_self.copyWith(
       name: null == name
@@ -161,6 +171,10 @@ class _$RegistrationStateCopyWithImpl<$Res>
           ? _self.registrationErrorMessage
           : registrationErrorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      registrationSuccessMessage: null == registrationSuccessMessage
+          ? _self.registrationSuccessMessage
+          : registrationSuccessMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -178,7 +192,8 @@ class _RegistrationState
       this.formValidationStatus = FormzSubmissionStatus.initial,
       this.isErrorVisible = false,
       this.isPrivacyPolicyAccepted = false,
-      this.registrationErrorMessage = ''});
+      this.registrationErrorMessage = '',
+      this.registrationSuccessMessage = ''});
 
   @override
   @JsonKey()
@@ -204,6 +219,9 @@ class _RegistrationState
   @override
   @JsonKey()
   final String registrationErrorMessage;
+  @override
+  @JsonKey()
+  final String registrationSuccessMessage;
 
   /// Create a copy of RegistrationState
   /// with the given fields replaced by the non-null parameter values.
@@ -226,7 +244,9 @@ class _RegistrationState
       ..add(DiagnosticsProperty(
           'isPrivacyPolicyAccepted', isPrivacyPolicyAccepted))
       ..add(DiagnosticsProperty(
-          'registrationErrorMessage', registrationErrorMessage));
+          'registrationErrorMessage', registrationErrorMessage))
+      ..add(DiagnosticsProperty(
+          'registrationSuccessMessage', registrationSuccessMessage));
   }
 
   @override
@@ -249,7 +269,11 @@ class _RegistrationState
                 other.isPrivacyPolicyAccepted == isPrivacyPolicyAccepted) &&
             (identical(
                     other.registrationErrorMessage, registrationErrorMessage) ||
-                other.registrationErrorMessage == registrationErrorMessage));
+                other.registrationErrorMessage == registrationErrorMessage) &&
+            (identical(other.registrationSuccessMessage,
+                    registrationSuccessMessage) ||
+                other.registrationSuccessMessage ==
+                    registrationSuccessMessage));
   }
 
   @override
@@ -262,11 +286,12 @@ class _RegistrationState
       formValidationStatus,
       isErrorVisible,
       isPrivacyPolicyAccepted,
-      registrationErrorMessage);
+      registrationErrorMessage,
+      registrationSuccessMessage);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, email: $email, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage)';
+    return 'RegistrationState(name: $name, password: $password, confirmPassword: $confirmPassword, email: $email, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, isPrivacyPolicyAccepted: $isPrivacyPolicyAccepted, registrationErrorMessage: $registrationErrorMessage, registrationSuccessMessage: $registrationSuccessMessage)';
   }
 }
 
@@ -286,7 +311,8 @@ abstract mixin class _$RegistrationStateCopyWith<$Res>
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
       bool isPrivacyPolicyAccepted,
-      String registrationErrorMessage});
+      String registrationErrorMessage,
+      String registrationSuccessMessage});
 }
 
 /// @nodoc
@@ -310,6 +336,7 @@ class __$RegistrationStateCopyWithImpl<$Res>
     Object? isErrorVisible = null,
     Object? isPrivacyPolicyAccepted = null,
     Object? registrationErrorMessage = null,
+    Object? registrationSuccessMessage = null,
   }) {
     return _then(_RegistrationState(
       name: null == name
@@ -343,6 +370,10 @@ class __$RegistrationStateCopyWithImpl<$Res>
       registrationErrorMessage: null == registrationErrorMessage
           ? _self.registrationErrorMessage
           : registrationErrorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      registrationSuccessMessage: null == registrationSuccessMessage
+          ? _self.registrationSuccessMessage
+          : registrationSuccessMessage // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

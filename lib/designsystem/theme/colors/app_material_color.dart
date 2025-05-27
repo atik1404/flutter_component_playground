@@ -1,8 +1,7 @@
 part of 'app_colors_aggregator.dart';
 
-
-class AppMaterialColor extends ThemeExtension<AppMaterialColor> with ColorFieldsMixin<AppMaterialColor>{
-
+class AppMaterialColor extends ThemeExtension<AppMaterialColor>
+    with ColorFieldsMixin<AppMaterialColor> {
   final Color primary;
   final Color onPrimary;
   final Color primaryContainer;
@@ -41,35 +40,90 @@ class AppMaterialColor extends ThemeExtension<AppMaterialColor> with ColorFields
 
   @override
   List<Color> get colorFields => [
-    primary,onPrimary,primaryContainer,onPrimaryContainer,secondary,onSecondary,secondaryContainer,
-    onSecondaryContainer,tertiary,onTertiary,surface,onSurface,error,onError,inverseSurface,onInverseSurface,
-  ];
+        primary,
+        onPrimary,
+        primaryContainer,
+        onPrimaryContainer,
+        secondary,
+        onSecondary,
+        secondaryContainer,
+        onSecondaryContainer,
+        tertiary,
+        onTertiary,
+        surface,
+        onSurface,
+        error,
+        onError,
+        inverseSurface,
+        onInverseSurface,
+      ];
 
   @override
   AppMaterialColor createInstance(List<Color> colors) {
     return AppMaterialColor._(
-      primary: colors[0], onPrimary: colors[1], primaryContainer: colors[2], onPrimaryContainer: colors[3],
-      secondary: colors[4], onSecondary: colors[5], secondaryContainer: colors[6],
-      onSecondaryContainer: colors[7], tertiary: colors[8], onTertiary: colors[9], surface: colors[10],
-      onSurface: colors[11], error: colors[12], onError: colors[13], inverseSurface: colors[14], onInverseSurface: colors[15],
+      primary: colors[0],
+      onPrimary: colors[1],
+      primaryContainer: colors[2],
+      onPrimaryContainer: colors[3],
+      secondary: colors[4],
+      onSecondary: colors[5],
+      secondaryContainer: colors[6],
+      onSecondaryContainer: colors[7],
+      tertiary: colors[8],
+      onTertiary: colors[9],
+      surface: colors[10],
+      onSurface: colors[11],
+      error: colors[12],
+      onError: colors[13],
+      inverseSurface: colors[14],
+      onInverseSurface: colors[15],
     );
   }
 
   @override
   AppMaterialColor copyWith({
-    Color? primary, Color? onPrimary, Color? primaryContainer, Color? onPrimaryContainer,
-    Color? secondary, Color? onSecondary, Color? secondaryContainer, Color? onSecondaryContainer,
-    Color? tertiary, Color? onTertiary, Color? surface, Color? onSurface, Color? error,
-    Color? onError, Color? inverseSurface, Color? onInverseSurface,
+    Color? primary,
+    Color? onPrimary,
+    Color? primaryContainer,
+    Color? onPrimaryContainer,
+    Color? secondary,
+    Color? onSecondary,
+    Color? secondaryContainer,
+    Color? onSecondaryContainer,
+    Color? tertiary,
+    Color? onTertiary,
+    Color? surface,
+    Color? onSurface,
+    Color? error,
+    Color? onError,
+    Color? inverseSurface,
+    Color? onInverseSurface,
   }) {
     return copyWithList([
-      primary,onPrimary,primaryContainer,onPrimaryContainer,secondary,onSecondary,secondaryContainer,
-      onSecondaryContainer,tertiary,onTertiary,surface,onSurface,error,onError,inverseSurface,onInverseSurface,
+      primary,
+      onPrimary,
+      primaryContainer,
+      onPrimaryContainer,
+      secondary,
+      onSecondary,
+      secondaryContainer,
+      onSecondaryContainer,
+      tertiary,
+      onTertiary,
+      surface,
+      onSurface,
+      error,
+      onError,
+      inverseSurface,
+      onInverseSurface,
     ]);
   }
 
   @override
-  AppMaterialColor lerp(ThemeExtension<AppMaterialColor>? other, double t,) {
+  AppMaterialColor lerp(
+    ThemeExtension<AppMaterialColor>? other,
+    double t,
+  ) {
     if (other is! AppMaterialColor) {
       return this;
     }
@@ -77,20 +131,31 @@ class AppMaterialColor extends ThemeExtension<AppMaterialColor> with ColorFields
     return AppMaterialColor._(
       primary: Color.lerp(primary, other.primary, t) ?? primary,
       onPrimary: Color.lerp(onPrimary, other.onPrimary, t) ?? onPrimary,
-      primaryContainer: Color.lerp(primaryContainer, other.primaryContainer, t) ?? primaryContainer,
-      onPrimaryContainer: Color.lerp(onPrimaryContainer, other.onPrimaryContainer, t) ?? onPrimaryContainer,
+      primaryContainer:
+          Color.lerp(primaryContainer, other.primaryContainer, t) ??
+              primaryContainer,
+      onPrimaryContainer:
+          Color.lerp(onPrimaryContainer, other.onPrimaryContainer, t) ??
+              onPrimaryContainer,
       secondary: Color.lerp(secondary, other.secondary, t) ?? secondary,
       onSecondary: Color.lerp(onSecondary, other.onSecondary, t) ?? onSecondary,
-      secondaryContainer: Color.lerp(secondaryContainer, other.secondaryContainer, t) ?? secondaryContainer,
-      onSecondaryContainer: Color.lerp(onSecondaryContainer, other.onSecondaryContainer, t) ?? onSecondaryContainer,
+      secondaryContainer:
+          Color.lerp(secondaryContainer, other.secondaryContainer, t) ??
+              secondaryContainer,
+      onSecondaryContainer:
+          Color.lerp(onSecondaryContainer, other.onSecondaryContainer, t) ??
+              onSecondaryContainer,
       tertiary: Color.lerp(tertiary, other.tertiary, t) ?? tertiary,
       onTertiary: Color.lerp(onTertiary, other.onTertiary, t) ?? onTertiary,
       surface: Color.lerp(surface, other.surface, t) ?? surface,
       onSurface: Color.lerp(onSurface, other.onSurface, t) ?? onSurface,
       error: Color.lerp(error, other.error, t) ?? error,
       onError: Color.lerp(onError, other.onError, t) ?? onError,
-      inverseSurface: Color.lerp(inverseSurface, other.inverseSurface, t) ?? inverseSurface,
-      onInverseSurface: Color.lerp(onInverseSurface, other.onInverseSurface, t) ?? onInverseSurface,
+      inverseSurface:
+          Color.lerp(inverseSurface, other.inverseSurface, t) ?? inverseSurface,
+      onInverseSurface:
+          Color.lerp(onInverseSurface, other.onInverseSurface, t) ??
+              onInverseSurface,
     );
   }
 

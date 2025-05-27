@@ -1,7 +1,7 @@
 part of 'dimension_aggregator.dart';
 
-final class IconSize extends ThemeExtension<IconSize> with NumericFieldsMixin<IconSize>{
-
+final class IconSize extends ThemeExtension<IconSize>
+    with NumericFieldsMixin<IconSize> {
   final double small;
   final double medium;
   final double base;
@@ -21,7 +21,7 @@ final class IconSize extends ThemeExtension<IconSize> with NumericFieldsMixin<Ic
     double? base,
     double? large,
   }) {
-    return copyWithList([small,medium,base,large]);
+    return copyWithList([small, medium, base, large]);
   }
 
   @override
@@ -35,12 +35,12 @@ final class IconSize extends ThemeExtension<IconSize> with NumericFieldsMixin<Ic
   }
 
   @override
-  List<double> get numericFields => [small,medium,base,large];
+  List<double> get numericFields => [small, medium, base, large];
 
   static final _instance = IconSize._(
-      small: 16,
-      medium: 20,
-      base: 24,
-      large: 32,
+    small: 16,
+    medium: 20,
+    base: 24,
+    large: 32,
   );
 }

@@ -11,5 +11,5 @@ class LoginParams {
     required this.password,
   });
 
-   Map<String, dynamic> toJson() => _$LoginParamsToJson(this);
+  Map<String, dynamic> toJson() => _$LoginParamsToJson(this);
 }

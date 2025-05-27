@@ -11,7 +11,7 @@ mixin TextStyleFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T> {
   T copyWithList(List<TextStyle?> updatedFields) {
     final original = textStyleFields;
     assert(updatedFields.length == original.length,
-    'updatedFields length must match textStyleFields length');
+        'updatedFields length must match textStyleFields length');
 
     final newStyles = <TextStyle>[];
     for (var i = 0; i < original.length; i++) {
@@ -28,13 +28,13 @@ mixin TextStyleFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T> {
     final aStyles = textStyleFields;
     final bStyles = (other as TextStyleFieldsMixin).textStyleFields;
     assert(aStyles.length == bStyles.length,
-    'Both token classes must have the same number of textStyle fields');
+        'Both token classes must have the same number of textStyle fields');
 
     final newStyles = <TextStyle>[];
     for (var i = 0; i < aStyles.length; i++) {
       newStyles.add(TextStyle.lerp(aStyles[i], bStyles[i], t) ?? aStyles[i]);
     }
-    
+
     return createInstance(newStyles);
   }
 }

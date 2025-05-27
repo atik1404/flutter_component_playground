@@ -4,9 +4,9 @@ class SharedPrefs {
   factory SharedPrefs() => _instance;
 
   SharedPrefs._internal();
-  
+
   static final SharedPrefs _instance = SharedPrefs._internal();
-  
+
   SharedPreferences? _prefs;
 
   /// Initialize Shared Preferences
@@ -21,28 +21,32 @@ class SharedPrefs {
     }
   }
 
-  /// Generic getter for any type
-  T get<T>({required String key, T? defaultValue}) {
+  /// Get int value
+  int getInt({required String key, int defaultValue = 0}) {
     _ensureInitialized();
 
-    return _prefs?.get(key) as T? ?? defaultValue ?? getDefaultValue<T>();
+    return _prefs?.getInt(key) ?? defaultValue;
   }
 
-  T getDefaultValue<T>() {
-    T value;
-    if (T == int) {
-      value = 0 as T;
-    } else if (T == double) {
-      value = 0.0 as T;
-    } else if (T == String) {
-      value = "" as T;
-    } else if (T == bool) {
-      value = false as T;
-    } else {
-      throw Exception("Invalid preference type! Supported types are: int, double, String, bool.");
-    }
+  /// Get double value
+  double getDouble({required String key, double defaultValue = 0.0}) {
+    _ensureInitialized();
 
-    return value;
+    return _prefs?.getDouble(key) ?? defaultValue;
+  }
+
+  /// Get String value
+  String getString({required String key, String defaultValue = ""}) {
+    _ensureInitialized();
+
+    return _prefs?.getString(key) ?? defaultValue;
+  }
+
+  /// Get bool value
+  bool getBool({required String key, bool defaultValue = false}) {
+    _ensureInitialized();
+
+    return _prefs?.getBool(key) ?? defaultValue;
   }
 
   /// Generic setter for any type

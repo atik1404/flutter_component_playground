@@ -7,7 +7,7 @@ extension DateTimeExtension on DateTime {
 }
 
 extension TimeExtension on TimeOfDay {
-  DateTime convert(DateTime dateTime){
+  DateTime convert(DateTime dateTime) {
     return DateTime(dateTime.year, dateTime.month, dateTime.day, hour, minute);
   }
 }
@@ -24,16 +24,13 @@ extension ContextExtension on BuildContext {
     );
   }
 
-
   Future<TimeOfDay?> showAppTimePicker({
     TimeOfDay? initialTime,
   }) {
     return showTimePicker(
       context: this,
-      initialTime: initialTime ?? TimeOfDay(hour: TimeOfDay.now().hour, minute: TimeOfDay.now().minute),
+      initialTime: initialTime ??
+          TimeOfDay(hour: TimeOfDay.now().hour, minute: TimeOfDay.now().minute),
     );
   }
-
 }
-
-

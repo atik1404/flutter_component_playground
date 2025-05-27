@@ -11,13 +11,13 @@ mixin NumericFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T> {
   T copyWithList(List<double?> updatedFields) {
     final original = numericFields;
     assert(updatedFields.length == original.length,
-    'updatedFields length must match numericFields length');
+        'updatedFields length must match numericFields length');
 
     final newValues = <double>[];
     for (var i = 0; i < original.length; i++) {
       newValues.add(updatedFields[i] ?? original[i]);
     }
-    
+
     return createInstance(newValues);
   }
 
@@ -28,7 +28,7 @@ mixin NumericFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T> {
     final aValues = numericFields;
     final bValues = (other as NumericFieldsMixin).numericFields;
     assert(aValues.length == bValues.length,
-    'Both token classes must have the same number of numeric fields');
+        'Both token classes must have the same number of numeric fields');
 
     final newValues = <double>[];
     for (var i = 0; i < aValues.length; i++) {

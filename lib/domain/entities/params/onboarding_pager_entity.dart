@@ -18,13 +18,15 @@ final List<OnboardingPagerEntity> onboardingPagerList = [
   const OnboardingPagerEntity(
     title: 'The Simple Way to',
     subTitle: 'find the best!',
-    description: 'Your perfect movie night starts here. Explore, stream, and love every scene.!',
+    description:
+        'Your perfect movie night starts here. Explore, stream, and love every scene.!',
     image: AppImages.imgIntroduction1,
   ),
   const OnboardingPagerEntity(
     title: 'The Best Design',
     subTitle: 'Strategy',
-    description: 'From Oscar winners to hidden gems—every film awaits your spotlight.',
+    description:
+        'From Oscar winners to hidden gems—every film awaits your spotlight.',
     image: AppImages.imgIntroduction2,
   ),
 ];

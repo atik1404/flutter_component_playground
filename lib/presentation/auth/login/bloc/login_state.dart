@@ -10,7 +10,8 @@ abstract class LoginState with _$LoginState {
   const factory LoginState({
     @Default(EmailValidator.pure()) EmailValidator email,
     @Default(PasswordValidator.pure()) PasswordValidator password,
-    @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus formValidationStatus,
+    @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus formValidationStatus,
     @Default(false) bool isErrorVisible,
     @Default('') String loginErrorMessage,
   }) = _LoginState;

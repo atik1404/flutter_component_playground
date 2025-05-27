@@ -54,13 +54,15 @@ final class AppThemeData {
 
   static ThemeData light() {
     return _themeData(
-        appColorsAggregator: AppColorsAggregator.lightThemeColors,
-        brightness: Brightness.light,);
+      appColorsAggregator: AppColorsAggregator.lightThemeColors,
+      brightness: Brightness.light,
+    );
   }
 
   static ThemeData dark() {
     return _themeData(
-        appColorsAggregator: AppColorsAggregator.darkThemeColor,
-        brightness: Brightness.light,);
+      appColorsAggregator: AppColorsAggregator.darkThemeColor,
+      brightness: Brightness.light,
+    );
   }
 }

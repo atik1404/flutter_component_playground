@@ -1,6 +1,7 @@
 part of 'dimension_aggregator.dart';
 
-final class WidgetSize extends ThemeExtension<WidgetSize> with NumericFieldsMixin<WidgetSize>{
+final class WidgetSize extends ThemeExtension<WidgetSize>
+    with NumericFieldsMixin<WidgetSize> {
   final double buttonHeightSM;
   final double buttonHeightMD;
   final double buttonHeightRG;
@@ -20,7 +21,8 @@ final class WidgetSize extends ThemeExtension<WidgetSize> with NumericFieldsMixi
     double? buttonHeightRG,
     double? textFieldHeight,
   }) {
-    return copyWithList([buttonHeightSM,buttonHeightMD,buttonHeightRG,textFieldHeight]);
+    return copyWithList(
+        [buttonHeightSM, buttonHeightMD, buttonHeightRG, textFieldHeight]);
   }
 
   @override
@@ -34,7 +36,8 @@ final class WidgetSize extends ThemeExtension<WidgetSize> with NumericFieldsMixi
   }
 
   @override
-  List<double> get numericFields => [buttonHeightSM,buttonHeightMD,buttonHeightRG,textFieldHeight];
+  List<double> get numericFields =>
+      [buttonHeightSM, buttonHeightMD, buttonHeightRG, textFieldHeight];
 
   static final _instance = WidgetSize._(
     buttonHeightSM: 24,

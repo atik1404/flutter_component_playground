@@ -1,7 +1,7 @@
 part of 'dimension_aggregator.dart';
 
-
-final class ShapeRadius extends ThemeExtension<ShapeRadius> with NumericFieldsMixin<ShapeRadius>{
+final class ShapeRadius extends ThemeExtension<ShapeRadius>
+    with NumericFieldsMixin<ShapeRadius> {
   final double small;
   final double medium;
   final double base;
@@ -24,7 +24,7 @@ final class ShapeRadius extends ThemeExtension<ShapeRadius> with NumericFieldsMi
     double? large,
     double? xLarge,
   }) {
-    return copyWithList([small,medium,base,large,xLarge]);
+    return copyWithList([small, medium, base, large, xLarge]);
   }
 
   @override
@@ -39,7 +39,7 @@ final class ShapeRadius extends ThemeExtension<ShapeRadius> with NumericFieldsMi
   }
 
   @override
-  List<double> get numericFields => [small,medium,base,large,xLarge];
+  List<double> get numericFields => [small, medium, base, large, xLarge];
 
   static final _instance = ShapeRadius._(
     small: 5,
@@ -48,5 +48,4 @@ final class ShapeRadius extends ThemeExtension<ShapeRadius> with NumericFieldsMi
     large: 24,
     xLarge: 32,
   );
-
 }

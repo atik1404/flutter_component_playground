@@ -22,10 +22,18 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   }
 
   void navigateToNextScreen() {
-    log.info( "Intro screen visibility: ${_sharedPrefs.get(key: SharedPrefKey.introScreenVisibility)}",);
+    log.info(
+      "Intro screen visibility: ${_sharedPrefs.getBool(
+        key: SharedPrefKey.introScreenVisibility,
+      )}",
+    );
     _sharedPrefs.set(key: SharedPrefKey.introScreenVisibility, value: true);
     emit(state.copyWith(shouldNavigateToNextScreen: true));
-    log.info("Intro screen visibility: ${_sharedPrefs.get(key: SharedPrefKey.introScreenVisibility)}",);
+    log.info(
+      "Intro screen visibility: ${_sharedPrefs.getBool(
+        key: SharedPrefKey.introScreenVisibility,
+      )}",
+    );
   }
 
   void resetState() {

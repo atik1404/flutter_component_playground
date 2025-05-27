@@ -6,14 +6,19 @@ import 'package:flutter_component_playground/presentation/auth/splash/block/spla
 
 Future<void> registerBlocModule() async {
   di
-    ..registerFactory<SplashCubit>(SplashCubit.new)
+    ..registerFactory<SplashCubit>(() => SplashCubit(
+          sharedPrefs: di.get(),
+        ))
     ..registerFactory<LoginBloc>(() => LoginBloc(
           postLoginUseCase: di.get(),
           sharedPrefs: di.get(),
         ))
-    ..registerFactory<RegistrationBloc>(RegistrationBloc.new)
+    ..registerFactory<RegistrationBloc>(() => RegistrationBloc(
+          postRegistrationUsecase: di.get(),
+        ))
     ..registerFactory<OnboardingCubit>(
-        () => OnboardingCubit(sharedPrefs: di.get()),);
+      () => OnboardingCubit(sharedPrefs: di.get()),
+    );
 
   return;
 }

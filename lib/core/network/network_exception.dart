@@ -1,4 +1,4 @@
-final class NetworkException implements Exception{
+final class NetworkException implements Exception {
   final String description;
   final int statusCode;
 

@@ -31,11 +31,11 @@ class RegistrationScreen extends StatelessWidget {
 
     return BlocListener<RegistrationBloc, RegistrationState>(
       listener: (context, state) {
-        if (state.formValidationStatus.isSuccess) {
-          log.info('Registration successful');
+        if (state.registrationErrorMessage.isNotEmpty) {
           Fluttertoast.showToast(
-            msg: "Registration successful",
+            msg: state.registrationErrorMessage,
           );
+          context.pop();
         } else if (state.formValidationStatus.isFailure) {
           log.info('Registration failed');
         }

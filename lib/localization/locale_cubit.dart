@@ -7,8 +7,10 @@ import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 
 final class LocaleCubit extends Cubit<Locale> {
   LocaleCubit()
-      : super(Locale(di.get<SharedPrefs>().get(
-            key: SharedPrefKey.locale, defaultValue: AppConstants.localEn,)));
+      : super(Locale(di.get<SharedPrefs>().getString(
+              key: SharedPrefKey.locale,
+              defaultValue: AppConstants.localEn,
+            )));
   void changeLocale(String languageCode) {
     emit(Locale(languageCode));
   }

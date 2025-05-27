@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
@@ -17,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   int _selectedIndex = 0;
   final List<Widget> _screens = [
     const HomeScreenContent(),

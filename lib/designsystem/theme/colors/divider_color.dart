@@ -5,8 +5,10 @@ final class DividerColor extends ThemeExtension<DividerColor>
   final Color primaryDividerColor;
   final Color secondaryDividerColor;
 
-  DividerColor._(
-      {required this.primaryDividerColor, required this.secondaryDividerColor,});
+  DividerColor._({
+    required this.primaryDividerColor,
+    required this.secondaryDividerColor,
+  });
 
   @override
   ThemeExtension<DividerColor> copyWith({

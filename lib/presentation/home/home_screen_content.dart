@@ -32,7 +32,9 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: spacingSizes.base, vertical: spacingSizes.base,),
+              horizontal: spacingSizes.base,
+              vertical: spacingSizes.base,
+            ),
             child: Column(
               children: [
                 _buildToolbar(context), // Toolbar at the top

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-mixin ColorFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T>{
-  
+mixin ColorFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T> {
   List<Color> get colorFields;
 
   T createInstance(List<Color> colors);
@@ -10,7 +9,7 @@ mixin ColorFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T>{
     final original = colorFields;
     final length = original.length;
     assert(updatedFields.length == length,
-    'updatedFields length must match colorFields length');
+        'updatedFields length must match colorFields length');
 
     final newColors = <Color>[];
     for (var i = 0; i < length; i++) {
@@ -33,7 +32,7 @@ mixin ColorFieldsMixin<T extends ThemeExtension<T>> on ThemeExtension<T>{
     for (var i = 0; i < length; i++) {
       lerped.add(Color.lerp(aColors[i], bColors[i], t) ?? aColors[i]);
     }
-    
+
     return createInstance(lerped);
   }
 }

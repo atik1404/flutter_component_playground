@@ -1,7 +1,7 @@
 part of 'dimension_aggregator.dart';
 
-final class DividerSize extends ThemeExtension<DividerSize> with NumericFieldsMixin<DividerSize>{
-
+final class DividerSize extends ThemeExtension<DividerSize>
+    with NumericFieldsMixin<DividerSize> {
   final double thin;
   final double thick;
 
@@ -12,7 +12,7 @@ final class DividerSize extends ThemeExtension<DividerSize> with NumericFieldsMi
 
   @override
   ThemeExtension<DividerSize> copyWith({double? thin, double? thick}) {
-    return copyWithList([thin,thick]);
+    return copyWithList([thin, thick]);
   }
 
   @override
@@ -21,7 +21,7 @@ final class DividerSize extends ThemeExtension<DividerSize> with NumericFieldsMi
   }
 
   @override
-  List<double> get numericFields => [thin,thick];
+  List<double> get numericFields => [thin, thick];
 
   static final _instance = DividerSize._(thin: 1, thick: 2);
 }

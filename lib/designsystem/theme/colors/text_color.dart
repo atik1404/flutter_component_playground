@@ -7,8 +7,12 @@ final class TextColor extends ThemeExtension<TextColor>
   final Color hintTextColor;
   final Color whiteTextColor;
 
-  TextColor._(
-      {required this.primaryTextColor, required this.secondaryTextColor,required this.whiteTextColor, required this.hintTextColor,});
+  TextColor._({
+    required this.primaryTextColor,
+    required this.secondaryTextColor,
+    required this.whiteTextColor,
+    required this.hintTextColor,
+  });
 
   @override
   ThemeExtension<TextColor> copyWith({
@@ -24,7 +28,8 @@ final class TextColor extends ThemeExtension<TextColor>
   }
 
   @override
-  List<Color> get colorFields => [primaryTextColor, secondaryTextColor, whiteTextColor];
+  List<Color> get colorFields =>
+      [primaryTextColor, secondaryTextColor, whiteTextColor];
 
   @override
   TextColor createInstance(List<Color> colors) {

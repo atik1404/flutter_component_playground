@@ -6,7 +6,6 @@ part 'app_dev_env.g.dart';
 
 @Envied(name: 'DevelopmentEnv', path: '.env_dev')
 final class AppDevEnv implements AppCoreEnv, AppEnvFields {
-
   AppDevEnv();
 
   @override

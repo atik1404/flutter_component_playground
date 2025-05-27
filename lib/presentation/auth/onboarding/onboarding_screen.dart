@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/common/utils/logger_utils';
-import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
-import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/domain/entities/params/onboarding_pager_entity.dart';
 import 'package:flutter_component_playground/presentation/auth/onboarding/bloc/onboarding_cubit.dart';

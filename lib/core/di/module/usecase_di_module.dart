@@ -8,9 +8,10 @@ Future<void> registerUseCaseModule() async {
           di.get(),
         ))
     ..registerLazySingleton<PostRegistrationUsecase>(
-        () => PostRegistrationUsecase(
-              di.get(),
-            ),);
+      () => PostRegistrationUsecase(
+        di.get(),
+      ),
+    );
 
   return;
 }

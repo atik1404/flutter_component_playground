@@ -6,11 +6,12 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final bool isBackButtonVisible;
   final VoidCallback? onClickBackButton;
 
-  const CommonAppbar(
-      {super.key,
-      required this.title,
-      this.isBackButtonVisible = true,
-      this.onClickBackButton,});
+  const CommonAppbar({
+    super.key,
+    required this.title,
+    this.isBackButtonVisible = true,
+    this.onClickBackButton,
+  });
 
   @override
   AppBar build(BuildContext context) {
@@ -25,7 +26,8 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       leading: isBackButtonVisible
           ? IconButton(
               onPressed: onClickBackButton,
-              icon: const Icon(Icons.arrow_back_ios_new_sharp),)
+              icon: const Icon(Icons.arrow_back_ios_new_sharp),
+            )
           : null,
     );
   }

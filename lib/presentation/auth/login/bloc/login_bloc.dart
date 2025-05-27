@@ -64,7 +64,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
 
     try {
-      await Future.delayed(const Duration(seconds: 2));
       final result = await _postLoginApiUsecase.invoke(
         LoginParams(
           email: state.email.value,
@@ -75,12 +74,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       switch (result) {
         case SuccessResult<LoginEntity>():
           _sharedPrefs.set(
-              key: SharedPrefKey.accessToken, value: result.data.accessToken,);
+            key: SharedPrefKey.accessToken,
+            value: result.data.accessToken,
+          );
           _sharedPrefs.set(
-              key: SharedPrefKey.refreshToken, value: result.data.refreshToken,);
+            key: SharedPrefKey.refreshToken,
+            value: result.data.refreshToken,
+          );
           _sharedPrefs.set(
-              key: SharedPrefKey.userLoggedInStatus,
-              value: result.data.refreshToken.isNotEmpty,);
+            key: SharedPrefKey.userLoggedInStatus,
+            value: result.data.refreshToken.isNotEmpty,
+          );
           return emit(state.copyWith(
             formValidationStatus: FormzSubmissionStatus.success,
           ));

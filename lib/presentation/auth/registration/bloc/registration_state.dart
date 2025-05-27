@@ -19,5 +19,6 @@ abstract class RegistrationState with _$RegistrationState {
     @Default(false) bool isErrorVisible,
     @Default(false) bool isPrivacyPolicyAccepted,
     @Default('') String registrationErrorMessage,
+    @Default('') String registrationSuccessMessage,
   }) = _RegistrationState;
 }

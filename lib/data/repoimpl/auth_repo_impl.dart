@@ -5,7 +5,7 @@ import 'package:flutter_component_playground/data/mappers/auth/login_api_mapper.
 import 'package:flutter_component_playground/data/mappers/auth/registration_api_mapper.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/login_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/registration_entity.dart';
-import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
+import 'package:flutter_component_playground/domain/params/registration_params.dart';
 import 'package:flutter_component_playground/domain/params/login_params.dart';
 import 'package:flutter_component_playground/domain/repositories/auth_repository.dart';
 
@@ -31,7 +31,8 @@ final class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  Future<Result<RegistrationEntity>> userRegistration(RegistrationParams params) async{
+  Future<Result<RegistrationEntity>> userRegistration(
+      RegistrationParams params,) async {
     final response = await _authApiServices.userRegistration(params);
 
     return ResponseTransformer()

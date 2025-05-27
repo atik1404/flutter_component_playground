@@ -13,8 +13,11 @@ final class BackgroundColor extends ThemeExtension<BackgroundColor>
   });
 
   @override
-  List<Color> get colorFields =>
-      [primaryBackgroundColor, secondaryBackgroundColor, introductionBackgroundColor];
+  List<Color> get colorFields => [
+        primaryBackgroundColor,
+        secondaryBackgroundColor,
+        introductionBackgroundColor
+      ];
 
   @override
   ThemeExtension<BackgroundColor> copyWith({

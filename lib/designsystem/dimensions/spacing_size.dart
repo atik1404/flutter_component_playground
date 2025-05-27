@@ -1,7 +1,7 @@
 part of 'dimension_aggregator.dart';
 
-final class SpacingSize extends ThemeExtension<SpacingSize> with NumericFieldsMixin<SpacingSize>{
-
+final class SpacingSize extends ThemeExtension<SpacingSize>
+    with NumericFieldsMixin<SpacingSize> {
   final double xSmall;
   final double small;
   final double medium;
@@ -27,7 +27,7 @@ final class SpacingSize extends ThemeExtension<SpacingSize> with NumericFieldsMi
     double? large,
     double? xLarge,
   }) {
-    return copyWithList([xSmall,small,medium,base,large,xLarge]);
+    return copyWithList([xSmall, small, medium, base, large, xLarge]);
   }
 
   @override
@@ -43,7 +43,8 @@ final class SpacingSize extends ThemeExtension<SpacingSize> with NumericFieldsMi
   }
 
   @override
-  List<double> get numericFields => [xSmall,small,medium,base,large,xLarge];
+  List<double> get numericFields =>
+      [xSmall, small, medium, base, large, xLarge];
 
   static final _instance = SpacingSize._(
     xSmall: 2,

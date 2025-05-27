@@ -11,9 +11,9 @@ final class PostLoginApiUsecase
   const PostLoginApiUsecase(this._repository);
 
   @override
-  Future<Result<LoginEntity>> invoke(LoginParams params) async{
+  Future<Result<LoginEntity>> invoke(LoginParams params) async {
     final result = await _repository.userLogin(params);
-    
+
     return result;
   }
 }

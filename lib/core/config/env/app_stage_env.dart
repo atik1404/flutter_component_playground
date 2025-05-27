@@ -5,7 +5,6 @@ part 'app_stage_env.g.dart';
 
 @Envied(name: 'StageEnv', path: '.env_stage')
 final class AppStageEnv implements AppCoreEnv, AppEnvFields {
-
   AppStageEnv();
 
   @override

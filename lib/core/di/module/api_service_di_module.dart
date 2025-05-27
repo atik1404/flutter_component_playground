@@ -6,10 +6,12 @@ import 'package:flutter_component_playground/data/datasources/remote/auth_api_se
 Future<void> registerApiServiceModule() async {
   di.registerLazySingleton<AuthApiServices>(
     () => AuthApiServices(
-        dio: di
-            .get<NetworkClient>(
-                instanceName: DIAnnotation.authBaseUrl.toString(),)
-            .dio,),
+      dio: di
+          .get<NetworkClient>(
+            instanceName: DIAnnotation.authBaseUrl.toString(),
+          )
+          .dio,
+    ),
   );
 
   return;

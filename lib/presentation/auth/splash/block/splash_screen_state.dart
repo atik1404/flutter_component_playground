@@ -1,25 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class SplashScreenState extends Equatable {
-  final bool shouldNavigateToNextScreen;
-  final bool isLoading;
+part 'splash_screen_state.freezed.dart';
 
-  const SplashScreenState({
-    required this.isLoading,
-    required this.shouldNavigateToNextScreen,
-  });
-
-  SplashScreenState copyWith({
-    bool? isLoading,
-    bool? shouldNavigateToNextScreen,
-  }) {
-    return SplashScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      shouldNavigateToNextScreen:
-          shouldNavigateToNextScreen ?? this.shouldNavigateToNextScreen,
-    );
-  }
-
-  @override
-  List<Object?> get props => [isLoading, shouldNavigateToNextScreen];
+@freezed
+abstract class SplashScreenState with _$SplashScreenState {
+  const factory SplashScreenState({
+    @Default(false) bool isLoading,
+    @Default(false) bool shouldNavigateToLoginScreen,
+    @Default(false) bool shouldNavigateToHomeScreen,
+    @Default(false) bool shouldNavigateToOnboardingScreen,
+  }) = _SplashScreenState;
 }

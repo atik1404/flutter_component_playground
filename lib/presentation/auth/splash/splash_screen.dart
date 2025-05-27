@@ -11,8 +11,8 @@ import 'package:flutter_component_playground/presentation/auth/splash/block/spla
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-// A splash screen that displays the app logo and name.
-// This screen is typically shown while the app is initializing.
+/// SplashScreen displays the app logo and name while the app is initializing.
+/// It listens to [SplashCubit] for navigation events and loading state.
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -20,14 +20,27 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final spaceSize = context.spacingSizes;
 
-    context.read<SplashCubit>().navigateToLoginScreen();
+    // Trigger navigation logic as soon as the widget is built.
+    // It's better to use addPostFrameCallback to avoid calling cubit in build.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SplashCubit>().navigateToNextScreen();
+    });
 
     return BlocListener<SplashCubit, SplashScreenState>(
+      listenWhen: (previous, current) =>
+          previous.shouldNavigateToHomeScreen !=
+              current.shouldNavigateToHomeScreen ||
+          previous.shouldNavigateToLoginScreen !=
+              current.shouldNavigateToLoginScreen ||
+          previous.shouldNavigateToOnboardingScreen !=
+              current.shouldNavigateToOnboardingScreen,
       listener: (context, state) {
-        if (state.shouldNavigateToNextScreen) {
-          //context.goNamed(AppRoute.loginScreen); //navigate to onboarding screen
-          //context.goNamed(AppRoute.homeScreen); //navigate to onboarding screen
-          context.goNamed(AppRoute.onboardingScreen); //navigate to onboarding screen
+        if (state.shouldNavigateToHomeScreen) {
+          context.goNamed(AppRoute.homeScreen);
+        } else if (state.shouldNavigateToLoginScreen) {
+          context.goNamed(AppRoute.loginScreen);
+        } else if (state.shouldNavigateToOnboardingScreen) {
+          context.goNamed(AppRoute.onboardingScreen);
         }
       },
       child: ScaffoldAppbar(
@@ -35,38 +48,50 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // App logo displayed inside a rounded rectangle.
-              ClipRRect(
-                borderRadius: BorderRadius.circular(context.shapeRadius.base),
-                child: Image.asset(
-                  AppImages.appLogo,
-                  width: 180.w,
-                  height: 180.h,
-                  fit: BoxFit.fill,
-                ),
-              ),
-
+              _buildLogo(context),
               SpacerBox(height: spaceSize.large),
-
-              Text(
-                context.getString.title_app_name,
-                style: context.typography.titleLargeBold.copyWith(
-                  color: context.textColors.primaryTextColor,
-                ),
-              ),
+              _buildAppName(context),
               SpacerBox(height: spaceSize.large),
-
-              BlocBuilder<SplashCubit, SplashScreenState>(
-                builder: (context, state) {
-                  return state.isLoading
-                      ? const CircularProgressIndicator()
-                      : const SizedBox.shrink();
-                },
-              ),
+              _buildLoadingIndicator(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Builds the app logo widget.
+  Widget _buildLogo(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(context.shapeRadius.base),
+      child: Image.asset(
+        AppImages.appLogo,
+        width: 180.w,
+        height: 180.h,
+        fit: BoxFit.fill,
+      ),
+    );
+  }
+
+  /// Builds the app name text widget.
+  Widget _buildAppName(BuildContext context) {
+    return Text(
+      context.getString.title_app_name,
+      style: context.typography.titleLargeBold.copyWith(
+        color: context.textColors.primaryTextColor,
+      ),
+    );
+  }
+
+  /// Builds a loading indicator that shows while the splash is loading.
+  Widget _buildLoadingIndicator() {
+    return BlocBuilder<SplashCubit, SplashScreenState>(
+      buildWhen: (previous, current) => previous.isLoading != current.isLoading,
+      builder: (context, state) {
+        return state.isLoading
+            ? const CircularProgressIndicator()
+            : const SizedBox.shrink();
+      },
     );
   }
 }

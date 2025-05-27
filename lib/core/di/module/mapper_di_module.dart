@@ -3,8 +3,9 @@ import 'package:flutter_component_playground/data/mappers/auth/login_api_mapper.
 import 'package:flutter_component_playground/data/mappers/auth/registration_api_mapper.dart';
 
 Future<void> registerMapperModule() async {
-  di..registerFactory(LoginApiMapper.new)
-  ..registerFactory(RegistrationApiMapper.new);
+  di
+    ..registerFactory(LoginApiMapper.new)
+    ..registerFactory(RegistrationApiMapper.new);
 
   return;
 }
