@@ -11,7 +11,7 @@ RegistrationParams _$RegistrationParamsFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       password: json['password'] as String,
       name: json['name'] as String,
-      role: json['role'] as String? ?? "user",
+      role: json['role'] as String? ?? "customer",
       avatar: json['avatar'] as String? ??
           "https://parade.com/.image/t_share/MTkwNTc4NzcwMDEwOTczMzA5/tom-cruise-net-worth.jpg",
     );

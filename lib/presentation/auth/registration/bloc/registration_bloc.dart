@@ -3,8 +3,8 @@ import 'package:flutter_component_playground/common/formvalidator/email_validato
 import 'package:flutter_component_playground/common/formvalidator/name_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/registration_entity.dart';
-import 'package:flutter_component_playground/domain/params/registration_params.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/registration_entity.dart';
+import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_registration_usecase.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_event.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_state.dart';

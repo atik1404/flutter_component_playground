@@ -1,6 +1,6 @@
 import 'package:flutter_component_playground/core/base/base_mapper.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/login_api_response.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/login_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/login_entity.dart';
 
 class LoginApiMapper extends BaseMapper<LoginApiResponse, LoginEntity> {
   @override
