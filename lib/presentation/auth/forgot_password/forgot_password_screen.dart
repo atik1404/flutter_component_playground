@@ -13,26 +13,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
-
-  @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
-}
-
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  int _currentPage = 0;
+class ForgotPasswordScreen extends StatelessWidget {
+  ForgotPasswordScreen({super.key});
   final PageController _pageController = PageController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           }
         },
         onPageChanged: (index) {
-          setState(() {
-            _currentPage = index;
-          });
+          // Update the current page index
         },
       ),
     );
@@ -149,7 +130,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(3, (index) {
-        final isCurrentPage = _currentPage == index;
+        final isCurrentPage = false;
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
@@ -189,11 +170,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         AppButton(
           text: context.getString.button_continue,
           onPressed: () {
-            setState(() {
-              _currentPage = 1;
-            });
+            //update the current page index
             _pageController.animateToPage(
-              _currentPage,
+              0,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
             );
@@ -241,11 +220,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         AppButton(
           text: context.getString.button_reset_password,
           onPressed: () {
-            setState(() {
-              _currentPage = 2;
-            });
+            //update the current page index
             _pageController.animateToPage(
-              _currentPage,
+              0,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
             );

@@ -231,9 +231,9 @@ class _$NewPasswordChangedCopyWithImpl<$Res>
 /// @nodoc
 
 class ConfirmPasswordChanged implements ForgotPasswordEvent {
-  const ConfirmPasswordChanged(this.password);
+  const ConfirmPasswordChanged(this.confirmPassword);
 
-  final String password;
+  final String confirmPassword;
 
   /// Create a copy of ForgotPasswordEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -248,16 +248,16 @@ class ConfirmPasswordChanged implements ForgotPasswordEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ConfirmPasswordChanged &&
-            (identical(other.password, password) ||
-                other.password == password));
+            (identical(other.confirmPassword, confirmPassword) ||
+                other.confirmPassword == confirmPassword));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, password);
+  int get hashCode => Object.hash(runtimeType, confirmPassword);
 
   @override
   String toString() {
-    return 'ForgotPasswordEvent.confirmPasswordChanged(password: $password)';
+    return 'ForgotPasswordEvent.confirmPasswordChanged(confirmPassword: $confirmPassword)';
   }
 }
 
@@ -268,7 +268,7 @@ abstract mixin class $ConfirmPasswordChangedCopyWith<$Res>
           $Res Function(ConfirmPasswordChanged) _then) =
       _$ConfirmPasswordChangedCopyWithImpl;
   @useResult
-  $Res call({String password});
+  $Res call({String confirmPassword});
 }
 
 /// @nodoc
@@ -283,12 +283,12 @@ class _$ConfirmPasswordChangedCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? password = null,
+    Object? confirmPassword = null,
   }) {
     return _then(ConfirmPasswordChanged(
-      null == password
-          ? _self.password
-          : password // ignore: cast_nullable_to_non_nullable
+      null == confirmPassword
+          ? _self.confirmPassword
+          : confirmPassword // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

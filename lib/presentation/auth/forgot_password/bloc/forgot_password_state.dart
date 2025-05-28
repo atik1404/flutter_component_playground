@@ -14,7 +14,7 @@ abstract class ForgotPasswordState with _$ForgotPasswordState {
     @Default(PasswordValidator.pure()) PasswordValidator newPassword,
     @Default(PasswordValidator.pure()) PasswordValidator confirmPassword,
     @Default(ForgotPasswordStatus.initial) ForgotPasswordStatus status,
-    @Default(ForgotPasswordPage.emailForm) ForgotPasswordStatus currentPage,
+    @Default(ForgotPasswordPage.emailForm) ForgotPasswordPage currentPage,
   }) = _ForgotPasswordState;
 }
 

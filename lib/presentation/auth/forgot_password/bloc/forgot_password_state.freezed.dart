@@ -22,7 +22,7 @@ mixin _$ForgotPasswordState {
   PasswordValidator get newPassword;
   PasswordValidator get confirmPassword;
   ForgotPasswordStatus get status;
-  ForgotPasswordStatus get currentPage;
+  ForgotPasswordPage get currentPage;
 
   /// Create a copy of ForgotPasswordState
   /// with the given fields replaced by the non-null parameter values.
@@ -76,7 +76,7 @@ abstract mixin class $ForgotPasswordStateCopyWith<$Res> {
       PasswordValidator newPassword,
       PasswordValidator confirmPassword,
       ForgotPasswordStatus status,
-      ForgotPasswordStatus currentPage});
+      ForgotPasswordPage currentPage});
 }
 
 /// @nodoc
@@ -133,7 +133,7 @@ class _$ForgotPasswordStateCopyWithImpl<$Res>
       currentPage: null == currentPage
           ? _self.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
-              as ForgotPasswordStatus,
+              as ForgotPasswordPage,
     ));
   }
 }
@@ -174,7 +174,7 @@ class _ForgotPasswordState implements ForgotPasswordState {
   final ForgotPasswordStatus status;
   @override
   @JsonKey()
-  final ForgotPasswordStatus currentPage;
+  final ForgotPasswordPage currentPage;
 
   /// Create a copy of ForgotPasswordState
   /// with the given fields replaced by the non-null parameter values.
@@ -231,7 +231,7 @@ abstract mixin class _$ForgotPasswordStateCopyWith<$Res>
       PasswordValidator newPassword,
       PasswordValidator confirmPassword,
       ForgotPasswordStatus status,
-      ForgotPasswordStatus currentPage});
+      ForgotPasswordPage currentPage});
 }
 
 /// @nodoc
@@ -288,7 +288,7 @@ class __$ForgotPasswordStateCopyWithImpl<$Res>
       currentPage: null == currentPage
           ? _self.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
-              as ForgotPasswordStatus,
+              as ForgotPasswordPage,
     ));
   }
 }
