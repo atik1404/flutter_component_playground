@@ -25,7 +25,6 @@ class ForgotPasswordBloc
     on<OtpChanged>(_onOtpChanged);
     on<NewPasswordChanged>(_onPasswordChanged);
     on<ConfirmPasswordChanged>(_onConfirmPasswordChanged);
-    on<OnPageChanged>(_onPageChanged);
     on<SendOtp>(_sendOtp);
     on<VerifyOtp>(_verifyOtp);
     on<ResetPassword>(_resetPassword);
@@ -37,6 +36,7 @@ class ForgotPasswordBloc
   ) {
     emit(state.copyWith(
       email: EmailValidator.dirty(event.email),
+      status: ForgotPasswordStatus.initial,
     ));
   }
 
@@ -46,6 +46,7 @@ class ForgotPasswordBloc
   ) {
     emit(state.copyWith(
       otp: event.otp,
+      status: ForgotPasswordStatus.initial,
     ));
   }
 
@@ -55,6 +56,7 @@ class ForgotPasswordBloc
   ) {
     emit(state.copyWith(
       newPassword: PasswordValidator.dirty(event.password),
+      status: ForgotPasswordStatus.initial,
     ));
   }
 
@@ -64,18 +66,7 @@ class ForgotPasswordBloc
   ) {
     emit(state.copyWith(
       confirmPassword: PasswordValidator.dirty(event.confirmPassword),
-    ));
-  }
-
-  void _onPageChanged(
-    OnPageChanged event,
-    Emitter<ForgotPasswordState> emit,
-  ) async {
-    await Future.delayed(const Duration(milliseconds: 100));
-
-    emit(state.copyWith(
-      currentPageIndex: event.index,
-      currentPage: ForgotPasswordPage.values[event.index],
+      status: ForgotPasswordStatus.initial,
     ));
   }
 
@@ -83,13 +74,25 @@ class ForgotPasswordBloc
     SendOtp event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    emit(state.copyWith(status: ForgotPasswordStatus.loading,));
-    
-    await Future.delayed(const Duration(milliseconds: 100));
+    if (state.email.isNotValid) {
+      emit(state.copyWith(
+        status: ForgotPasswordStatus.error,
+        errorMessage: 'Please enter a valid email address.',
+      ));
+
+      return;
+    }
+
+    emit(state.copyWith(
+      status: ForgotPasswordStatus.loading,
+    ));
+
+    await Future.delayed(const Duration(milliseconds: 2000));
 
     emit(state.copyWith(
       currentPage: ForgotPasswordPage.otpForm,
       currentPageIndex: 1,
+      status: ForgotPasswordStatus.initial,
     ));
   }
 
@@ -97,13 +100,25 @@ class ForgotPasswordBloc
     VerifyOtp event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    emit(state.copyWith(status: ForgotPasswordStatus.loading,));
+    // if (state.otp.length != 4) {
+    //   emit(state.copyWith(
+    //     status: ForgotPasswordStatus.error,
+    //     errorMessage: 'Please enter a valid OTP',
+    //   ));
 
-    await Future.delayed(const Duration(milliseconds: 100));
+    //   return;
+    // }
+
+    emit(state.copyWith(
+      status: ForgotPasswordStatus.loading,
+    ));
+
+    await Future.delayed(const Duration(milliseconds: 2000));
 
     emit(state.copyWith(
       currentPage: ForgotPasswordPage.passwordForm,
       currentPageIndex: 2,
+      status: ForgotPasswordStatus.initial,
     ));
   }
 
@@ -111,10 +126,32 @@ class ForgotPasswordBloc
     ResetPassword event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    emit(state.copyWith(status: ForgotPasswordStatus.loading,));
+    // if (state.newPassword.isNotValid || state.confirmPassword.isNotValid) {
+    //   emit(state.copyWith(
+    //     status: ForgotPasswordStatus.error,
+    //     errorMessage: 'Please enter a valid password',
+    //   ));
 
-    await Future.delayed(const Duration(milliseconds: 100));
+    //   return;
+    // }
 
-    emit(state.copyWith(status: ForgotPasswordStatus.success,));
+    // if (state.newPassword != state.confirmPassword) {
+    //   emit(state.copyWith(
+    //     errorMessage: 'Please enter a valid password',
+    //     status: ForgotPasswordStatus.error,
+    //   ));
+
+    //   return;
+    // }
+
+    emit(state.copyWith(
+      status: ForgotPasswordStatus.loading,
+    ));
+
+    await Future.delayed(const Duration(milliseconds: 2000));
+
+    emit(state.copyWith(
+      status: ForgotPasswordStatus.success,
+    ));
   }
 }

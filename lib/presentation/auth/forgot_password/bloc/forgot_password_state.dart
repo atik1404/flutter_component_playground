@@ -11,8 +11,11 @@ abstract class ForgotPasswordState with _$ForgotPasswordState {
     @Default(EmailValidator.pure()) EmailValidator email,
     @Default('') String otp,
     @Default('') String remainTime,
+    @Default('') String errorMessage,
+    @Default(false) bool isErrorMessageVisible,
     @Default(PasswordValidator.pure()) PasswordValidator newPassword,
     @Default(PasswordValidator.pure()) PasswordValidator confirmPassword,
+    @Default(false) bool isConfirmPasswordError,
     @Default(ForgotPasswordStatus.initial) ForgotPasswordStatus status,
     @Default(ForgotPasswordPage.emailForm) ForgotPasswordPage currentPage,
   }) = _ForgotPasswordState;
