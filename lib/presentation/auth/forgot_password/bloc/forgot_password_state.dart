@@ -11,6 +11,7 @@ abstract class ForgotPasswordState with _$ForgotPasswordState {
     @Default(EmailValidator.pure()) EmailValidator email,
     @Default('') String otp,
     @Default('') String remainTime,
+    @Default(true) bool isTimerRunning,
     @Default('') String errorMessage,
     @Default(false) bool isErrorMessageVisible,
     @Default(PasswordValidator.pure()) PasswordValidator newPassword,
@@ -24,6 +25,7 @@ abstract class ForgotPasswordState with _$ForgotPasswordState {
 enum ForgotPasswordStatus {
   initial,
   loading,
+  progressBar,
   success,
   error,
 }

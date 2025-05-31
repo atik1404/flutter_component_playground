@@ -20,6 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(email) =>
+      "We send you an OTP to verify your email. Please enter the OTP to ${email}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "button_continue": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -35,11 +38,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "button_retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "button_sumit": MessageLookupByLibrary.simpleMessage("Submit"),
         "error_invalid_confirm_password": MessageLookupByLibrary.simpleMessage(
-            "Password and confirm password do not match."),
+            "Invalid confirm password or Password & confirm password do not match."),
         "error_invalid_email": MessageLookupByLibrary.simpleMessage(
             "Invalid email, Provide a valid email address."),
         "error_invalid_name": MessageLookupByLibrary.simpleMessage(
             "Invalid name, Name must be at least 5 characters."),
+        "error_invalid_otp": MessageLookupByLibrary.simpleMessage(
+            "Invalid OTP, Provide a valid OTP number."),
         "error_invalid_password": MessageLookupByLibrary.simpleMessage(
             "Invalid password, Password must be at least 6 characters."),
         "error_invalid_phone_number": MessageLookupByLibrary.simpleMessage(
@@ -71,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "msg_sign_up": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
+        "placeholder_otp_sending_message": m0,
         "text_agreed":
             MessageLookupByLibrary.simpleMessage("I\'m agree to the "),
         "text_and": MessageLookupByLibrary.simpleMessage(" and "),

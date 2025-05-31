@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
@@ -12,6 +14,8 @@ class ForgotPasswordBloc
   final PostSendOtpApiUsecase _sendOtpApiUsecase;
   final PostVerifyOtpApiUsecase _verifyOtpApiUsecase;
   final PostResetPasswordApiUsecase _resetPasswordApiUsecase;
+  Timer? _timer;
+  int _secondsRemaining = 0;
 
   ForgotPasswordBloc({
     required PostSendOtpApiUsecase postSendOtpApiUsecase,
@@ -26,8 +30,36 @@ class ForgotPasswordBloc
     on<NewPasswordChanged>(_onPasswordChanged);
     on<ConfirmPasswordChanged>(_onConfirmPasswordChanged);
     on<SendOtp>(_sendOtp);
+    on<ResendOtp>(_resendOtp);
     on<VerifyOtp>(_verifyOtp);
     on<ResetPassword>(_resetPassword);
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+
+    return super.close();
+  }
+
+  void _startTimer({int duration = 60}) {
+    _secondsRemaining = duration;
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        _secondsRemaining--;
+        emit(state.copyWith(
+          remainTime: '00:${_secondsRemaining.toString().padLeft(2, '0')}',
+          isTimerRunning: true,
+        ));
+      } else {
+        timer.cancel();
+        emit(state.copyWith(
+          remainTime: '00:${_secondsRemaining.toString().padLeft(2, '0')}',
+          isTimerRunning: false,
+        ));
+      }
+    });
   }
 
   void _onEmailChanged(
@@ -74,14 +106,13 @@ class ForgotPasswordBloc
     SendOtp event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    if (state.email.isNotValid) {
-      emit(state.copyWith(
-        status: ForgotPasswordStatus.error,
-        errorMessage: 'Please enter a valid email address.',
-      ));
+    // if (state.email.isNotValid) {
+    //   emit(state.copyWith(
+    //     status: ForgotPasswordStatus.error,
+    //   ));
 
-      return;
-    }
+    //   return;
+    // }
 
     emit(state.copyWith(
       status: ForgotPasswordStatus.loading,
@@ -94,20 +125,37 @@ class ForgotPasswordBloc
       currentPageIndex: 1,
       status: ForgotPasswordStatus.initial,
     ));
+    _startTimer(duration: 10);
+  }
+
+  void _resendOtp(
+    ResendOtp event,
+    Emitter<ForgotPasswordState> emit,
+  ) async {
+    emit(state.copyWith(
+      status: ForgotPasswordStatus.progressBar,
+    ));
+
+    await Future.delayed(const Duration(milliseconds: 2000));
+
+    emit(state.copyWith(
+      isTimerRunning: false,
+      status: ForgotPasswordStatus.initial,
+    ));
+    _startTimer(duration: 10);
   }
 
   void _verifyOtp(
     VerifyOtp event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    // if (state.otp.length != 4) {
-    //   emit(state.copyWith(
-    //     status: ForgotPasswordStatus.error,
-    //     errorMessage: 'Please enter a valid OTP',
-    //   ));
+    if (state.otp.length != 4) {
+      emit(state.copyWith(
+        status: ForgotPasswordStatus.error,
+      ));
 
-    //   return;
-    // }
+      return;
+    }
 
     emit(state.copyWith(
       status: ForgotPasswordStatus.loading,
@@ -126,23 +174,22 @@ class ForgotPasswordBloc
     ResetPassword event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    // if (state.newPassword.isNotValid || state.confirmPassword.isNotValid) {
-    //   emit(state.copyWith(
-    //     status: ForgotPasswordStatus.error,
-    //     errorMessage: 'Please enter a valid password',
-    //   ));
+    if (state.newPassword.isNotValid || state.confirmPassword.isNotValid) {
+      emit(state.copyWith(
+        status: ForgotPasswordStatus.error,
+      ));
 
-    //   return;
-    // }
+      return;
+    }
 
-    // if (state.newPassword != state.confirmPassword) {
-    //   emit(state.copyWith(
-    //     errorMessage: 'Please enter a valid password',
-    //     status: ForgotPasswordStatus.error,
-    //   ));
+    if (state.newPassword != state.confirmPassword) {
+      emit(state.copyWith(
+        status: ForgotPasswordStatus.error,
+        isConfirmPasswordError: true,
+      ));
 
-    //   return;
-    // }
+      return;
+    }
 
     emit(state.copyWith(
       status: ForgotPasswordStatus.loading,

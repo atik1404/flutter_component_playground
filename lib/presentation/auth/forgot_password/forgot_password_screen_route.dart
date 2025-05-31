@@ -16,7 +16,7 @@ final class ForgotPasswordScreenRoute extends BaseRouter {
             return buildAnimatedPage(
               child: BlocProvider(
                 create: (context) => di.get<ForgotPasswordBloc>(),
-                child: ForgotPasswordScreen(),
+                child: ForgotPasswordScreen(email: "atik@gmail.com"),
               ),
             );
           },

@@ -11,6 +11,7 @@ import 'package:flutter_component_playground/ui/widgets/app_text_field.dart';
 import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
+import 'package:flutter_component_playground/ui/widgets/text_field_error_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,7 +19,8 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  ForgotPasswordScreen({super.key});
+  final String email;
+  ForgotPasswordScreen({super.key, required this.email});
   final PageController _pageController = PageController();
 
   @override
@@ -169,6 +171,7 @@ class ForgotPasswordScreen extends StatelessWidget {
     return BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
       builder: (context, state) {
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeder(
               context,
@@ -182,19 +185,14 @@ class ForgotPasswordScreen extends StatelessWidget {
             AppTextField(
               hintText: context.getString.hint_enter_email,
               keyboardType: TextInputType.emailAddress,
-              onChanged:(value)=> context.read<ForgotPasswordBloc>().add(
-                    ForgotPasswordEvent.emailChanged(state.email.value),),
+              onChanged: (value) => context.read<ForgotPasswordBloc>().add(
+                    ForgotPasswordEvent.emailChanged(value),
+                  ),
             ),
             if (state.status == ForgotPasswordStatus.error &&
                 state.email.isNotValid)
-              Padding(
-                padding: EdgeInsets.only(top: context.spacingSizes.small),
-                child: Text(
-                  context.getString.error_invalid_email,
-                  style: context.typography.bodyMedium.copyWith(
-                    color: context.materialColors.error,
-                  ),
-                ),
+              TextFieldErrorText(
+                errorMessage: context.getString.error_invalid_email,
               ),
             SpacerBox(
               height: context.spacingSizes.large,
@@ -204,7 +202,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               isLoading: state.status == ForgotPasswordStatus.loading,
               onPressed: () {
                 context.read<ForgotPasswordBloc>().add(
-                      ForgotPasswordEvent.sentOtp(state.email.value),
+                      const ForgotPasswordEvent.sentOtp(),
                     );
               },
             ),
@@ -237,7 +235,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             _buildHeder(
               context,
               context.getString.title_otp,
-              context.getString.msg_forgot_password,
+              context.getString.placeholder_otp_sending_message(email),
               AppImages.imgMessage,
             ),
             SpacerBox(
@@ -245,17 +243,13 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
             Pinput(
               defaultPinTheme: defaultPinTheme,
-              onCompleted: (pin) => print(pin),
+              onCompleted: (pin) => context.read<ForgotPasswordBloc>().add(
+                    ForgotPasswordEvent.otpChanged(pin),
+                  ),
             ),
             if (state.status == ForgotPasswordStatus.error && state.otp.isEmpty)
-              Padding(
-                padding: EdgeInsets.only(top: spacingSizes.small),
-                child: Text(
-                  context.getString.error_message_no_data_found,
-                  style: context.typography.bodyMedium.copyWith(
-                    color: context.materialColors.error,
-                  ),
-                ),
+              TextFieldErrorText(
+                errorMessage: context.getString.error_invalid_otp,
               ),
             SpacerBox(
               height: spacingSizes.large,
@@ -264,11 +258,11 @@ class ForgotPasswordScreen extends StatelessWidget {
               text: context.getString.button_reset_password,
               isLoading: state.status == ForgotPasswordStatus.loading,
               onPressed: () {
+                if(state.status == ForgotPasswordStatus.progressBar) {
+                  return;
+                }
                 context.read<ForgotPasswordBloc>().add(
-                      ForgotPasswordEvent.verifyOtp(
-                        state.email.value,
-                        state.otp,
-                      ),
+                      const ForgotPasswordEvent.verifyOtp(),
                     );
               },
             ),
@@ -286,19 +280,35 @@ class ForgotPasswordScreen extends StatelessWidget {
                 SpacerBox(
                   width: context.spacingSizes.small,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Fluttertoast.showToast(msg: "Resent OTP button clicked");
-                  },
-                  child: Text(
-                    context.getString.text_resend_otp,
+                if (state.isTimerRunning)
+                  Text(
+                    state.remainTime,
                     style: context.typography.bodyMedium.copyWith(
                       color: textColors.primaryTextColor,
                     ),
+                  )
+                else
+                  GestureDetector(
+                    onTap: () {
+                      context.read<ForgotPasswordBloc>().add(
+                            const ForgotPasswordEvent.resentOtp(),
+                          );
+                    },
+                    child: Text(
+                      context.getString.text_resend_otp,
+                      style: context.typography.bodyMedium.copyWith(
+                        color: textColors.primaryTextColor,
+                      ),
+                    ),
                   ),
-                ),
               ],
             ),
+            
+            SpacerBox(
+              height: context.spacingSizes.large,
+            ),
+            if (state.status == ForgotPasswordStatus.progressBar)
+              const CircularProgressIndicator(),
           ],
         );
       },
@@ -330,17 +340,14 @@ class ForgotPasswordScreen extends StatelessWidget {
             AppTextField(
               hintText: context.getString.hint_enter_new_password,
               obscureText: true,
+              onChanged: (value) => context.read<ForgotPasswordBloc>().add(
+                    ForgotPasswordEvent.newPasswordChanged(value),
+                  ),
             ),
             if (state.status == ForgotPasswordStatus.error &&
                 state.newPassword.isNotValid)
-              Padding(
-                padding: EdgeInsets.only(top: context.spacingSizes.small),
-                child: Text(
-                  context.getString.error_invalid_password,
-                  style: context.typography.bodyMedium.copyWith(
-                    color: context.materialColors.error,
-                  ),
-                ),
+              TextFieldErrorText(
+                errorMessage: context.getString.error_invalid_password,
               ),
             SpacerBox(
               height: spacingSizes.base,
@@ -349,18 +356,15 @@ class ForgotPasswordScreen extends StatelessWidget {
               hintText: context.getString.hint_enter_confirm_password,
               obscureText: true,
               textInputAction: TextInputAction.done,
+              onChanged: (value) => context.read<ForgotPasswordBloc>().add(
+                    ForgotPasswordEvent.confirmPasswordChanged(value),
+                  ),
             ),
             if (state.status == ForgotPasswordStatus.error &&
                 (state.confirmPassword.isNotValid ||
                     state.isConfirmPasswordError))
-              Padding(
-                padding: EdgeInsets.only(top: spacingSizes.small),
-                child: Text(
-                  context.getString.error_invalid_email,
-                  style: context.typography.bodyMedium.copyWith(
-                    color: context.materialColors.error,
-                  ),
-                ),
+              TextFieldErrorText(
+                errorMessage: context.getString.error_invalid_confirm_password,
               ),
             SpacerBox(
               height: spacingSizes.large,
@@ -370,17 +374,8 @@ class ForgotPasswordScreen extends StatelessWidget {
               isLoading: state.status == ForgotPasswordStatus.loading,
               onPressed: () {
                 context.read<ForgotPasswordBloc>().add(
-                      ForgotPasswordEvent.resetPassword(
-                        context.read<ForgotPasswordBloc>().state.email.value,
-                        context.read<ForgotPasswordBloc>().state.otp,
-                        context
-                            .read<ForgotPasswordBloc>()
-                            .state
-                            .newPassword
-                            .value,
-                      ),
+                      const ForgotPasswordEvent.resetPassword(),
                     );
-                Fluttertoast.showToast(msg: "Submit button clicked");
               },
             ),
           ],

@@ -190,10 +190,10 @@ class LocalizedStrings {
     );
   }
 
-  /// `Password and confirm password do not match.`
+  /// `Invalid confirm password or Password & confirm password do not match.`
   String get error_invalid_confirm_password {
     return Intl.message(
-      'Password and confirm password do not match.',
+      'Invalid confirm password or Password & confirm password do not match.',
       name: 'error_invalid_confirm_password',
       desc: '',
       args: [],
@@ -215,6 +215,16 @@ class LocalizedStrings {
     return Intl.message(
       'Invalid email, Provide a valid email address.',
       name: 'error_invalid_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid OTP, Provide a valid OTP number.`
+  String get error_invalid_otp {
+    return Intl.message(
+      'Invalid OTP, Provide a valid OTP number.',
+      name: 'error_invalid_otp',
       desc: '',
       args: [],
     );
@@ -267,6 +277,16 @@ class LocalizedStrings {
       name: 'msg_forgot_password',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `We send you an OTP to verify your email. Please enter the OTP to {email}`
+  String placeholder_otp_sending_message(Object email) {
+    return Intl.message(
+      'We send you an OTP to verify your email. Please enter the OTP to $email',
+      name: 'placeholder_otp_sending_message',
+      desc: '',
+      args: [email],
     );
   }
 

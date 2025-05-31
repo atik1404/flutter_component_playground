@@ -360,210 +360,80 @@ class _$OtpChangedCopyWithImpl<$Res> implements $OtpChangedCopyWith<$Res> {
 /// @nodoc
 
 class SendOtp implements ForgotPasswordEvent {
-  const SendOtp(this.phone);
-
-  final String phone;
-
-  /// Create a copy of ForgotPasswordEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $SendOtpCopyWith<SendOtp> get copyWith =>
-      _$SendOtpCopyWithImpl<SendOtp>(this, _$identity);
+  const SendOtp();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is SendOtp &&
-            (identical(other.phone, phone) || other.phone == phone));
+        (other.runtimeType == runtimeType && other is SendOtp);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phone);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'ForgotPasswordEvent.sentOtp(phone: $phone)';
+    return 'ForgotPasswordEvent.sentOtp()';
   }
 }
 
 /// @nodoc
-abstract mixin class $SendOtpCopyWith<$Res>
-    implements $ForgotPasswordEventCopyWith<$Res> {
-  factory $SendOtpCopyWith(SendOtp value, $Res Function(SendOtp) _then) =
-      _$SendOtpCopyWithImpl;
-  @useResult
-  $Res call({String phone});
-}
 
-/// @nodoc
-class _$SendOtpCopyWithImpl<$Res> implements $SendOtpCopyWith<$Res> {
-  _$SendOtpCopyWithImpl(this._self, this._then);
+class ResendOtp implements ForgotPasswordEvent {
+  const ResendOtp();
 
-  final SendOtp _self;
-  final $Res Function(SendOtp) _then;
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ResendOtp);
+  }
 
-  /// Create a copy of ForgotPasswordEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? phone = null,
-  }) {
-    return _then(SendOtp(
-      null == phone
-          ? _self.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'ForgotPasswordEvent.resentOtp()';
   }
 }
 
 /// @nodoc
 
 class VerifyOtp implements ForgotPasswordEvent {
-  const VerifyOtp(this.phone, this.otp);
-
-  final String phone;
-  final String otp;
-
-  /// Create a copy of ForgotPasswordEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $VerifyOtpCopyWith<VerifyOtp> get copyWith =>
-      _$VerifyOtpCopyWithImpl<VerifyOtp>(this, _$identity);
+  const VerifyOtp();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is VerifyOtp &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.otp, otp) || other.otp == otp));
+        (other.runtimeType == runtimeType && other is VerifyOtp);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phone, otp);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'ForgotPasswordEvent.verifyOtp(phone: $phone, otp: $otp)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $VerifyOtpCopyWith<$Res>
-    implements $ForgotPasswordEventCopyWith<$Res> {
-  factory $VerifyOtpCopyWith(VerifyOtp value, $Res Function(VerifyOtp) _then) =
-      _$VerifyOtpCopyWithImpl;
-  @useResult
-  $Res call({String phone, String otp});
-}
-
-/// @nodoc
-class _$VerifyOtpCopyWithImpl<$Res> implements $VerifyOtpCopyWith<$Res> {
-  _$VerifyOtpCopyWithImpl(this._self, this._then);
-
-  final VerifyOtp _self;
-  final $Res Function(VerifyOtp) _then;
-
-  /// Create a copy of ForgotPasswordEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? phone = null,
-    Object? otp = null,
-  }) {
-    return _then(VerifyOtp(
-      null == phone
-          ? _self.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == otp
-          ? _self.otp
-          : otp // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return 'ForgotPasswordEvent.verifyOtp()';
   }
 }
 
 /// @nodoc
 
 class ResetPassword implements ForgotPasswordEvent {
-  const ResetPassword(this.phone, this.token, this.password);
-
-  final String phone;
-  final String token;
-  final String password;
-
-  /// Create a copy of ForgotPasswordEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $ResetPasswordCopyWith<ResetPassword> get copyWith =>
-      _$ResetPasswordCopyWithImpl<ResetPassword>(this, _$identity);
+  const ResetPassword();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ResetPassword &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.token, token) || other.token == token) &&
-            (identical(other.password, password) ||
-                other.password == password));
+        (other.runtimeType == runtimeType && other is ResetPassword);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phone, token, password);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'ForgotPasswordEvent.resetPassword(phone: $phone, token: $token, password: $password)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $ResetPasswordCopyWith<$Res>
-    implements $ForgotPasswordEventCopyWith<$Res> {
-  factory $ResetPasswordCopyWith(
-          ResetPassword value, $Res Function(ResetPassword) _then) =
-      _$ResetPasswordCopyWithImpl;
-  @useResult
-  $Res call({String phone, String token, String password});
-}
-
-/// @nodoc
-class _$ResetPasswordCopyWithImpl<$Res>
-    implements $ResetPasswordCopyWith<$Res> {
-  _$ResetPasswordCopyWithImpl(this._self, this._then);
-
-  final ResetPassword _self;
-  final $Res Function(ResetPassword) _then;
-
-  /// Create a copy of ForgotPasswordEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? phone = null,
-    Object? token = null,
-    Object? password = null,
-  }) {
-    return _then(ResetPassword(
-      null == phone
-          ? _self.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == token
-          ? _self.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == password
-          ? _self.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return 'ForgotPasswordEvent.resetPassword()';
   }
 }
 
