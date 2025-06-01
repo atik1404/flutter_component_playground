@@ -3,7 +3,7 @@ import 'package:flutter_component_playground/common/formvalidator/email_validato
 import 'package:flutter_component_playground/common/formvalidator/name_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/auth/registration_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/profile_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_registration_usecase.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_event.dart';
@@ -121,12 +121,12 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       );
 
       switch (result) {
-        case SuccessResult<RegistrationEntity>():
+        case SuccessResult<ProfileApiEntity>():
           return emit(state.copyWith(
             registrationErrorMessage: "Registration successful!",
             formValidationStatus: FormzSubmissionStatus.initial,
           ));
-        case FailureResult<RegistrationEntity>():
+        case FailureResult<ProfileApiEntity>():
           return emit(state.copyWith(
             formValidationStatus: FormzSubmissionStatus.failure,
             registrationErrorMessage: result.exception.description,

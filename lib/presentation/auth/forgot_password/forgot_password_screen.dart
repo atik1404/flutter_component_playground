@@ -14,13 +14,12 @@ import 'package:flutter_component_playground/localization/localize_extension.dar
 import 'package:flutter_component_playground/ui/widgets/text_field_error_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  final String email;
-  ForgotPasswordScreen({super.key, required this.email});
+  ForgotPasswordScreen({super.key,});
+
   final PageController _pageController = PageController();
 
   @override
@@ -28,8 +27,8 @@ class ForgotPasswordScreen extends StatelessWidget {
     final screenSize = MediaQuery.sizeOf(context);
 
     return BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
-      listenWhen: (previous, current) =>
-          previous.currentPageIndex != current.currentPageIndex,
+      listenWhen: (prev, curr) =>
+          prev.currentPageIndex != curr.currentPageIndex,
       listener: (context, state) {
         _pageController.animateToPage(
           state.currentPageIndex,
@@ -38,33 +37,14 @@ class ForgotPasswordScreen extends StatelessWidget {
         );
       },
       child: ScaffoldAppbar(
-        body: Container(
+        body: Padding(
           padding: EdgeInsets.all(context.spacingSizes.base),
-          width: double.infinity,
           child: Column(
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.pop();
-                    },
-                    child: SvgPicture.asset(
-                      AppIcons.icBack,
-                      width: 30.w,
-                      height: 30.h,
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-              SpacerBox(
-                height: screenSize.height * 0.05,
-              ),
+              _buildTopBar(context),
+              SpacerBox(height: screenSize.height * 0.05),
               _buildPageIndicator(context),
-              SpacerBox(
-                height: 25.h,
-              ),
+              SpacerBox(height: 25.h),
               _buildPagerView(),
             ],
           ),
@@ -73,81 +53,33 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPagerView() {
-    return Expanded(
-      child: PageView.builder(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return _buildPhoneNumberUi();
-          } else if (index == 1) {
-            return _buildEnterOtpUi(context);
-          } else {
-            return _buildResetPasswordUi(context);
-          }
-        },
-        onPageChanged: (index) {},
-      ),
-    );
-  }
-
-  Widget _buildHeder(
-    BuildContext context,
-    String title,
-    String subTitle,
-    String imagePath,
-  ) {
-    final spacingSizes = context.spacingSizes;
-
-    return Column(
+  /// Top navigation row with back button
+  Widget _buildTopBar(BuildContext context) {
+    return Row(
       children: [
-        SpacerBox(
-          height: spacingSizes.large,
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(context.shapeRadius.base),
-          child: Image.asset(
-            imagePath,
-            width: 110,
-            height: 110,
-            fit: BoxFit.fill,
+        GestureDetector(
+          onTap: () => context.pop(),
+          child: SvgPicture.asset(
+            AppIcons.icBack,
+            width: 30.w,
+            height: 30.h,
           ),
         ),
-        SpacerBox(
-          height: spacingSizes.large,
-        ),
-        Text(
-          title,
-          style: context.typography.titleLargeBold
-              .copyWith(color: context.textColors.primaryTextColor),
-        ),
-        SpacerBox(
-          height: context.spacingSizes.base,
-        ),
-        Text(
-          subTitle,
-          style: context.typography.bodyMediumLight
-              .copyWith(color: context.materialColors.onPrimaryContainer),
-          textAlign: TextAlign.center,
-        ),
-        SpacerBox(
-          height: spacingSizes.large,
-        ),
+        const Spacer(),
       ],
     );
   }
 
+  /// Step indicator based on current page index from bloc
   Widget _buildPageIndicator(BuildContext context) {
-    final materialColors = context.materialColors;
+    final colors = context.materialColors;
 
     return BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
-      builder: (context, state) {
+      builder: (_, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(3, (index) {
-            final isCurrentPage = index == state.currentPageIndex;
+          children: List.generate(3, (i) {
+            final isActive = i == state.currentPageIndex;
 
             return AnimatedContainer(
               duration: const Duration(milliseconds: 300),
@@ -155,8 +87,8 @@ class ForgotPasswordScreen extends StatelessWidget {
               width: 30.w,
               height: 3.h,
               decoration: BoxDecoration(
-                color: isCurrentPage
-                    ? materialColors.primary
+                color: isActive
+                    ? colors.primary
                     : context.strokeColors.primaryStrokeColor,
                 borderRadius: BorderRadius.circular(5.r),
               ),
@@ -167,20 +99,75 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 
+  /// View pager controlling screen steps (1-3)
+  Widget _buildPagerView() {
+    return Expanded(
+      child: PageView.builder(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return _buildPhoneNumberUi();
+            case 1:
+              return _buildEnterOtpUi(context);
+            default:
+              return _buildResetPasswordUi();
+          }
+        },
+      ),
+    );
+  }
+
+  /// Reusable header widget with icon, title, and subtitle
+  Widget _buildHeader(
+    BuildContext context,
+    String title,
+    String subtitle,
+    String image,
+  ) {
+    final spacingSizes = context.spacingSizes;
+
+    return Column(
+      children: [
+        SpacerBox(height: spacingSizes.large),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(context.shapeRadius.base),
+          child: Image.asset(image, width: 110, height: 110, fit: BoxFit.fill),
+        ),
+        SpacerBox(height: spacingSizes.large),
+        Text(
+          title,
+          style: context.typography.titleLargeBold.copyWith(
+            color: context.textColors.primaryTextColor,
+          ),
+        ),
+        SpacerBox(height: spacingSizes.base),
+        Text(
+          subtitle,
+          style: context.typography.bodyMediumLight.copyWith(
+            color: context.materialColors.onPrimaryContainer,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SpacerBox(height: context.spacingSizes.large),
+      ],
+    );
+  }
+
+  /// Step 1: Email/Phone input
   Widget _buildPhoneNumberUi() {
     return BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeder(
+            _buildHeader(
               context,
               context.getString.title_forgot_password,
               context.getString.msg_forgot_password,
               AppImages.imgMessage,
-            ),
-            SpacerBox(
-              height: context.spacingSizes.base,
             ),
             AppTextField(
               hintText: context.getString.hint_enter_email,
@@ -194,17 +181,13 @@ class ForgotPasswordScreen extends StatelessWidget {
               TextFieldErrorText(
                 errorMessage: context.getString.error_invalid_email,
               ),
-            SpacerBox(
-              height: context.spacingSizes.large,
-            ),
+            SpacerBox(height: context.spacingSizes.large),
             AppButton(
               text: context.getString.button_continue,
               isLoading: state.status == ForgotPasswordStatus.loading,
-              onPressed: () {
-                context.read<ForgotPasswordBloc>().add(
-                      const ForgotPasswordEvent.sentOtp(),
-                    );
-              },
+              onPressed: () => context.read<ForgotPasswordBloc>().add(
+                    const ForgotPasswordEvent.sentOtp(),
+                  ),
             ),
           ],
         );
@@ -212,15 +195,18 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 
+  /// Step 2: OTP verification input
   Widget _buildEnterOtpUi(BuildContext context) {
-    final textColors = context.textColors;
+    final typography = context.typography;
     final spacingSizes = context.spacingSizes;
+    final textColors = context.textColors;
 
     final defaultPinTheme = PinTheme(
       width: 56.w,
       height: 56.h,
-      textStyle: context.typography.titleLargeBold
-          .copyWith(color: textColors.primaryTextColor),
+      textStyle: typography.titleLargeBold.copyWith(
+        color: textColors.primaryTextColor,
+      ),
       decoration: BoxDecoration(
         color: context.backgroundColors.primaryBackgroundColor,
         border: Border.all(color: context.strokeColors.primaryStrokeColor),
@@ -232,14 +218,11 @@ class ForgotPasswordScreen extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
-            _buildHeder(
+            _buildHeader(
               context,
               context.getString.title_otp,
-              context.getString.placeholder_otp_sending_message(email),
+              context.getString.placeholder_otp_sending_message(state.email.value),
               AppImages.imgMessage,
-            ),
-            SpacerBox(
-              height: spacingSizes.base,
             ),
             Pinput(
               defaultPinTheme: defaultPinTheme,
@@ -247,66 +230,25 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ForgotPasswordEvent.otpChanged(pin),
                   ),
             ),
-            if (state.status == ForgotPasswordStatus.error && state.otp.isEmpty)
+            if (state.status == ForgotPasswordStatus.error &&
+                state.otp.isNotValid)
               TextFieldErrorText(
                 errorMessage: context.getString.error_invalid_otp,
               ),
-            SpacerBox(
-              height: spacingSizes.large,
-            ),
+            SpacerBox(height: spacingSizes.large),
             AppButton(
               text: context.getString.button_reset_password,
               isLoading: state.status == ForgotPasswordStatus.loading,
               onPressed: () {
-                if(state.status == ForgotPasswordStatus.progressBar) {
-                  return;
+                if (state.status != ForgotPasswordStatus.progressBar) {
+                  context.read<ForgotPasswordBloc>().add(
+                        const ForgotPasswordEvent.verifyOtp(),
+                      );
                 }
-                context.read<ForgotPasswordBloc>().add(
-                      const ForgotPasswordEvent.verifyOtp(),
-                    );
               },
             ),
-            SpacerBox(
-              height: context.spacingSizes.large,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  context.getString.text_dont_have_account,
-                  style: context.typography.bodyMediumLight
-                      .copyWith(color: textColors.primaryTextColor),
-                ),
-                SpacerBox(
-                  width: context.spacingSizes.small,
-                ),
-                if (state.isTimerRunning)
-                  Text(
-                    state.remainTime,
-                    style: context.typography.bodyMedium.copyWith(
-                      color: textColors.primaryTextColor,
-                    ),
-                  )
-                else
-                  GestureDetector(
-                    onTap: () {
-                      context.read<ForgotPasswordBloc>().add(
-                            const ForgotPasswordEvent.resentOtp(),
-                          );
-                    },
-                    child: Text(
-                      context.getString.text_resend_otp,
-                      style: context.typography.bodyMedium.copyWith(
-                        color: textColors.primaryTextColor,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-            
-            SpacerBox(
-              height: context.spacingSizes.large,
-            ),
+            SpacerBox(height: spacingSizes.large),
+            _buildOtpTimerOrResend(context, state),
             if (state.status == ForgotPasswordStatus.progressBar)
               const CircularProgressIndicator(),
           ],
@@ -315,27 +257,60 @@ class ForgotPasswordScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildResetPasswordUi(BuildContext context) {
-    final spacingSizes = context.spacingSizes;
+  /// Timer countdown or resend button
+  Widget _buildOtpTimerOrResend(
+    BuildContext context,
+    ForgotPasswordState state,
+  ) {
+    final text = context.textColors;
+    final typography = context.typography;
 
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          context.getString.text_dont_have_account,
+          style:
+              typography.bodyMediumLight.copyWith(color: text.primaryTextColor),
+        ),
+        SpacerBox(width: context.spacingSizes.small),
+        if (state.isTimerRunning)
+          Text(
+            state.remainTime,
+            style: typography.bodyMedium.copyWith(color: text.primaryTextColor),
+          )
+        else
+          GestureDetector(
+            onTap: () {
+              context.read<ForgotPasswordBloc>().add(
+                    const ForgotPasswordEvent.resentOtp(),
+                  );
+            },
+            child: Text(
+              context.getString.text_resend_otp,
+              style: typography.bodyMediumSemiBold
+                  .copyWith(color: text.primaryTextColor),
+            ),
+          ),
+      ],
+    );
+  }
+
+  /// Step 3: Reset password input
+  Widget _buildResetPasswordUi() {
     return BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
       builder: (context, state) {
         if (state.status == ForgotPasswordStatus.success) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.pop();
-          });
+          WidgetsBinding.instance.addPostFrameCallback((_) => context.pop());
         }
 
         return Column(
           children: [
-            _buildHeder(
+            _buildHeader(
               context,
               context.getString.title_reset_password,
               context.getString.msg_forgot_password,
               AppImages.imgResetPassword,
-            ),
-            SpacerBox(
-              height: spacingSizes.base,
             ),
             AppTextField(
               hintText: context.getString.hint_enter_new_password,
@@ -349,9 +324,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               TextFieldErrorText(
                 errorMessage: context.getString.error_invalid_password,
               ),
-            SpacerBox(
-              height: spacingSizes.base,
-            ),
+            SpacerBox(height: context.spacingSizes.base),
             AppTextField(
               hintText: context.getString.hint_enter_confirm_password,
               obscureText: true,
@@ -366,17 +339,13 @@ class ForgotPasswordScreen extends StatelessWidget {
               TextFieldErrorText(
                 errorMessage: context.getString.error_invalid_confirm_password,
               ),
-            SpacerBox(
-              height: spacingSizes.large,
-            ),
+            SpacerBox(height: context.spacingSizes.large),
             AppButton(
               text: context.getString.button_sumit,
               isLoading: state.status == ForgotPasswordStatus.loading,
-              onPressed: () {
-                context.read<ForgotPasswordBloc>().add(
-                      const ForgotPasswordEvent.resetPassword(),
-                    );
-              },
+              onPressed: () => context.read<ForgotPasswordBloc>().add(
+                    const ForgotPasswordEvent.resetPassword(),
+                  ),
             ),
           ],
         );

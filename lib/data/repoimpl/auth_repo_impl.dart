@@ -3,10 +3,10 @@ import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/data/datasources/remote/auth_api_services.dart';
 import 'package:flutter_component_playground/data/mappers/auth/forgot_password_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/login_api_mapper.dart';
-import 'package:flutter_component_playground/data/mappers/auth/registration_api_mapper.dart';
+import 'package:flutter_component_playground/data/mappers/auth/profile_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/verify_otp_api_mapper.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/auth/login_entity.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/auth/registration_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/profile_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/auth/verify_otp_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
 import 'package:flutter_component_playground/domain/entities/params/login_params.dart';
@@ -18,19 +18,19 @@ import 'package:flutter_component_playground/domain/repositories/auth_repository
 final class AuthRepoImpl extends AuthRepository {
   final AuthApiServices _authApiServices;
   final LoginApiMapper _loginApiMapper;
-  final RegistrationApiMapper _registrationApiMapper;
+  final ProfileApiMapper _profileApiMapper;
   final ForgotPasswordApiMapper _forgotPasswordApiMapper;
   final VerifyOtpApiMapper _verifyOtpApiMapper;
 
   AuthRepoImpl({
     required AuthApiServices authApiServices,
     required LoginApiMapper loginApiMapper,
-    required RegistrationApiMapper registrationApiMapper,
+    required ProfileApiMapper registrationApiMapper,
     required ForgotPasswordApiMapper forgotPasswordApiMapper,
     required VerifyOtpApiMapper verifyOtpApiMapper,
   })  : _authApiServices = authApiServices,
         _loginApiMapper = loginApiMapper,
-        _registrationApiMapper = registrationApiMapper,
+        _profileApiMapper = registrationApiMapper,
         _forgotPasswordApiMapper = forgotPasswordApiMapper,
         _verifyOtpApiMapper = verifyOtpApiMapper;
 
@@ -43,13 +43,21 @@ final class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  Future<Result<RegistrationEntity>> userRegistration(
+  Future<Result<ProfileApiEntity>> fetchProfile() async {
+    final response = await _authApiServices.fetchProfile();
+
+    return ResponseTransformer()
+        .transform(response: response, mapper: _profileApiMapper);
+  }
+
+  @override
+  Future<Result<ProfileApiEntity>> userRegistration(
     RegistrationParams params,
   ) async {
     final response = await _authApiServices.userRegistration(params);
 
     return ResponseTransformer()
-        .transform(response: response, mapper: _registrationApiMapper);
+        .transform(response: response, mapper: _profileApiMapper);
   }
 
   @override

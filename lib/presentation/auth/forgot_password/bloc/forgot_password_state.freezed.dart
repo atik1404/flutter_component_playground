@@ -17,11 +17,9 @@ T _$identity<T>(T value) => value;
 mixin _$ForgotPasswordState {
   int get currentPageIndex;
   EmailValidator get email;
-  String get otp;
+  OtpValidator get otp;
   String get remainTime;
   bool get isTimerRunning;
-  String get errorMessage;
-  bool get isErrorMessageVisible;
   PasswordValidator get newPassword;
   PasswordValidator get confirmPassword;
   bool get isConfirmPasswordError;
@@ -49,10 +47,6 @@ mixin _$ForgotPasswordState {
                 other.remainTime == remainTime) &&
             (identical(other.isTimerRunning, isTimerRunning) ||
                 other.isTimerRunning == isTimerRunning) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            (identical(other.isErrorMessageVisible, isErrorMessageVisible) ||
-                other.isErrorMessageVisible == isErrorMessageVisible) &&
             (identical(other.newPassword, newPassword) ||
                 other.newPassword == newPassword) &&
             (identical(other.confirmPassword, confirmPassword) ||
@@ -72,8 +66,6 @@ mixin _$ForgotPasswordState {
       otp,
       remainTime,
       isTimerRunning,
-      errorMessage,
-      isErrorMessageVisible,
       newPassword,
       confirmPassword,
       isConfirmPasswordError,
@@ -82,7 +74,7 @@ mixin _$ForgotPasswordState {
 
   @override
   String toString() {
-    return 'ForgotPasswordState(currentPageIndex: $currentPageIndex, email: $email, otp: $otp, remainTime: $remainTime, isTimerRunning: $isTimerRunning, errorMessage: $errorMessage, isErrorMessageVisible: $isErrorMessageVisible, newPassword: $newPassword, confirmPassword: $confirmPassword, isConfirmPasswordError: $isConfirmPasswordError, status: $status, currentPage: $currentPage)';
+    return 'ForgotPasswordState(currentPageIndex: $currentPageIndex, email: $email, otp: $otp, remainTime: $remainTime, isTimerRunning: $isTimerRunning, newPassword: $newPassword, confirmPassword: $confirmPassword, isConfirmPasswordError: $isConfirmPasswordError, status: $status, currentPage: $currentPage)';
   }
 }
 
@@ -95,11 +87,9 @@ abstract mixin class $ForgotPasswordStateCopyWith<$Res> {
   $Res call(
       {int currentPageIndex,
       EmailValidator email,
-      String otp,
+      OtpValidator otp,
       String remainTime,
       bool isTimerRunning,
-      String errorMessage,
-      bool isErrorMessageVisible,
       PasswordValidator newPassword,
       PasswordValidator confirmPassword,
       bool isConfirmPasswordError,
@@ -125,8 +115,6 @@ class _$ForgotPasswordStateCopyWithImpl<$Res>
     Object? otp = null,
     Object? remainTime = null,
     Object? isTimerRunning = null,
-    Object? errorMessage = null,
-    Object? isErrorMessageVisible = null,
     Object? newPassword = null,
     Object? confirmPassword = null,
     Object? isConfirmPasswordError = null,
@@ -145,7 +133,7 @@ class _$ForgotPasswordStateCopyWithImpl<$Res>
       otp: null == otp
           ? _self.otp
           : otp // ignore: cast_nullable_to_non_nullable
-              as String,
+              as OtpValidator,
       remainTime: null == remainTime
           ? _self.remainTime
           : remainTime // ignore: cast_nullable_to_non_nullable
@@ -153,14 +141,6 @@ class _$ForgotPasswordStateCopyWithImpl<$Res>
       isTimerRunning: null == isTimerRunning
           ? _self.isTimerRunning
           : isTimerRunning // ignore: cast_nullable_to_non_nullable
-              as bool,
-      errorMessage: null == errorMessage
-          ? _self.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String,
-      isErrorMessageVisible: null == isErrorMessageVisible
-          ? _self.isErrorMessageVisible
-          : isErrorMessageVisible // ignore: cast_nullable_to_non_nullable
               as bool,
       newPassword: null == newPassword
           ? _self.newPassword
@@ -192,11 +172,9 @@ class _ForgotPasswordState implements ForgotPasswordState {
   const _ForgotPasswordState(
       {this.currentPageIndex = 0,
       this.email = const EmailValidator.pure(),
-      this.otp = '',
+      this.otp = const OtpValidator.pure(),
       this.remainTime = '',
       this.isTimerRunning = true,
-      this.errorMessage = '',
-      this.isErrorMessageVisible = false,
       this.newPassword = const PasswordValidator.pure(),
       this.confirmPassword = const PasswordValidator.pure(),
       this.isConfirmPasswordError = false,
@@ -211,19 +189,13 @@ class _ForgotPasswordState implements ForgotPasswordState {
   final EmailValidator email;
   @override
   @JsonKey()
-  final String otp;
+  final OtpValidator otp;
   @override
   @JsonKey()
   final String remainTime;
   @override
   @JsonKey()
   final bool isTimerRunning;
-  @override
-  @JsonKey()
-  final String errorMessage;
-  @override
-  @JsonKey()
-  final bool isErrorMessageVisible;
   @override
   @JsonKey()
   final PasswordValidator newPassword;
@@ -262,10 +234,6 @@ class _ForgotPasswordState implements ForgotPasswordState {
                 other.remainTime == remainTime) &&
             (identical(other.isTimerRunning, isTimerRunning) ||
                 other.isTimerRunning == isTimerRunning) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            (identical(other.isErrorMessageVisible, isErrorMessageVisible) ||
-                other.isErrorMessageVisible == isErrorMessageVisible) &&
             (identical(other.newPassword, newPassword) ||
                 other.newPassword == newPassword) &&
             (identical(other.confirmPassword, confirmPassword) ||
@@ -285,8 +253,6 @@ class _ForgotPasswordState implements ForgotPasswordState {
       otp,
       remainTime,
       isTimerRunning,
-      errorMessage,
-      isErrorMessageVisible,
       newPassword,
       confirmPassword,
       isConfirmPasswordError,
@@ -295,7 +261,7 @@ class _ForgotPasswordState implements ForgotPasswordState {
 
   @override
   String toString() {
-    return 'ForgotPasswordState(currentPageIndex: $currentPageIndex, email: $email, otp: $otp, remainTime: $remainTime, isTimerRunning: $isTimerRunning, errorMessage: $errorMessage, isErrorMessageVisible: $isErrorMessageVisible, newPassword: $newPassword, confirmPassword: $confirmPassword, isConfirmPasswordError: $isConfirmPasswordError, status: $status, currentPage: $currentPage)';
+    return 'ForgotPasswordState(currentPageIndex: $currentPageIndex, email: $email, otp: $otp, remainTime: $remainTime, isTimerRunning: $isTimerRunning, newPassword: $newPassword, confirmPassword: $confirmPassword, isConfirmPasswordError: $isConfirmPasswordError, status: $status, currentPage: $currentPage)';
   }
 }
 
@@ -310,11 +276,9 @@ abstract mixin class _$ForgotPasswordStateCopyWith<$Res>
   $Res call(
       {int currentPageIndex,
       EmailValidator email,
-      String otp,
+      OtpValidator otp,
       String remainTime,
       bool isTimerRunning,
-      String errorMessage,
-      bool isErrorMessageVisible,
       PasswordValidator newPassword,
       PasswordValidator confirmPassword,
       bool isConfirmPasswordError,
@@ -340,8 +304,6 @@ class __$ForgotPasswordStateCopyWithImpl<$Res>
     Object? otp = null,
     Object? remainTime = null,
     Object? isTimerRunning = null,
-    Object? errorMessage = null,
-    Object? isErrorMessageVisible = null,
     Object? newPassword = null,
     Object? confirmPassword = null,
     Object? isConfirmPasswordError = null,
@@ -360,7 +322,7 @@ class __$ForgotPasswordStateCopyWithImpl<$Res>
       otp: null == otp
           ? _self.otp
           : otp // ignore: cast_nullable_to_non_nullable
-              as String,
+              as OtpValidator,
       remainTime: null == remainTime
           ? _self.remainTime
           : remainTime // ignore: cast_nullable_to_non_nullable
@@ -368,14 +330,6 @@ class __$ForgotPasswordStateCopyWithImpl<$Res>
       isTimerRunning: null == isTimerRunning
           ? _self.isTimerRunning
           : isTimerRunning // ignore: cast_nullable_to_non_nullable
-              as bool,
-      errorMessage: null == errorMessage
-          ? _self.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String,
-      isErrorMessageVisible: null == isErrorMessageVisible
-          ? _self.isErrorMessageVisible
-          : isErrorMessageVisible // ignore: cast_nullable_to_non_nullable
               as bool,
       newPassword: null == newPassword
           ? _self.newPassword

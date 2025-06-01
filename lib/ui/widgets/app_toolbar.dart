@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 
-class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
+class AppToolbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool isBackButtonVisible;
   final VoidCallback? onClickBackButton;
 
-  const CommonAppbar({
+  const AppToolbar({
     super.key,
     required this.title,
     this.isBackButtonVisible = true,

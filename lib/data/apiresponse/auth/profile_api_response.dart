@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'registration_api_response.g.dart';
+part 'profile_api_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class RegistrationApiResponse {
+class ProfileApiResponse {
   final int? id;
   final String? email;
   final String? password;
@@ -12,7 +12,7 @@ class RegistrationApiResponse {
   final String? creationAt;
   final String? updatedAt;
 
-  RegistrationApiResponse({
+  ProfileApiResponse({
     this.id,
     this.email,
     this.password,
@@ -23,8 +23,8 @@ class RegistrationApiResponse {
     this.updatedAt,
   });
 
-  factory RegistrationApiResponse.fromJson(Map<String, dynamic> json) =>
-      _$RegistrationApiResponseFromJson(json);
+  factory ProfileApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$ProfileApiResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RegistrationApiResponseToJson(this);
+  Map<String, dynamic> toJson() => _$ProfileApiResponseToJson(this);
 }

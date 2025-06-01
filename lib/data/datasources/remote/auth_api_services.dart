@@ -3,7 +3,7 @@ import 'package:flutter_component_playground/core/network/network_exception.dart
 import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/forgot_password_api_response.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/login_api_response.dart';
-import 'package:flutter_component_playground/data/apiresponse/auth/registration_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/auth/profile_api_response.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/verify_otp_api_response.dart';
 import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
 import 'package:flutter_component_playground/domain/entities/params/login_params.dart';
@@ -26,13 +26,23 @@ class AuthApiServices {
     }
   }
 
-  Future<Result<RegistrationApiResponse>> userRegistration(
+  Future<Result<ProfileApiResponse>> userRegistration(
     RegistrationParams params,
   ) async {
     try {
       final response = await dio.post("v1/users", data: params.toJson());
 
-      return SuccessResult(RegistrationApiResponse.fromJson(response.data));
+      return SuccessResult(ProfileApiResponse.fromJson(response.data));
+    } on NetworkException catch (e) {
+      return FailureResult(e);
+    }
+  }
+
+  Future<Result<ProfileApiResponse>> fetchProfile() async {
+    try {
+      final response = await dio.post("v1/users");
+
+      return SuccessResult(ProfileApiResponse.fromJson(response.data));
     } on NetworkException catch (e) {
       return FailureResult(e);
     }

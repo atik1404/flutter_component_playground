@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'registration_api_response.dart';
+part of 'profile_api_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegistrationApiResponse _$RegistrationApiResponseFromJson(
-        Map<String, dynamic> json) =>
-    RegistrationApiResponse(
+ProfileApiResponse _$ProfileApiResponseFromJson(Map<String, dynamic> json) =>
+    ProfileApiResponse(
       id: (json['id'] as num?)?.toInt(),
       email: json['email'] as String?,
       password: json['password'] as String?,
@@ -19,8 +18,7 @@ RegistrationApiResponse _$RegistrationApiResponseFromJson(
       updatedAt: json['updatedAt'] as String?,
     );
 
-Map<String, dynamic> _$RegistrationApiResponseToJson(
-        RegistrationApiResponse instance) =>
+Map<String, dynamic> _$ProfileApiResponseToJson(ProfileApiResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,

@@ -1,4 +1,5 @@
 import 'package:flutter_component_playground/common/formvalidator/email_validator.dart';
+import 'package:flutter_component_playground/common/formvalidator/otp_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,11 +10,9 @@ abstract class ForgotPasswordState with _$ForgotPasswordState {
   const factory ForgotPasswordState({
     @Default(0) int currentPageIndex,
     @Default(EmailValidator.pure()) EmailValidator email,
-    @Default('') String otp,
+    @Default(OtpValidator.pure()) OtpValidator otp,
     @Default('') String remainTime,
     @Default(true) bool isTimerRunning,
-    @Default('') String errorMessage,
-    @Default(false) bool isErrorMessageVisible,
     @Default(PasswordValidator.pure()) PasswordValidator newPassword,
     @Default(PasswordValidator.pure()) PasswordValidator confirmPassword,
     @Default(false) bool isConfirmPasswordError,
