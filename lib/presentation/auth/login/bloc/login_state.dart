@@ -13,6 +13,7 @@ abstract class LoginState with _$LoginState {
     @Default(FormzSubmissionStatus.initial)
     FormzSubmissionStatus formValidationStatus,
     @Default(false) bool isErrorVisible,
-    @Default('') String loginErrorMessage,
+    @Default(false) bool showErrorUi,
+    @Default('') String errorMessage,
   }) = _LoginState;
 }

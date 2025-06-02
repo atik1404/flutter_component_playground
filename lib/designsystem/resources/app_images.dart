@@ -14,5 +14,5 @@ final class AppImages {
       "https://www.bu.edu/cgs/files/2011/10/Inception-Banner-2.jpg";
   static const moviePoster =
       "https://m.media-amazon.com/images/I/61CRq2R6i4L._AC_SL1024_.jpg";
-  static const imgError = "assets/images/img_error_ui.jpg";
+  static const imgError = "assets/images/img_error.svg";
 }

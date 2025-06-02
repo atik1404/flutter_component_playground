@@ -40,7 +40,7 @@ class AuthApiServices {
 
   Future<Result<ProfileApiResponse>> fetchProfile() async {
     try {
-      final response = await dio.post("v1/users");
+      final response = await dio.get("v1/auth/profile");
 
       return SuccessResult(ProfileApiResponse.fromJson(response.data));
     } on NetworkException catch (e) {

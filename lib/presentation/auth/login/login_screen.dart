@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/ui/common/error_ui.dart';
 import 'package:flutter_component_playground/ui/widgets/app_button.dart';
 import 'package:flutter_component_playground/ui/widgets/app_text_field.dart';
 import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
@@ -26,45 +27,53 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final spacing = context.spacingSizes;
 
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.formValidationStatus.isSuccess) {
-          Fluttertoast.showToast(msg: "Login Successful, go to home screen");
+          context.goNamed(AppRoute.homeScreen);
         } else if (state.formValidationStatus.isFailure) {
-          if (state.loginErrorMessage.isNotEmpty) {
-            Fluttertoast.showToast(msg: state.loginErrorMessage);
+          if (state.errorMessage.isNotEmpty) {
+            Fluttertoast.showToast(msg: state.errorMessage);
           }
         }
       },
-      child: ScaffoldAppbar(
-        reisizeToAvoidBottomInset: true,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            padding: EdgeInsets.all(spacing.large),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildLogo(context),
-                SpacerBox(height: spacing.large),
-                _buildTitle(context),
-                SpacerBox(height: spacing.large),
-                _buildSocialRow(context),
-                SpacerBox(height: spacing.large),
-                _buildDivider(context),
-                SpacerBox(height: spacing.large),
-                _buildForm(context),
-                SpacerBox(height: spacing.base),
-                _buildForgotPassword(context),
-                SpacerBox(height: spacing.large),
-                _buildLoginButton(),
-                SpacerBox(height: spacing.base),
-                _buildSignUpText(context),
-              ],
-            ),
+      builder: (context, state) {
+        return ScaffoldAppbar(
+          reisizeToAvoidBottomInset: true,
+          body: SafeArea(
+            child: state.showErrorUi
+                ? ErrorUi(
+                    errorMessage: state.errorMessage,
+                    onRetry: () {
+                      context.read<LoginBloc>().add(const FetchProfile());
+                    },)
+                : SingleChildScrollView(
+                    physics: const ClampingScrollPhysics(),
+                    padding: EdgeInsets.all(spacing.large),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _buildLogo(context),
+                        SpacerBox(height: spacing.large),
+                        _buildTitle(context),
+                        SpacerBox(height: spacing.large),
+                        _buildSocialRow(context),
+                        SpacerBox(height: spacing.large),
+                        _buildDivider(context),
+                        SpacerBox(height: spacing.large),
+                        _buildForm(context),
+                        SpacerBox(height: spacing.base),
+                        _buildForgotPassword(context),
+                        SpacerBox(height: spacing.large),
+                        _buildLoginButton(),
+                        SpacerBox(height: spacing.base),
+                        _buildSignUpText(context),
+                      ],
+                    ),
+                  ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

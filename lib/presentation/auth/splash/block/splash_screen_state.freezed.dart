@@ -16,6 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SplashScreenState {
   bool get isLoading;
+  String get errorMessage;
+  bool get showErrorUi;
   bool get shouldNavigateToLoginScreen;
   bool get shouldNavigateToHomeScreen;
   bool get shouldNavigateToOnboardingScreen;
@@ -35,6 +37,10 @@ mixin _$SplashScreenState {
             other is SplashScreenState &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.showErrorUi, showErrorUi) ||
+                other.showErrorUi == showErrorUi) &&
             (identical(other.shouldNavigateToLoginScreen,
                     shouldNavigateToLoginScreen) ||
                 other.shouldNavigateToLoginScreen ==
@@ -53,13 +59,15 @@ mixin _$SplashScreenState {
   int get hashCode => Object.hash(
       runtimeType,
       isLoading,
+      errorMessage,
+      showErrorUi,
       shouldNavigateToLoginScreen,
       shouldNavigateToHomeScreen,
       shouldNavigateToOnboardingScreen);
 
   @override
   String toString() {
-    return 'SplashScreenState(isLoading: $isLoading, shouldNavigateToLoginScreen: $shouldNavigateToLoginScreen, shouldNavigateToHomeScreen: $shouldNavigateToHomeScreen, shouldNavigateToOnboardingScreen: $shouldNavigateToOnboardingScreen)';
+    return 'SplashScreenState(isLoading: $isLoading, errorMessage: $errorMessage, showErrorUi: $showErrorUi, shouldNavigateToLoginScreen: $shouldNavigateToLoginScreen, shouldNavigateToHomeScreen: $shouldNavigateToHomeScreen, shouldNavigateToOnboardingScreen: $shouldNavigateToOnboardingScreen)';
   }
 }
 
@@ -71,6 +79,8 @@ abstract mixin class $SplashScreenStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
+      String errorMessage,
+      bool showErrorUi,
       bool shouldNavigateToLoginScreen,
       bool shouldNavigateToHomeScreen,
       bool shouldNavigateToOnboardingScreen});
@@ -90,6 +100,8 @@ class _$SplashScreenStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? errorMessage = null,
+    Object? showErrorUi = null,
     Object? shouldNavigateToLoginScreen = null,
     Object? shouldNavigateToHomeScreen = null,
     Object? shouldNavigateToOnboardingScreen = null,
@@ -98,6 +110,14 @@ class _$SplashScreenStateCopyWithImpl<$Res>
       isLoading: null == isLoading
           ? _self.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _self.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      showErrorUi: null == showErrorUi
+          ? _self.showErrorUi
+          : showErrorUi // ignore: cast_nullable_to_non_nullable
               as bool,
       shouldNavigateToLoginScreen: null == shouldNavigateToLoginScreen
           ? _self.shouldNavigateToLoginScreen
@@ -120,6 +140,8 @@ class _$SplashScreenStateCopyWithImpl<$Res>
 class _SplashScreenState implements SplashScreenState {
   const _SplashScreenState(
       {this.isLoading = false,
+      this.errorMessage = '',
+      this.showErrorUi = false,
       this.shouldNavigateToLoginScreen = false,
       this.shouldNavigateToHomeScreen = false,
       this.shouldNavigateToOnboardingScreen = false});
@@ -127,6 +149,12 @@ class _SplashScreenState implements SplashScreenState {
   @override
   @JsonKey()
   final bool isLoading;
+  @override
+  @JsonKey()
+  final String errorMessage;
+  @override
+  @JsonKey()
+  final bool showErrorUi;
   @override
   @JsonKey()
   final bool shouldNavigateToLoginScreen;
@@ -152,6 +180,10 @@ class _SplashScreenState implements SplashScreenState {
             other is _SplashScreenState &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.showErrorUi, showErrorUi) ||
+                other.showErrorUi == showErrorUi) &&
             (identical(other.shouldNavigateToLoginScreen,
                     shouldNavigateToLoginScreen) ||
                 other.shouldNavigateToLoginScreen ==
@@ -170,13 +202,15 @@ class _SplashScreenState implements SplashScreenState {
   int get hashCode => Object.hash(
       runtimeType,
       isLoading,
+      errorMessage,
+      showErrorUi,
       shouldNavigateToLoginScreen,
       shouldNavigateToHomeScreen,
       shouldNavigateToOnboardingScreen);
 
   @override
   String toString() {
-    return 'SplashScreenState(isLoading: $isLoading, shouldNavigateToLoginScreen: $shouldNavigateToLoginScreen, shouldNavigateToHomeScreen: $shouldNavigateToHomeScreen, shouldNavigateToOnboardingScreen: $shouldNavigateToOnboardingScreen)';
+    return 'SplashScreenState(isLoading: $isLoading, errorMessage: $errorMessage, showErrorUi: $showErrorUi, shouldNavigateToLoginScreen: $shouldNavigateToLoginScreen, shouldNavigateToHomeScreen: $shouldNavigateToHomeScreen, shouldNavigateToOnboardingScreen: $shouldNavigateToOnboardingScreen)';
   }
 }
 
@@ -190,6 +224,8 @@ abstract mixin class _$SplashScreenStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
+      String errorMessage,
+      bool showErrorUi,
       bool shouldNavigateToLoginScreen,
       bool shouldNavigateToHomeScreen,
       bool shouldNavigateToOnboardingScreen});
@@ -209,6 +245,8 @@ class __$SplashScreenStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? isLoading = null,
+    Object? errorMessage = null,
+    Object? showErrorUi = null,
     Object? shouldNavigateToLoginScreen = null,
     Object? shouldNavigateToHomeScreen = null,
     Object? shouldNavigateToOnboardingScreen = null,
@@ -217,6 +255,14 @@ class __$SplashScreenStateCopyWithImpl<$Res>
       isLoading: null == isLoading
           ? _self.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _self.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      showErrorUi: null == showErrorUi
+          ? _self.showErrorUi
+          : showErrorUi // ignore: cast_nullable_to_non_nullable
               as bool,
       shouldNavigateToLoginScreen: null == shouldNavigateToLoginScreen
           ? _self.shouldNavigateToLoginScreen

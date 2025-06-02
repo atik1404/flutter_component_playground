@@ -18,11 +18,19 @@ Future<void> initDi() async {
   di
     ..registerSingleton<SharedPrefs>(SharedPrefs())
     ..registerLazySingleton<NetworkClient>(
-        () => NetworkClient(baseUrl: AppCoreEnv().appBaseUrl),
-        instanceName: DIAnnotation.baseURL.toString(),)
+      () => NetworkClient(
+        baseUrl: AppCoreEnv().appBaseUrl,
+        sharedPrefs: di.get(),
+      ),
+      instanceName: DIAnnotation.baseURL.toString(),
+    )
     ..registerLazySingleton<NetworkClient>(
-        () => NetworkClient(baseUrl: AppCoreEnv().authBaseUrl),
-        instanceName: DIAnnotation.authBaseUrl.toString(),);
+      () => NetworkClient(
+        baseUrl: AppCoreEnv().authBaseUrl,
+        sharedPrefs: di.get(),
+      ),
+      instanceName: DIAnnotation.authBaseUrl.toString(),
+    );
 
   await registerBlocModule();
 

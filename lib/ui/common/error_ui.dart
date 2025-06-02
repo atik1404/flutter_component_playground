@@ -4,6 +4,7 @@ import 'package:flutter_component_playground/designsystem/resources/app_images.d
 import 'package:flutter_component_playground/ui/widgets/app_button.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ErrorUi extends StatelessWidget {
   final String errorMessage;
@@ -16,18 +17,18 @@ class ErrorUi extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
 
     return Container(
-      color: context.materialColors.onPrimary,
       padding: EdgeInsets.symmetric(
         horizontal: spacingSize.large,
       ),
       child: Column(
         children: [
-          Image.asset(
-            AppImages.imgError,
-            height: mediaQuery.size.height * 0.45,
-          ),
-          SpacerBox(
-            height: spacingSize.xLarge,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(spacingSize.base),
+            child: SvgPicture.asset(
+              AppImages.imgError,
+              height: mediaQuery.size.height * 0.5,
+              width: double.infinity,
+            ),
           ),
           Text(
             textAlign: TextAlign.center,

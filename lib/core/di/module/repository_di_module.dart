@@ -9,6 +9,7 @@ Future<void> registerRepositoryModule() async {
         registrationApiMapper: di.get(),
         forgotPasswordApiMapper: di.get(),
         verifyOtpApiMapper: di.get(),
+        sharedPrefs: di.get(),
       ));
 
   return;

@@ -19,7 +19,8 @@ mixin _$LoginState {
   PasswordValidator get password;
   FormzSubmissionStatus get formValidationStatus;
   bool get isErrorVisible;
-  String get loginErrorMessage;
+  bool get showErrorUi;
+  String get errorMessage;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -40,17 +41,19 @@ mixin _$LoginState {
                 other.formValidationStatus == formValidationStatus) &&
             (identical(other.isErrorVisible, isErrorVisible) ||
                 other.isErrorVisible == isErrorVisible) &&
-            (identical(other.loginErrorMessage, loginErrorMessage) ||
-                other.loginErrorMessage == loginErrorMessage));
+            (identical(other.showErrorUi, showErrorUi) ||
+                other.showErrorUi == showErrorUi) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, email, password,
-      formValidationStatus, isErrorVisible, loginErrorMessage);
+      formValidationStatus, isErrorVisible, showErrorUi, errorMessage);
 
   @override
   String toString() {
-    return 'LoginState(email: $email, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, loginErrorMessage: $loginErrorMessage)';
+    return 'LoginState(email: $email, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, showErrorUi: $showErrorUi, errorMessage: $errorMessage)';
   }
 }
 
@@ -65,7 +68,8 @@ abstract mixin class $LoginStateCopyWith<$Res> {
       PasswordValidator password,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
-      String loginErrorMessage});
+      bool showErrorUi,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -84,7 +88,8 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
     Object? password = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
-    Object? loginErrorMessage = null,
+    Object? showErrorUi = null,
+    Object? errorMessage = null,
   }) {
     return _then(_self.copyWith(
       email: null == email
@@ -103,9 +108,13 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _self.isErrorVisible
           : isErrorVisible // ignore: cast_nullable_to_non_nullable
               as bool,
-      loginErrorMessage: null == loginErrorMessage
-          ? _self.loginErrorMessage
-          : loginErrorMessage // ignore: cast_nullable_to_non_nullable
+      showErrorUi: null == showErrorUi
+          ? _self.showErrorUi
+          : showErrorUi // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _self.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -119,7 +128,8 @@ class _LoginState implements LoginState {
       this.password = const PasswordValidator.pure(),
       this.formValidationStatus = FormzSubmissionStatus.initial,
       this.isErrorVisible = false,
-      this.loginErrorMessage = ''});
+      this.showErrorUi = false,
+      this.errorMessage = ''});
 
   @override
   @JsonKey()
@@ -135,7 +145,10 @@ class _LoginState implements LoginState {
   final bool isErrorVisible;
   @override
   @JsonKey()
-  final String loginErrorMessage;
+  final bool showErrorUi;
+  @override
+  @JsonKey()
+  final String errorMessage;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -157,17 +170,19 @@ class _LoginState implements LoginState {
                 other.formValidationStatus == formValidationStatus) &&
             (identical(other.isErrorVisible, isErrorVisible) ||
                 other.isErrorVisible == isErrorVisible) &&
-            (identical(other.loginErrorMessage, loginErrorMessage) ||
-                other.loginErrorMessage == loginErrorMessage));
+            (identical(other.showErrorUi, showErrorUi) ||
+                other.showErrorUi == showErrorUi) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, email, password,
-      formValidationStatus, isErrorVisible, loginErrorMessage);
+      formValidationStatus, isErrorVisible, showErrorUi, errorMessage);
 
   @override
   String toString() {
-    return 'LoginState(email: $email, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, loginErrorMessage: $loginErrorMessage)';
+    return 'LoginState(email: $email, password: $password, formValidationStatus: $formValidationStatus, isErrorVisible: $isErrorVisible, showErrorUi: $showErrorUi, errorMessage: $errorMessage)';
   }
 }
 
@@ -184,7 +199,8 @@ abstract mixin class _$LoginStateCopyWith<$Res>
       PasswordValidator password,
       FormzSubmissionStatus formValidationStatus,
       bool isErrorVisible,
-      String loginErrorMessage});
+      bool showErrorUi,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -203,7 +219,8 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
     Object? password = null,
     Object? formValidationStatus = null,
     Object? isErrorVisible = null,
-    Object? loginErrorMessage = null,
+    Object? showErrorUi = null,
+    Object? errorMessage = null,
   }) {
     return _then(_LoginState(
       email: null == email
@@ -222,9 +239,13 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
           ? _self.isErrorVisible
           : isErrorVisible // ignore: cast_nullable_to_non_nullable
               as bool,
-      loginErrorMessage: null == loginErrorMessage
-          ? _self.loginErrorMessage
-          : loginErrorMessage // ignore: cast_nullable_to_non_nullable
+      showErrorUi: null == showErrorUi
+          ? _self.showErrorUi
+          : showErrorUi // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _self.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

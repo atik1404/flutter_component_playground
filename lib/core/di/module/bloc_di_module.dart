@@ -14,6 +14,7 @@ Future<void> registerBlocModule() async {
     ..registerFactory<LoginBloc>(() => LoginBloc(
           postLoginUseCase: di.get(),
           sharedPrefs: di.get(),
+          fetchProfileApiUsecase: di.get(),
         ))
     ..registerFactory<RegistrationBloc>(() => RegistrationBloc(
           postRegistrationUsecase: di.get(),

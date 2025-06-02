@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/ui/common/error_ui.dart';
 import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
@@ -23,10 +24,10 @@ class SplashScreen extends StatelessWidget {
     // Trigger navigation logic as soon as the widget is built.
     // It's better to use addPostFrameCallback to avoid calling cubit in build.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SplashCubit>().navigateToNextScreen();
+      context.read<SplashCubit>().fetchProfile();
     });
 
-    return BlocListener<SplashCubit, SplashScreenState>(
+    return BlocConsumer<SplashCubit, SplashScreenState>(
       listenWhen: (previous, current) =>
           previous.shouldNavigateToHomeScreen !=
               current.shouldNavigateToHomeScreen ||
@@ -43,20 +44,31 @@ class SplashScreen extends StatelessWidget {
           context.goNamed(AppRoute.onboardingScreen);
         }
       },
-      child: ScaffoldAppbar(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildLogo(context),
-              SpacerBox(height: spaceSize.large),
-              _buildAppName(context),
-              SpacerBox(height: spaceSize.large),
-              _buildLoadingIndicator(),
-            ],
-          ),
-        ),
-      ),
+      builder: (context, state) {
+        return ScaffoldAppbar(
+          body: state.showErrorUi
+              ? ErrorUi(
+                  errorMessage: state.errorMessage,
+                  onRetry: () {
+                    context.read<SplashCubit>().fetchProfile();
+                  },
+                )
+              : Center(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildLogo(context),
+                        SpacerBox(height: spaceSize.large),
+                        _buildAppName(context),
+                        SpacerBox(height: spaceSize.large),
+                        _buildLoadingIndicator(),
+                      ],
+                    ),
+                  ),
+                ),
+        );
+      },
     );
   }
 

@@ -185,6 +185,26 @@ class LoginSubmitted implements LoginEvent {
 
 /// @nodoc
 
+class FetchProfile implements LoginEvent {
+  const FetchProfile();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FetchProfile);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'LoginEvent.fetchProfile()';
+  }
+}
+
+/// @nodoc
+
 class NavigateToHomeScreen implements LoginEvent {
   const NavigateToHomeScreen();
 

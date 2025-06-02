@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
+import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
+import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
@@ -22,6 +25,7 @@ class HomeScreenContent extends StatefulWidget {
 class _HomeScreenContentState extends State<HomeScreenContent> {
   int _sliderIndex = 0;
   int _selectedCategory = 0;
+  final SharedPrefs _sharedPrefs = di.get<SharedPrefs>();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +93,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello, User",
+                  "Hello, ${_sharedPrefs.getString(key: SharedPrefKey.fullName)}",
                   style: context.typography.titleSmallBold
                       .copyWith(color: context.textColors.primaryTextColor),
                 ),
