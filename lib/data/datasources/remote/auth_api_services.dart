@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_component_playground/core/network/network_exception.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
+import 'package:flutter_component_playground/data/apiresponse/auth/email_available_api_response.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/forgot_password_api_response.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/login_api_response.dart';
 import 'package:flutter_component_playground/data/apiresponse/auth/profile_api_response.dart';
@@ -80,6 +81,28 @@ class AuthApiServices {
       final response = await dio.post("v1/verify_otp", data: params.toJson());
 
       return SuccessResult(VerifyOtpApiResponse.fromJson(response.data));
+    } on NetworkException catch (e) {
+      return FailureResult(e);
+    }
+  }
+
+  Future<Result<EmailAvailableApiResponse>> checkEmailAvailability(
+    String email,
+  ) async {
+    try {
+      final response = await dio.post("v1/users/is-available", data: email);
+
+      return SuccessResult(EmailAvailableApiResponse.fromJson(response.data));
+    } on NetworkException catch (e) {
+      return FailureResult(e);
+    }
+  }
+
+  Future<Result<EmailAvailableApiResponse>> refreshToken(String token) async {
+    try {
+      final response = await dio.post("v1/auth/refresh-token", data: token);
+
+      return SuccessResult(EmailAvailableApiResponse.fromJson(response.data));
     } on NetworkException catch (e) {
       return FailureResult(e);
     }

@@ -13,4 +13,6 @@ abstract class RegistrationEvent with _$RegistrationEvent {
       PrivacyPolicyAccepted;
   const factory RegistrationEvent.registrationSubmitted() =
       RegistrationSubmitted;
+      const factory RegistrationEvent.checkEmailAvailability() =
+      CheckEmailAvailability;
 }

@@ -379,4 +379,24 @@ class RegistrationSubmitted implements RegistrationEvent {
   }
 }
 
+/// @nodoc
+
+class CheckEmailAvailability implements RegistrationEvent {
+  const CheckEmailAvailability();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is CheckEmailAvailability);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'RegistrationEvent.checkEmailAvailability()';
+  }
+}
+
 // dart format on

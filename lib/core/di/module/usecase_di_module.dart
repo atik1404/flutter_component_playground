@@ -1,4 +1,5 @@
 import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
+import 'package:flutter_component_playground/domain/usecase/auth/check_email_availability_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/fetch_profile_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_login_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_registration_usecase.dart';
@@ -26,6 +27,11 @@ Future<void> registerUseCaseModule() async {
     )
     ..registerLazySingleton<PostResetPasswordApiUsecase>(
       () => PostResetPasswordApiUsecase(
+        di.get(),
+      ),
+    )
+    ..registerLazySingleton<CheckEmailAvailabilityApiUsecase>(
+      () => CheckEmailAvailabilityApiUsecase(
         di.get(),
       ),
     )

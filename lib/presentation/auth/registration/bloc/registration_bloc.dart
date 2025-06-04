@@ -3,8 +3,10 @@ import 'package:flutter_component_playground/common/formvalidator/email_validato
 import 'package:flutter_component_playground/common/formvalidator/name_validator.dart';
 import 'package:flutter_component_playground/common/formvalidator/password_validator.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/email_available_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/auth/profile_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
+import 'package:flutter_component_playground/domain/usecase/auth/check_email_availability_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_registration_usecase.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_event.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_state.dart';
@@ -12,10 +14,13 @@ import 'package:formz/formz.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final PostRegistrationUsecase _postRegistrationUsecase;
+  final CheckEmailAvailabilityApiUsecase _checkEmailAvailabilityApiUsecase;
 
   RegistrationBloc({
     required PostRegistrationUsecase postRegistrationUsecase,
+    required CheckEmailAvailabilityApiUsecase checkEmailAvailabilityApiUsecase,
   })  : _postRegistrationUsecase = postRegistrationUsecase,
+        _checkEmailAvailabilityApiUsecase = checkEmailAvailabilityApiUsecase,
         // Call the super constructor with the initial state
         super(const RegistrationState()) {
     on<NameChanged>(_onNameChanged);
@@ -23,6 +28,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<ConfirmPasswordChanged>(_onConfirmPasswordChanged);
     on<EmailChanged>(_onEmailChanged);
     on<PrivacyPolicyAccepted>(_onPrivacyPolicyAccepted);
+    on<CheckEmailAvailability>(_checkEmailAvailability);
     on<RegistrationSubmitted>(_onRegistrationSubmitted);
   }
 
@@ -81,8 +87,8 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     ));
   }
 
-  void _onRegistrationSubmitted(
-    RegistrationSubmitted event,
+  void _checkEmailAvailability(
+    CheckEmailAvailability event,
     Emitter<RegistrationState> emit,
   ) async {
     if (state.name.isNotValid ||
@@ -112,6 +118,33 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     ));
 
     try {
+      final result =
+          await _checkEmailAvailabilityApiUsecase.invoke(state.email.value);
+
+      switch (result) {
+        case SuccessResult<EmailAvailableApiEntity>():
+          add(const RegistrationSubmitted());
+          break;
+        case FailureResult<EmailAvailableApiEntity>():
+          return emit(state.copyWith(
+            formValidationStatus: FormzSubmissionStatus.failure,
+            registrationErrorMessage: result.exception.description,
+          ));
+      }
+    } catch (error) {
+      emit(state.copyWith(
+        isErrorVisible: true,
+        formValidationStatus: FormzSubmissionStatus.failure,
+        registrationErrorMessage: error.toString(),
+      ));
+    }
+  }
+
+  void _onRegistrationSubmitted(
+    RegistrationSubmitted event,
+    Emitter<RegistrationState> emit,
+  ) async {
+    try {
       final result = await _postRegistrationUsecase.invoke(
         RegistrationParams(
           email: state.email.value,
@@ -134,10 +167,10 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       }
     } catch (error) {
       emit(state.copyWith(
-            isErrorVisible: true,
-            formValidationStatus: FormzSubmissionStatus.failure,
-            registrationErrorMessage: error.toString(),
-          ));
+        isErrorVisible: true,
+        formValidationStatus: FormzSubmissionStatus.failure,
+        registrationErrorMessage: error.toString(),
+      ));
     }
   }
 }

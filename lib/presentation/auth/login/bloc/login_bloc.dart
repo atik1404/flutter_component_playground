@@ -4,7 +4,7 @@ import 'package:flutter_component_playground/common/formvalidator/password_valid
 import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/auth/login_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/login_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/auth/profile_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/params/login_params.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/fetch_profile_api_usecase.dart';
@@ -20,7 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc({
     required PostLoginApiUsecase postLoginUseCase,
-    required SharedPrefs sharedPrefs,
+    required SharedPrefs sharedPrefs, 
     required FetchProfileApiUsecase fetchProfileApiUsecase,
   })  : _postLoginApiUsecase = postLoginUseCase,
         _sharedPrefs = sharedPrefs,
@@ -37,7 +37,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       email: EmailValidator.dirty(event.email),
       isErrorVisible: false,
       formValidationStatus: FormzSubmissionStatus.initial,
-    ));
+    )); 
   }
 
   void _onPasswordChanged(PasswordChanged event, Emitter<LoginState> emit) {
@@ -78,7 +78,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
 
       switch (result) {
-        case SuccessResult<LoginEntity>():
+        case SuccessResult<LoginApiEntity>():
           _sharedPrefs.set(
             key: SharedPrefKey.accessToken,
             value: result.data.accessToken,
@@ -92,7 +92,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             value: result.data.refreshToken.isNotEmpty,
           );
           add(const FetchProfile());
-        case FailureResult<LoginEntity>():
+        case FailureResult<LoginApiEntity>():
           return emit(state.copyWith(
             isErrorVisible: true,
             formValidationStatus: FormzSubmissionStatus.failure,

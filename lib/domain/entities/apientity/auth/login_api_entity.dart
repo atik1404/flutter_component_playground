@@ -1,8 +1,8 @@
-class LoginEntity {
+class LoginApiEntity {
   final String accessToken;
   final String refreshToken;
 
-  const LoginEntity({
+  const LoginApiEntity({
     required this.accessToken,
     required this.refreshToken,
   });

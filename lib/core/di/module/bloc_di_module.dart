@@ -18,6 +18,7 @@ Future<void> registerBlocModule() async {
         ))
     ..registerFactory<RegistrationBloc>(() => RegistrationBloc(
           postRegistrationUsecase: di.get(),
+          checkEmailAvailabilityApiUsecase: di.get(),
         ))
     ..registerFactory<ForgotPasswordBloc>(() => ForgotPasswordBloc(
           postResetPasswordApiUsecase: di.get(),

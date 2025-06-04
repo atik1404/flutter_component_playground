@@ -3,11 +3,13 @@ import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/data/datasources/remote/auth_api_services.dart';
+import 'package:flutter_component_playground/data/mappers/auth/email_available_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/forgot_password_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/login_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/profile_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/verify_otp_api_mapper.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/auth/login_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/email_available_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/auth/login_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/auth/profile_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/auth/verify_otp_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/params/registration_params.dart';
@@ -23,6 +25,7 @@ final class AuthRepoImpl extends AuthRepository {
   final ProfileApiMapper _profileApiMapper;
   final ForgotPasswordApiMapper _forgotPasswordApiMapper;
   final VerifyOtpApiMapper _verifyOtpApiMapper;
+  final EmailAvailableApiMapper _emailAvailableApiMapper;
   final SharedPrefs _sharedPrefs;
 
   AuthRepoImpl({
@@ -31,16 +34,18 @@ final class AuthRepoImpl extends AuthRepository {
     required ProfileApiMapper registrationApiMapper,
     required ForgotPasswordApiMapper forgotPasswordApiMapper,
     required VerifyOtpApiMapper verifyOtpApiMapper,
+    required EmailAvailableApiMapper emailAvailableApiMapper,
     required SharedPrefs sharedPrefs,
   })  : _authApiServices = authApiServices,
         _loginApiMapper = loginApiMapper,
         _profileApiMapper = registrationApiMapper,
         _forgotPasswordApiMapper = forgotPasswordApiMapper,
         _verifyOtpApiMapper = verifyOtpApiMapper,
+        _emailAvailableApiMapper = emailAvailableApiMapper,
         _sharedPrefs = sharedPrefs;
 
   @override
-  Future<Result<LoginEntity>> userLogin(LoginParams params) async {
+  Future<Result<LoginApiEntity>> userLogin(LoginParams params) async {
     final response = await _authApiServices.userLogin(params);
 
     return ResponseTransformer()
@@ -56,11 +61,12 @@ final class AuthRepoImpl extends AuthRepository {
     if (result is SuccessResult<ProfileApiEntity>) {
       // Save user profile data to shared preferences
       final profile = result.data;
-      _sharedPrefs..set(key: SharedPrefKey.userId, value: profile.userId)
-      ..set(key: SharedPrefKey.userEmail, value: profile.email)
-      ..set(key: SharedPrefKey.userRole, value: profile.role)
-      ..set(key: SharedPrefKey.avatar, value: profile.avatar)
-      ..set(key: SharedPrefKey.fullName, value: profile.name);
+      _sharedPrefs
+        ..set(key: SharedPrefKey.userId, value: profile.userId)
+        ..set(key: SharedPrefKey.userEmail, value: profile.email)
+        ..set(key: SharedPrefKey.userRole, value: profile.role)
+        ..set(key: SharedPrefKey.avatar, value: profile.avatar)
+        ..set(key: SharedPrefKey.fullName, value: profile.name);
     }
 
     return result;
@@ -98,5 +104,15 @@ final class AuthRepoImpl extends AuthRepository {
 
     return ResponseTransformer()
         .transform(response: response, mapper: _verifyOtpApiMapper);
+  }
+
+  @override
+  Future<Result<EmailAvailableApiEntity>> checkEmailAvailability(
+    String email,
+  ) async {
+    final response = await _authApiServices.checkEmailAvailability(email);
+
+    return ResponseTransformer()
+        .transform(response: response, mapper: _emailAvailableApiMapper);
   }
 }
