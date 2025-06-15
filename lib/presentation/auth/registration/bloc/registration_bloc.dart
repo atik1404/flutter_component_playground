@@ -127,7 +127,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           break;
         case FailureResult<EmailAvailableApiEntity>():
           return emit(state.copyWith(
-            formValidationStatus: FormzSubmissionStatus.failure,
+            formValidationStatus: FormzSubmissionStatus.initial,
             registrationErrorMessage: result.exception.description,
           ));
       }
@@ -156,8 +156,8 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       switch (result) {
         case SuccessResult<ProfileApiEntity>():
           return emit(state.copyWith(
-            registrationErrorMessage: "Registration successful!",
-            formValidationStatus: FormzSubmissionStatus.initial,
+            registrationSuccessMessage: "Registration successful!",
+            formValidationStatus: FormzSubmissionStatus.success,
           ));
         case FailureResult<ProfileApiEntity>():
           return emit(state.copyWith(

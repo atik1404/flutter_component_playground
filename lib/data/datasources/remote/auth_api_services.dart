@@ -90,7 +90,8 @@ class AuthApiServices {
     String email,
   ) async {
     try {
-      final response = await dio.post("v1/users/is-available", data: email);
+      final response =
+          await dio.post("v1/users/is-available", data: {"email": email});
 
       return SuccessResult(EmailAvailableApiResponse.fromJson(response.data));
     } on NetworkException catch (e) {

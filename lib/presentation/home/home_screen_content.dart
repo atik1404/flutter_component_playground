@@ -15,6 +15,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+/// HomeScreenContent displays the main dashboard content for the home tab,
+/// including a toolbar, slider, categories, and a grid of movie items.
 class HomeScreenContent extends StatefulWidget {
   const HomeScreenContent({super.key});
 
@@ -34,6 +36,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     return ScaffoldAppbar(
       body: Column(
         children: [
+          // Top toolbar with avatar, greeting, and search
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: spacingSizes.base,
@@ -41,11 +44,13 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             ),
             child: Column(
               children: [
-                _buildToolbar(context), // Toolbar at the top
-                SizedBox(height: spacingSizes.base),
+                _buildInfoHeader(context),
+                SizedBox(height: spacingSizes.large),
+                _buildSearchBar(),
               ],
             ),
           ),
+          // Main scrollable content
           Expanded(
             child: SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
@@ -54,7 +59,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildSlider(),
+                    _buildMovieSlider(),
                     SizedBox(height: spacingSizes.large),
                     _buildMovieCategory(),
                     SizedBox(height: spacingSizes.large),
@@ -69,7 +74,8 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     );
   }
 
-  Widget _buildToolbar(BuildContext context) {
+  /// Builds the top toolbar with avatar, greeting, and search field.
+  Widget _buildInfoHeader(BuildContext context) {
     final spacingSizes = context.spacingSizes;
     final iconSizes = context.iconSizes;
 
@@ -78,6 +84,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
       children: [
         Row(
           children: [
+            // User avatar
             ClipOval(
               child: Image.network(
                 AppImages.imgAvatar,
@@ -86,26 +93,27 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 fit: BoxFit.fill,
               ),
             ),
-            SpacerBox(
-              width: context.spacingSizes.base,
-            ),
+            SpacerBox(width: spacingSizes.base),
+            // Greeting and welcome text
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello, ${_sharedPrefs.getString(key: SharedPrefKey.fullName)}",
+                  context.getString.placeholder_user_greeting(
+                      _sharedPrefs.getString(key: SharedPrefKey.fullName),),
                   style: context.typography.titleSmallBold
                       .copyWith(color: context.textColors.primaryTextColor),
                 ),
-                SizedBox(height: context.spacingSizes.xSmall),
+                SizedBox(height: spacingSizes.xSmall),
                 Text(
-                  "Welcome back to your dashboard",
+                  context.getString.msg_greeting,
                   style: context.typography.bodySmallLight
                       .copyWith(color: context.textColors.secondaryTextColor),
                 ),
               ],
             ),
             const Spacer(),
+            // Menu icon button
             IconButton(
               icon: SvgPicture.asset(
                 AppIcons.icNavMenu,
@@ -122,33 +130,39 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             ),
           ],
         ),
-        SizedBox(height: spacingSizes.large),
-        AppTextField(
-          hintText: "Search here",
-          keyboardType: TextInputType.webSearch,
-          textInputAction: TextInputAction.search,
-          prefixIcon: Icon(
-            Icons.search,
-            color: context.materialColors.onSurface,
-          ),
-          suffixIcon: Padding(
-            padding: EdgeInsets.all(12.w),
-            child: SvgPicture.asset(
-              AppIcons.icFilter,
-              width: iconSizes.medium, // Changed from 1.w
-              height: iconSizes.medium, // Changed from 1.h
-              colorFilter: ColorFilter.mode(
-                context.materialColors.onSurface,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-        ),
+        // Search field
       ],
     );
   }
 
-  Widget _buildSlider() {
+  Widget _buildSearchBar() {
+    final iconSizes = context.iconSizes;
+
+    return AppTextField(
+      hintText: "Search here",
+      keyboardType: TextInputType.webSearch,
+      textInputAction: TextInputAction.search,
+      prefixIcon: Icon(
+        Icons.search,
+        color: context.materialColors.onSurface,
+      ),
+      suffixIcon: Padding(
+        padding: EdgeInsets.all(12.w),
+        child: SvgPicture.asset(
+          AppIcons.icFilter,
+          width: iconSizes.medium,
+          height: iconSizes.medium,
+          colorFilter: ColorFilter.mode(
+            context.materialColors.onSurface,
+            BlendMode.srcIn,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Builds the image slider with page indicator.
+  Widget _buildMovieSlider() {
     return Column(
       children: [
         CarouselSlider(
@@ -183,12 +197,13 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
         ),
         SizedBox(height: context.spacingSizes.base),
-        _buildPageIndicator(context),
+        _buildSliderPageIndicator(context),
       ],
     );
   }
 
-  Widget _buildPageIndicator(BuildContext context) {
+  /// Builds the slider page indicator.
+  Widget _buildSliderPageIndicator(BuildContext context) {
     final materialColors = context.materialColors;
 
     return Row(
@@ -212,6 +227,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     );
   }
 
+  /// Builds the horizontal list of movie categories.
   Widget _buildMovieCategory() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +246,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             physics: const BouncingScrollPhysics(),
             itemCount: 5,
             itemBuilder: (context, index) {
-              return _buildCategoryItem(index);
+              return _buildMovieCategoryItem(index);
             },
           ),
         ),
@@ -238,7 +254,8 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     );
   }
 
-  Widget _buildCategoryItem(int index) {
+  /// Builds a single category item with selection highlight.
+  Widget _buildMovieCategoryItem(int index) {
     return GestureDetector(
       onTap: () {
         Fluttertoast.showToast(msg: "Category $index clicked");
@@ -247,9 +264,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
         });
       },
       child: Container(
-        margin: EdgeInsets.only(
-          right: context.spacingSizes.medium,
-        ),
+        margin: EdgeInsets.only(right: context.spacingSizes.medium),
         padding: EdgeInsets.symmetric(
           horizontal: context.spacingSizes.large,
           vertical: context.spacingSizes.xSmall,
@@ -274,6 +289,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     );
   }
 
+  /// Builds the grid of movie items.
   Widget _buildMovieItemList() {
     return GridView.count(
       crossAxisCount: 2,
@@ -288,11 +304,13 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     );
   }
 
+  /// Builds a single movie item card with image, title, and rating.
   Widget _buildMovieItem(BuildContext context) {
     return Column(
       children: [
         Stack(
           children: [
+            // Movie poster image
             ClipRRect(
               borderRadius: BorderRadius.circular(context.shapeRadius.medium),
               child: Image.network(
@@ -302,8 +320,9 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 fit: BoxFit.cover,
               ),
             ),
+            // Favorite icon overlay
             Positioned(
-              top: 8.h, // Position the container at the bottom of the Stack
+              top: 8.h,
               right: 8.w,
               child: Container(
                 padding: EdgeInsets.all(context.spacingSizes.xSmall),
@@ -321,6 +340,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ],
         ),
         SizedBox(height: context.spacingSizes.medium),
+        // Movie title
         Text(
           textAlign: TextAlign.center,
           "Movie Title",
@@ -329,6 +349,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
         ),
         SizedBox(height: context.spacingSizes.xSmall),
+        // Movie rating bar
         RatingBarIndicator(
           rating: 5,
           itemBuilder: (context, index) => Icon(

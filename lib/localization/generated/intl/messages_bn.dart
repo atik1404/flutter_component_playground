@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(email) =>
       "We send you an OTP to verify your email. Please enter the OTP to ${email}";
 
+  static String m1(user) => "Hello, ${user}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "button_continue": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -68,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "menu_wishlist": MessageLookupByLibrary.simpleMessage("Favorites"),
         "msg_forgot_password": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
+        "msg_greeting": MessageLookupByLibrary.simpleMessage(
+            "Welcome back to your dashboard"),
         "msg_introduction_1": MessageLookupByLibrary.simpleMessage(
             "Your perfect movie night starts here. Explore, stream, and love every scene.!"),
         "msg_introduction_2": MessageLookupByLibrary.simpleMessage(
@@ -77,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "msg_sign_up": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "placeholder_otp_sending_message": m0,
+        "placeholder_user_greeting": m1,
         "text_agreed":
             MessageLookupByLibrary.simpleMessage("I\'m agree to the "),
         "text_and": MessageLookupByLibrary.simpleMessage(" and "),

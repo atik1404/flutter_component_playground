@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_component_playground/common/utils/logger_utils';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
@@ -31,13 +30,17 @@ class RegistrationScreen extends StatelessWidget {
 
     return BlocListener<RegistrationBloc, RegistrationState>(
       listener: (context, state) {
-        if (state.registrationErrorMessage.isNotEmpty) {
+        if (state.formValidationStatus.isFailure) {
+          if (state.registrationErrorMessage.isNotEmpty) {
+            Fluttertoast.showToast(
+              msg: state.registrationErrorMessage,
+            );
+          }
+        } else if (state.formValidationStatus.isSuccess) {
           Fluttertoast.showToast(
-            msg: state.registrationErrorMessage,
+            msg: state.registrationSuccessMessage,
           );
           context.pop();
-        } else if (state.formValidationStatus.isFailure) {
-          log.info('Registration failed');
         }
       },
       child: ScaffoldAppbar(
@@ -374,7 +377,7 @@ class RegistrationScreen extends StatelessWidget {
           isLoading: isLoading,
           onPressed: () {
             context.read<RegistrationBloc>().add(
-                  const RegistrationSubmitted(),
+                  const CheckEmailAvailability(),
                 );
           },
           isDisabled: !state.isPrivacyPolicyAccepted,

@@ -280,6 +280,16 @@ class LocalizedStrings {
     );
   }
 
+  /// `Welcome back to your dashboard`
+  String get msg_greeting {
+    return Intl.message(
+      'Welcome back to your dashboard',
+      name: 'msg_greeting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `We send you an OTP to verify your email. Please enter the OTP to {email}`
   String placeholder_otp_sending_message(Object email) {
     return Intl.message(
@@ -287,6 +297,16 @@ class LocalizedStrings {
       name: 'placeholder_otp_sending_message',
       desc: '',
       args: [email],
+    );
+  }
+
+  /// `Hello, {user}`
+  String placeholder_user_greeting(Object user) {
+    return Intl.message(
+      'Hello, $user',
+      name: 'placeholder_user_greeting',
+      desc: '',
+      args: [user],
     );
   }
 

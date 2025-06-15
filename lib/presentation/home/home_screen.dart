@@ -6,8 +6,10 @@ import 'package:flutter_component_playground/localization/localize_extension.dar
 import 'package:flutter_component_playground/presentation/auth/profile/profile_screen.dart';
 import 'package:flutter_component_playground/presentation/favorites/favorites_screen.dart';
 import 'package:flutter_component_playground/presentation/home/home_screen_content.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+/// HomeScreen is the main entry point after login, providing navigation
+/// between Home, Favorites, and Profile screens using a bottom navigation bar.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,15 +19,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  final List<Widget> _screens = [
-    const HomeScreenContent(),
-    const FavoritesScreen(),
-    const ProfileScreen(),
+
+  // List of screens for each tab in the navigation bar.
+  final List<Widget> _screens = const [
+    HomeScreenContent(),
+    FavoritesScreen(),
+    ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldAppbar(
+      // IndexedStack preserves the state of each tab.
       body: IndexedStack(
         index: _selectedIndex,
         children: _screens,
@@ -34,14 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Builds the bottom navigation bar with destinations for each main section.
   NavigationBar _buildNavigationBar(BuildContext context) {
     return NavigationBar(
+      selectedIndex: _selectedIndex,
       onDestinationSelected: (index) {
         setState(() {
           _selectedIndex = index;
         });
       },
-      selectedIndex: _selectedIndex,
       destinations: [
         _buildNavigationDestination(
           context,
@@ -62,12 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Builds a navigation destination with SVG icon and label.
   Widget _buildNavigationDestination(
     BuildContext context,
     String icon,
     String label,
   ) {
     final iconSizes = context.iconSizes;
+    final primaryColor = context.materialColors.primary;
 
     return NavigationDestination(
       icon: SvgPicture.asset(
@@ -79,10 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         icon,
         width: iconSizes.base,
         height: iconSizes.base,
-        colorFilter: ColorFilter.mode(
-          context.materialColors.primary,
-          BlendMode.srcIn,
-        ),
+        colorFilter: ColorFilter.mode(primaryColor, BlendMode.srcIn),
       ),
       label: label,
     );
