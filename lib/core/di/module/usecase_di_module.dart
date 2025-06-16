@@ -6,8 +6,9 @@ import 'package:flutter_component_playground/domain/usecase/auth/post_registrati
 import 'package:flutter_component_playground/domain/usecase/auth/post_reset_password_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_send_otp_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_verify_otp_api_usecase.dart';
+import 'package:flutter_component_playground/domain/usecase/home/fetch_upcoming_movies_api_usecase.dart';
 
-Future<void> registerUseCaseModule() async {
+Future<void> registerAuthUseCaseModule() async {
   di
     ..registerLazySingleton<PostLoginApiUsecase>(() => PostLoginApiUsecase(
           di.get(),
@@ -40,6 +41,16 @@ Future<void> registerUseCaseModule() async {
         di.get(),
       ),
     );
+
+  return;
+}
+
+Future<void> registerMovieUseCaseModule() async {
+  di
+    ..registerLazySingleton<FetchUpcomingMoviesApiUsecase>(
+        () => FetchUpcomingMoviesApiUsecase(
+              di.get(),
+            ));
 
   return;
 }

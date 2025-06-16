@@ -38,7 +38,11 @@ Future<void> initDi() async {
 
   await registerApiServiceModule();
 
-  await registerMapperModule();
+  await registerAuthMapperModule();
 
-  await registerUseCaseModule();
+  await registerMovieMapperModule();
+
+  await registerAuthUseCaseModule();
+  
+  await registerMovieUseCaseModule();
 }

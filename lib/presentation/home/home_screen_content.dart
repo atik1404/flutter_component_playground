@@ -17,16 +17,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 /// HomeScreenContent displays the main dashboard content for the home tab,
 /// including a toolbar, slider, categories, and a grid of movie items.
-class HomeScreenContent extends StatefulWidget {
-  const HomeScreenContent({super.key});
+class HomeScreenContent extends StatelessWidget {
+  HomeScreenContent({super.key});
 
-  @override
-  State<HomeScreenContent> createState() => _HomeScreenContentState();
-}
-
-class _HomeScreenContentState extends State<HomeScreenContent> {
-  int _sliderIndex = 0;
-  int _selectedCategory = 0;
   final SharedPrefs _sharedPrefs = di.get<SharedPrefs>();
 
   @override
@@ -46,7 +39,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
               children: [
                 _buildInfoHeader(context),
                 SizedBox(height: spacingSizes.large),
-                _buildSearchBar(),
+                _buildSearchBar(context),
               ],
             ),
           ),
@@ -59,11 +52,11 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildMovieSlider(),
+                    _buildMovieSlider(context),
                     SizedBox(height: spacingSizes.large),
-                    _buildMovieCategory(),
+                    _buildMovieCategory(context),
                     SizedBox(height: spacingSizes.large),
-                    _buildMovieItemList(),
+                    _buildMovieItemList(context),
                   ],
                 ),
               ),
@@ -100,7 +93,8 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
               children: [
                 Text(
                   context.getString.placeholder_user_greeting(
-                      _sharedPrefs.getString(key: SharedPrefKey.fullName),),
+                    _sharedPrefs.getString(key: SharedPrefKey.fullName),
+                  ),
                   style: context.typography.titleSmallBold
                       .copyWith(color: context.textColors.primaryTextColor),
                 ),
@@ -135,7 +129,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(BuildContext context) {
     final iconSizes = context.iconSizes;
 
     return AppTextField(
@@ -162,7 +156,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
   }
 
   /// Builds the image slider with page indicator.
-  Widget _buildMovieSlider() {
+  Widget _buildMovieSlider(BuildContext context) {
     return Column(
       children: [
         CarouselSlider(
@@ -190,9 +184,9 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             enlargeCenterPage: true,
             viewportFraction: 1,
             onPageChanged: (index, reason) {
-              setState(() {
-                _sliderIndex = index;
-              });
+              // setState(() {
+              //   _sliderIndex = index;
+              // });
             },
           ),
         ),
@@ -209,7 +203,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(3, (index) {
-        final isCurrentPage = _sliderIndex == index;
+        final isCurrentPage = index == 1;
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
@@ -228,7 +222,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
   }
 
   /// Builds the horizontal list of movie categories.
-  Widget _buildMovieCategory() {
+  Widget _buildMovieCategory(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -245,9 +239,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemCount: 5,
-            itemBuilder: (context, index) {
-              return _buildMovieCategoryItem(index);
-            },
+            itemBuilder: _buildMovieCategoryItem,
           ),
         ),
       ],
@@ -255,13 +247,15 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
   }
 
   /// Builds a single category item with selection highlight.
-  Widget _buildMovieCategoryItem(int index) {
+  Widget _buildMovieCategoryItem(BuildContext context, int index) {
+    final _selectedCategory = 1;
+
     return GestureDetector(
       onTap: () {
         Fluttertoast.showToast(msg: "Category $index clicked");
-        setState(() {
-          _selectedCategory = index;
-        });
+        // setState(() {
+        //   _selectedCategory = index;
+        // });
       },
       child: Container(
         margin: EdgeInsets.only(right: context.spacingSizes.medium),
@@ -290,7 +284,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
   }
 
   /// Builds the grid of movie items.
-  Widget _buildMovieItemList() {
+  Widget _buildMovieItemList(BuildContext context) {
     return GridView.count(
       crossAxisCount: 2,
       crossAxisSpacing: context.spacingSizes.large,
