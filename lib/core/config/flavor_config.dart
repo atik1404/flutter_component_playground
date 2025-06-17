@@ -22,7 +22,7 @@ final class FlavorConfig {
         _appFlavor = Flavor.development;
       }
     } catch (e) {
-      log.shout("Error fetching app flavor: $e");
+      appLog.shout("Error fetching app flavor: $e");
     }
   }
 

@@ -18,4 +18,8 @@ final class AppStageEnv implements AppCoreEnv, AppEnvFields {
   @override
   @EnviedField(varName: 'IMAGE_BASE_URL', obfuscate: true)
   final String imageBaseUrl = _StageEnv.imageBaseUrl;
+
+  @override
+  @EnviedField(varName: 'API_KEY', obfuscate: true)
+  final String apiKey = _StageEnv.apiKey;
 }

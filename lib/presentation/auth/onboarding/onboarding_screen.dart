@@ -28,7 +28,6 @@ class OnboardingScreen extends StatelessWidget {
       listener: (context, state) {
         // Listen for navigation events to next screen
         if (state.shouldNavigateToNextScreen) {
-          log.info("message");
           context.goNamed(AppRoute.loginScreen);
           context
               .read<OnboardingCubit>()

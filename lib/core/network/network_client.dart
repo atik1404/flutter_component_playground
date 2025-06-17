@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_component_playground/core/config/app_core_env.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -23,6 +24,8 @@ final class NetworkClient {
           options.headers['Authorization'] =
               'Bearer ${sharedPrefs.getString(key: SharedPrefKey.accessToken)}';
 
+          options.queryParameters['api_key'] = AppCoreEnv().apiKey;
+          
           return handler.next(options);
         },
       ),

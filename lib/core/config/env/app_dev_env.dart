@@ -19,4 +19,8 @@ final class AppDevEnv implements AppCoreEnv, AppEnvFields {
   @override
   @EnviedField(varName: 'IMAGE_BASE_URL', obfuscate: true)
   final String imageBaseUrl = _DevelopmentEnv.imageBaseUrl;
+  
+  @override
+  @EnviedField(varName: 'API_KEY', obfuscate: true)
+  final String apiKey = _DevelopmentEnv.apiKey;
 }

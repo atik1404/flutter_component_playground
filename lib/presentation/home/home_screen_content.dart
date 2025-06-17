@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
+import 'package:flutter_component_playground/presentation/home/bloc/home_event.dart';
+import 'package:flutter_component_playground/presentation/home/bloc/home_state.dart';
 import 'package:flutter_component_playground/ui/widgets/app_text_field.dart';
 import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
@@ -25,6 +29,12 @@ class HomeScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spacingSizes = context.spacingSizes;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeBloc>().add(
+            const FetchUpcomingMovies(),
+          );
+    });
 
     return ScaffoldAppbar(
       body: Column(
@@ -52,7 +62,7 @@ class HomeScreenContent extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildMovieSlider(context),
+                    _buildMovieSlider(),
                     SizedBox(height: spacingSizes.large),
                     _buildMovieCategory(context),
                     SizedBox(height: spacingSizes.large),
@@ -156,43 +166,65 @@ class HomeScreenContent extends StatelessWidget {
   }
 
   /// Builds the image slider with page indicator.
-  Widget _buildMovieSlider(BuildContext context) {
-    return Column(
-      children: [
-        CarouselSlider(
-          items: [1, 2, 3].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(context.shapeRadius.base),
-                    image: const DecorationImage(
-                      image: NetworkImage(AppImages.movieBanner),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+  Widget _buildMovieSlider() {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.fullPageLoader) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: context.materialColors.primary,
+            ),
+          );
+        }
+        if (state.slider.isEmpty) {
+          return Center(
+            child: Text(
+              context.getString.error_message_no_data_found,
+              style: context.typography.bodyMedium.copyWith(
+                color: context.textColors.primaryTextColor,
+              ),
+            ),
+          );
+        }
+
+        return Column(
+          children: [
+            CarouselSlider(
+              items: state.slider.map((slider) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(context.shapeRadius.base),
+                        image: const DecorationImage(
+                          image: NetworkImage(AppImages.movieBanner),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
                 );
-              },
-            );
-          }).toList(),
-          options: CarouselOptions(
-            height: 200.h,
-            autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 3),
-            enlargeCenterPage: true,
-            viewportFraction: 1,
-            onPageChanged: (index, reason) {
-              // setState(() {
-              //   _sliderIndex = index;
-              // });
-            },
-          ),
-        ),
-        SizedBox(height: context.spacingSizes.base),
-        _buildSliderPageIndicator(context),
-      ],
+              }).toList(),
+              options: CarouselOptions(
+                height: 200.h,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                enlargeCenterPage: true,
+                viewportFraction: 1,
+                onPageChanged: (index, reason) {
+                  // context.read<HomeBloc>().add(
+                  //       UpdateSliderIndex(index),
+                  //     );
+                },
+              ),
+            ),
+            SizedBox(height: context.spacingSizes.base),
+            _buildSliderPageIndicator(context),
+          ],
+        );
+      },
     );
   }
 

@@ -21,10 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   // List of screens for each tab in the navigation bar.
-  final List<Widget> _screens = const [
+  final List<Widget> _screens =  [
     HomeScreenContent(),
-    FavoritesScreen(),
-    ProfileScreen(),
+    const FavoritesScreen(),
+    const ProfileScreen(),
   ];
 
   @override

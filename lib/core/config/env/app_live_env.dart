@@ -18,4 +18,8 @@ final class AppLiveEnv implements AppCoreEnv, AppEnvFields {
   @override
   @EnviedField(varName: 'IMAGE_BASE_URL', obfuscate: true)
   final String imageBaseUrl = _LiveEnv.imageBaseUrl;
+
+  @override
+  @EnviedField(varName: 'API_KEY', obfuscate: true)
+  final String apiKey = _LiveEnv.apiKey;
 }

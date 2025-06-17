@@ -18,7 +18,7 @@ final class MovieRepoImpl extends MovieRepository {
   @override
   Future<Result<List<MovieApiEntity>>> fetchUpcomingMovies() async {
     final response = await _apiServices.fetchUpcomingMovies();
-
+    
     return ResponseTransformer()
         .transform(response: response, mapper: _upcomingMovieApiMapper);
   }
