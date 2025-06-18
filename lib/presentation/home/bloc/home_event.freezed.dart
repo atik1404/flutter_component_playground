@@ -119,4 +119,89 @@ class FetchUpcomingMovies implements HomeEvent {
   }
 }
 
+/// @nodoc
+
+class FetchMovieCategories implements HomeEvent {
+  const FetchMovieCategories();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FetchMovieCategories);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HomeEvent.fetchMovieCategories()';
+  }
+}
+
+/// @nodoc
+
+class UpdateSelectedCategory implements HomeEvent {
+  const UpdateSelectedCategory(this.index);
+
+  final int index;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $UpdateSelectedCategoryCopyWith<UpdateSelectedCategory> get copyWith =>
+      _$UpdateSelectedCategoryCopyWithImpl<UpdateSelectedCategory>(
+          this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is UpdateSelectedCategory &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @override
+  String toString() {
+    return 'HomeEvent.updateSelectedCategory(index: $index)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $UpdateSelectedCategoryCopyWith<$Res>
+    implements $HomeEventCopyWith<$Res> {
+  factory $UpdateSelectedCategoryCopyWith(UpdateSelectedCategory value,
+          $Res Function(UpdateSelectedCategory) _then) =
+      _$UpdateSelectedCategoryCopyWithImpl;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class _$UpdateSelectedCategoryCopyWithImpl<$Res>
+    implements $UpdateSelectedCategoryCopyWith<$Res> {
+  _$UpdateSelectedCategoryCopyWithImpl(this._self, this._then);
+
+  final UpdateSelectedCategory _self;
+  final $Res Function(UpdateSelectedCategory) _then;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(UpdateSelectedCategory(
+      null == index
+          ? _self.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
 // dart format on

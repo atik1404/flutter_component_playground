@@ -3,7 +3,7 @@ part 'upcoming_movie_api_response.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class UpcomingMovieApiResponse {
-  List<MovieResponse> results;
+  List<MovieResponse>? results;
 
   UpcomingMovieApiResponse(this.results);
 
@@ -16,35 +16,35 @@ class UpcomingMovieApiResponse {
 @JsonSerializable(explicitToJson: true)
 class MovieResponse {
   bool? adult;
-  String? backdropPath;
-  // List<int>? genreIds;
-  // int? id;
-  // String? originalLanguage;
-  // String? originalTitle;
-  // String? overview;
-  // double? popularity;
-  // String? posterPath;
-  // String? releaseDate;
-  // String? title;
-  // bool? video;
-  // double? voteAverage;
-  // int? voteCount;
+  String? backdrop_path;
+  List<int>? genre_ids;
+  int? id;
+  String? original_language;
+  String? original_title;
+  String? overview;
+  double? popularity;
+  String? poster_path;
+  String? release_date;
+  String? title;
+  bool? video;
+  double? vote_average;
+  int? vote_count;
 
   MovieResponse({
     this.adult,
-    this.backdropPath,
-    // this.genreIds,
-    // this.id,
-    // this.originalLanguage,
-    // this.originalTitle,
-    // this.overview,
-    // this.popularity,
-    // this.posterPath,
-    // this.releaseDate,
-    // this.title,
-    // this.video,
-    // this.voteAverage,
-    // this.voteCount,
+    this.backdrop_path,
+    this.genre_ids,
+    this.id,
+    this.original_language,
+    this.original_title,
+    this.overview,
+    this.popularity,
+    this.poster_path,
+    this.release_date,
+    this.title,
+    this.video,
+    this.vote_average,
+    this.vote_count,
   });
 
   factory MovieResponse.fromJson(Map<String, dynamic> json) =>

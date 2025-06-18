@@ -1,33 +1,34 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_component_playground/common/utils/logger_utils';
-import 'package:flutter_component_playground/core/network/network_exception.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
+import 'package:flutter_component_playground/data/apiresponse/home/movie_categories_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/home/movies_api_response.dart';
 import 'package:flutter_component_playground/data/apiresponse/home/upcoming_movie_api_response.dart';
 import 'package:flutter_component_playground/data/datasources/remote/handle_api_call.dart';
+import 'package:flutter_component_playground/domain/entities/params/movies_api_params.dart';
 
 class MovieApiServices {
   final Dio dio;
 
   MovieApiServices({required this.dio});
 
-  Future<Result<UpcomingMovieApiResponse>> fetchUpcomingMovies() async {
-    // handleApiCall(
-    //   () => dio.get("3/movie/upcoming").then((res) => res.data),
-    //   (data) => UpcomingMovieApiResponse.fromJson(data),
-    // );
+  Future<Result<UpcomingMovieApiResponse>> fetchUpcomingMovies() {
+    return handleApiResponse<UpcomingMovieApiResponse>(
+      () => dio.get("3/movie/upcoming"),
+      (json) => UpcomingMovieApiResponse.fromJson(json),
+    );
+  }
 
-    try {
-      final response = await dio.get("3/movie/upcoming");
-      appLog.info("response: ${response.data}");
+  Future<Result<MovieCategoriesApiResponse>> fetchMovieCategories() {
+    return handleApiResponse<MovieCategoriesApiResponse>(
+      () => dio.get("3/genre/movie/list"),
+      (json) => MovieCategoriesApiResponse.fromJson(json),
+    );
+  }
 
-      return SuccessResult(UpcomingMovieApiResponse.fromJson(response.data));
-    } on NetworkException catch (e) {
-      return FailureResult(e);
-    } on DioException catch (e) {
-      return FailureResult(NetworkException(
-        description: e.message ?? 'Unknown Dio error',
-        statusCode: e.response?.statusCode ?? 500,
-      ));
-    }
+  Future<Result<MoviesApiResponse>> fetchMovies(MoviesApiParams params) {
+    return handleApiResponse<MoviesApiResponse>(
+      () => dio.get("3/discover/movie", data: params.toJson()),
+      (json) => MoviesApiResponse.fromJson(json),
+    );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_component_playground/presentation/auth/forgot_password/b
 import 'package:flutter_component_playground/presentation/auth/login/bloc/login_bloc.dart';
 import 'package:flutter_component_playground/presentation/auth/onboarding/bloc/onboarding_cubit.dart';
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_bloc.dart';
-import 'package:flutter_component_playground/presentation/auth/splash/block/splash_cubit.dart';
+import 'package:flutter_component_playground/presentation/auth/splash/bloc/splash_cubit.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
 
 Future<void> registerBlocModule() async {
@@ -30,7 +30,11 @@ Future<void> registerBlocModule() async {
       () => OnboardingCubit(sharedPrefs: di.get()),
     )
     ..registerFactory<HomeBloc>(
-      () => HomeBloc(fetchUpcomingMoviesApiUsecase: di.get()),
+      () => HomeBloc(
+        fetchUpcomingMoviesApiUsecase: di.get(),
+        fetchMovieCategoriesApiUsecase: di.get(),
+        fetchMovieApiUsecase: di.get(),
+      ),
     );
 
   return;

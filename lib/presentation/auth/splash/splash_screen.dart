@@ -7,8 +7,8 @@ import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
-import 'package:flutter_component_playground/presentation/auth/splash/block/splash_cubit.dart';
-import 'package:flutter_component_playground/presentation/auth/splash/block/splash_screen_state.dart';
+import 'package:flutter_component_playground/presentation/auth/splash/bloc/splash_cubit.dart';
+import 'package:flutter_component_playground/presentation/auth/splash/bloc/splash_screen_state.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 

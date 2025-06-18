@@ -18,6 +18,8 @@ Future<void> registerRepositoryModule() async {
     ..registerLazySingleton<MovieRepository>(() => MovieRepoImpl(
           apiServices: di.get(),
           upcomingMovieApiMapper: di.get(),
+          movieApiMapper: di.get(),
+          movieCategoriesApiMapper: di.get(),
         ));
 
   return;

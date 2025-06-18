@@ -1,11 +1,11 @@
 import 'package:flutter_component_playground/core/base/base_mapper.dart';
-import 'package:flutter_component_playground/data/apiresponse/home/upcoming_movie_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/home/movies_api_response.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
 
-class UpcomingMovieApiMapper
-    extends BaseMapper<UpcomingMovieApiResponse, List<MovieApiEntity>> {
+class MovieApiMapper
+    extends BaseMapper<MoviesApiResponse, List<MovieApiEntity>> {
   @override
-  List<MovieApiEntity> map(UpcomingMovieApiResponse response) {
+  List<MovieApiEntity> map(MoviesApiResponse response) {
     return response.results
             ?.map((movie) => MovieApiEntity(
                   backdropPath: movie.backdrop_path ?? "",

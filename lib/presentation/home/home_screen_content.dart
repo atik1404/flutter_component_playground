@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/core/config/app_core_env.dart';
 import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_event.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_state.dart';
@@ -33,6 +35,10 @@ class HomeScreenContent extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<HomeBloc>().add(
             const FetchUpcomingMovies(),
+          );
+
+      context.read<HomeBloc>().add(
+            const FetchMovieCategories(),
           );
     });
 
@@ -64,7 +70,7 @@ class HomeScreenContent extends StatelessWidget {
                   children: [
                     _buildMovieSlider(),
                     SizedBox(height: spacingSizes.large),
-                    _buildMovieCategory(context),
+                    _buildMovieCategory(),
                     SizedBox(height: spacingSizes.large),
                     _buildMovieItemList(context),
                   ],
@@ -191,6 +197,8 @@ class HomeScreenContent extends StatelessWidget {
           children: [
             CarouselSlider(
               items: state.slider.map((slider) {
+                //appLog.info("Slider Image: ${AppCoreEnv().imageBaseUrl + slider.backdropPath}");
+
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
@@ -198,8 +206,9 @@ class HomeScreenContent extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.circular(context.shapeRadius.base),
-                        image: const DecorationImage(
-                          image: NetworkImage(AppImages.movieBanner),
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              AppCoreEnv().imageBaseUrl + slider.backdropPath),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -214,9 +223,9 @@ class HomeScreenContent extends StatelessWidget {
                 enlargeCenterPage: true,
                 viewportFraction: 1,
                 onPageChanged: (index, reason) {
-                  // context.read<HomeBloc>().add(
-                  //       UpdateSliderIndex(index),
-                  //     );
+                  context.read<HomeBloc>().add(
+                        UpdateSliderIndex(index),
+                      );
                 },
               ),
             ),
@@ -234,8 +243,10 @@ class HomeScreenContent extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(3, (index) {
-        final isCurrentPage = index == 1;
+      children:
+          List.generate(context.watch<HomeBloc>().state.slider.length, (index) {
+        final isCurrentPage =
+            index == context.watch<HomeBloc>().state.currentSliderIndex;
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
@@ -254,40 +265,54 @@ class HomeScreenContent extends StatelessWidget {
   }
 
   /// Builds the horizontal list of movie categories.
-  Widget _buildMovieCategory(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.getString.title_category,
-          style: context.typography.titleMediumBold.copyWith(
-            color: context.textColors.primaryTextColor,
-          ),
-        ),
-        SizedBox(height: context.spacingSizes.base),
-        SizedBox(
-          height: 35.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: _buildMovieCategoryItem,
-          ),
-        ),
-      ],
+  Widget _buildMovieCategory() {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.movieCategories.isEmpty) {
+          return const SizedBox();
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              context.getString.title_category,
+              style: context.typography.titleMediumBold.copyWith(
+                color: context.textColors.primaryTextColor,
+              ),
+            ),
+            SizedBox(height: context.spacingSizes.base),
+            SizedBox(
+              height: 35.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemCount: state.movieCategories.length,
+                itemBuilder: (context, index) => _buildMovieCategoryItem(
+                  context,
+                  state.movieCategories[index],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
   /// Builds a single category item with selection highlight.
-  Widget _buildMovieCategoryItem(BuildContext context, int index) {
-    final _selectedCategory = 1;
+  Widget _buildMovieCategoryItem(
+    BuildContext context,
+    MovieCategoriesApiEntity category,
+  ) {
+    final isCategorySelected =
+        context.watch<HomeBloc>().state.selectedCategoryIndex == category.id;
 
     return GestureDetector(
       onTap: () {
-        Fluttertoast.showToast(msg: "Category $index clicked");
-        // setState(() {
-        //   _selectedCategory = index;
-        // });
+        context.read<HomeBloc>().add(
+              UpdateSelectedCategory(category.id),
+            );
       },
       child: Container(
         margin: EdgeInsets.only(right: context.spacingSizes.medium),
@@ -296,16 +321,16 @@ class HomeScreenContent extends StatelessWidget {
           vertical: context.spacingSizes.xSmall,
         ),
         decoration: BoxDecoration(
-          color: _selectedCategory == index
+          color: isCategorySelected
               ? context.buttonColors.primary
               : context.backgroundColors.primaryBackgroundColor,
           borderRadius: BorderRadius.circular(context.shapeRadius.medium),
         ),
         child: Center(
           child: Text(
-            "Category $index",
+            category.name,
             style: context.typography.bodyMedium.copyWith(
-              color: _selectedCategory == index
+              color: isCategorySelected
                   ? context.textColors.whiteTextColor
                   : context.textColors.primaryTextColor,
             ),
