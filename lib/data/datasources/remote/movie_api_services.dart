@@ -27,7 +27,7 @@ class MovieApiServices {
 
   Future<Result<MoviesApiResponse>> fetchMovies(MoviesApiParams params) {
     return handleApiResponse<MoviesApiResponse>(
-      () => dio.get("3/discover/movie", data: params.toJson()),
+      () => dio.get("3/discover/movie", queryParameters: params.toJson()),
       (json) => MoviesApiResponse.fromJson(json),
     );
   }

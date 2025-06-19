@@ -14,9 +14,24 @@ Future<Result<T>> handleApiResponse<T>(
   } on NetworkException catch (e) {
     return FailureResult<T>(e);
   } on DioException catch (e) {
+    String? errorMessage;
+    if (e.response?.data != null) {
+      try {
+        // If the error body is a Map, try to extract a message field
+        final data = e.response!.data;
+        if (data is Map && data['message'] != null) {
+          errorMessage = data['message'].toString();
+        } else if (data is String) {
+          errorMessage = data;
+        }
+      } catch (_) {
+        // Ignore parsing errors, fallback to Dio's message
+      }
+    }
+
     return FailureResult<T>(
       NetworkException(
-        description: e.message ?? 'Unknown Dio error',
+        description: errorMessage ?? e.message ?? 'Unknown Dio error',
         statusCode: e.response?.statusCode ?? 500,
       ),
     );

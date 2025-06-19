@@ -11,8 +11,10 @@ abstract class HomeState with _$HomeState {
     @Default(false) bool fullPageLoader,
     @Default(0) int currentSliderIndex,
     @Default(0) int selectedCategoryIndex,
+    @Default(1) int page,
     @Default([]) List<MovieApiEntity> slider,
     @Default([]) List<MovieCategoriesApiEntity> movieCategories,
+    @Default([]) List<MovieApiEntity> movies,
     @Default('') String errorMessage,
   }) = _HomeState;
 }

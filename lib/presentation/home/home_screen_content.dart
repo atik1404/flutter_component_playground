@@ -8,6 +8,7 @@ import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_event.dart';
@@ -208,7 +209,8 @@ class HomeScreenContent extends StatelessWidget {
                             BorderRadius.circular(context.shapeRadius.base),
                         image: DecorationImage(
                           image: NetworkImage(
-                              AppCoreEnv().imageBaseUrl + slider.backdropPath),
+                            AppCoreEnv().imageBaseUrl + slider.backdropPath,
+                          ),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -313,6 +315,9 @@ class HomeScreenContent extends StatelessWidget {
         context.read<HomeBloc>().add(
               UpdateSelectedCategory(category.id),
             );
+        context.read<HomeBloc>().add(
+              FetchMovies(category.id),
+            );
       },
       child: Container(
         margin: EdgeInsets.only(right: context.spacingSizes.medium),
@@ -342,22 +347,48 @@ class HomeScreenContent extends StatelessWidget {
 
   /// Builds the grid of movie items.
   Widget _buildMovieItemList(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: context.spacingSizes.large,
-      mainAxisSpacing: context.spacingSizes.xLarge,
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      childAspectRatio: .62,
-      children: List.generate(50, (index) {
-        return _buildMovieItem(context);
-      }),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.fullPageLoader) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: context.materialColors.primary,
+            ),
+          );
+        }
+        if (state.movies.isEmpty) {
+          return Center(
+            child: Text(
+              context.getString.error_message_no_data_found,
+              style: context.typography.bodyMedium.copyWith(
+                color: context.textColors.primaryTextColor,
+              ),
+            ),
+          );
+        }
+
+        return GridView.count(
+          crossAxisCount: 2,
+          crossAxisSpacing: context.spacingSizes.large,
+          mainAxisSpacing: context.spacingSizes.xLarge,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          childAspectRatio: .62,
+          children: List.generate(state.movies.length, (index) {
+            return _buildMovieItem(context, state.movies[index]);
+          }),
+        );
+      },
     );
   }
 
   /// Builds a single movie item card with image, title, and rating.
-  Widget _buildMovieItem(BuildContext context) {
+  Widget _buildMovieItem(BuildContext context, MovieApiEntity movie) {
+    final textColor = context.textColors;
+    final typography = context.typography;
+
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           children: [
@@ -365,7 +396,7 @@ class HomeScreenContent extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(context.shapeRadius.medium),
               child: Image.network(
-                AppImages.moviePoster,
+                AppCoreEnv().imageBaseUrl + movie.backdropPath,
                 width: double.infinity,
                 height: 200.h,
                 fit: BoxFit.cover,
@@ -378,7 +409,7 @@ class HomeScreenContent extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(context.spacingSizes.xSmall),
                 decoration: BoxDecoration(
-                  color: context.buttonColors.onPrimary.withAlpha(30),
+                  color: context.buttonColors.onPrimary.withAlpha(50),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -388,26 +419,62 @@ class HomeScreenContent extends StatelessWidget {
                 ),
               ),
             ),
+
+            Positioned(
+              top: 8.h,
+              left: 8.w,
+              child: Container(
+                padding: EdgeInsets.all(context.spacingSizes.xSmall),
+                decoration: BoxDecoration(
+                  color: context.buttonColors.onPrimary.withAlpha(50),
+                  borderRadius:
+                      BorderRadius.circular(context.shapeRadius.large),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: context.spacingSizes.medium),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        size: 14.w,
+                        color: Colors.blue,
+                      ),
+                      Text(
+                        movie.voteAverage.toString(),
+                        style: typography.bodySmallBold.copyWith(
+                          color: context.textColors.primaryTextColor,
+                        ),
+                      ),
+                      Text(
+                        "(${movie.voteCount})",
+                        style: context.typography.bodySmallLight.copyWith(
+                          color: textColor.primaryTextColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         SizedBox(height: context.spacingSizes.medium),
         // Movie title
         Text(
-          textAlign: TextAlign.center,
-          "Movie Title",
-          style: context.typography.bodyLargeBold.copyWith(
-            color: context.textColors.primaryTextColor,
+          maxLines: 1,
+          movie.title,
+          style: context.typography.bodyMediumBold.copyWith(
+            color: textColor.primaryTextColor,
           ),
         ),
         SizedBox(height: context.spacingSizes.xSmall),
-        // Movie rating bar
-        RatingBarIndicator(
-          rating: 5,
-          itemBuilder: (context, index) => Icon(
-            Icons.star,
-            color: context.materialColors.primary,
+
+        Text(
+          "Releaed on: ${movie.releaseDate}",
+          style: typography.bodySmallMedium.copyWith(
+            color: context.textColors.secondaryTextColor,
           ),
-          itemSize: 16,
         ),
       ],
     );

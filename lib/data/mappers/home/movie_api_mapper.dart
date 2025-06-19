@@ -1,3 +1,4 @@
+import 'package:flutter_component_playground/common/extensions/mathmatics_extension.dart';
 import 'package:flutter_component_playground/core/base/base_mapper.dart';
 import 'package:flutter_component_playground/data/apiresponse/home/movies_api_response.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
@@ -18,7 +19,7 @@ class MovieApiMapper
                   releaseDate: movie.release_date ?? "",
                   title: movie.title ?? "",
                   video: movie.video ?? false,
-                  voteAverage: movie.vote_average ?? 0.0,
+                  voteAverage: (movie.vote_average ?? 0.0).roundToTwoDecimalPlaces,
                   voteCount: movie.vote_count ?? 0,
                   genreIds: movie.genre_ids ?? [],
                 ))

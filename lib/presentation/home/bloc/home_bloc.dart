@@ -3,6 +3,7 @@ import 'package:flutter_component_playground/common/utils/logger_utils';
 import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/params/movies_api_params.dart';
 import 'package:flutter_component_playground/domain/usecase/home/fetch_movie_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/home/fetch_movie_categories_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/home/fetch_upcoming_movies_api_usecase.dart';
@@ -26,6 +27,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<FetchUpcomingMovies>(_fetchUpcomingMovies);
     on<FetchMovieCategories>(_fetchMovieCategories);
     on<UpdateSelectedCategory>(_updateSelectedCategoryIndex);
+    on<FetchMovies>(_fetchMovies);
   }
 
   void _updateSliderIndex(
@@ -73,6 +75,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       switch (result) {
         case SuccessResult<List<MovieCategoriesApiEntity>>():
+          add(FetchMovies(result.data.isNotEmpty ? result.data[0].id : -1));
           return emit(state.copyWith(
             movieCategories: result.data,
             selectedCategoryIndex:
@@ -92,5 +95,33 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     emit(state.copyWith(selectedCategoryIndex: event.index));
+  }
+
+  void _fetchMovies(
+    FetchMovies event,
+    Emitter<HomeState> emit,
+  ) async {
+    emit(state.copyWith(fullPageLoader: true));
+    final result = await _fetchMovieApiUsecase.invoke(MoviesApiParams(page: state.page, categoryId: event.categoryId));
+
+    try {
+      switch (result) {
+        case SuccessResult<List<MovieApiEntity>>():
+          return emit(
+            state.copyWith(
+              movies: result.data,
+              fullPageLoader: false,
+            ),
+          );
+
+        case FailureResult<List<MovieApiEntity>>():
+          return emit(state.copyWith(movies: [], fullPageLoader: false));
+      }
+    } catch (error) {
+      emit(state.copyWith(
+        errorMessage: error.toString(),
+        fullPageLoader: false,
+      ));
+    }
   }
 }
