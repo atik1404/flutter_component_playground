@@ -8,7 +8,9 @@ part 'home_state.freezed.dart';
 @freezed
 abstract class HomeState with _$HomeState {
   const factory HomeState({
-    @Default(false) bool fullPageLoader,
+    @Default(false) bool isSliderLoading,
+    @Default(false) bool isCategoryLoading,
+    @Default(false) bool isMoviesLoading,
     @Default(0) int currentSliderIndex,
     @Default(0) int selectedCategoryIndex,
     @Default(1) int page,
@@ -16,5 +18,15 @@ abstract class HomeState with _$HomeState {
     @Default([]) List<MovieCategoriesApiEntity> movieCategories,
     @Default([]) List<MovieApiEntity> movies,
     @Default('') String errorMessage,
+
+    // @Default(ApiState.initial()) ApiState<List<MovieApiEntity>> sliderState,
+    // @Default(ApiState.initial()) ApiState<List<MovieCategoriesApiEntity>> categoryState,
+    // @Default(ApiState.initial()) ApiState<List<MovieApiEntity>> movieState,
+
+    // @Default(0) int currentSliderIndex,
+    // @Default(0) int selectedCategoryIndex,
+    // @Default(1) int page,
   }) = _HomeState;
 }
+
+

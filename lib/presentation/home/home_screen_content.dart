@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/common/utils/logger_utils';
 import 'package:flutter_component_playground/core/config/app_core_env.dart';
 import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
@@ -10,17 +11,21 @@ import 'package:flutter_component_playground/designsystem/resources/app_icons.da
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/presentation/home/bloc/api_state.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_event.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_state.dart';
 import 'package:flutter_component_playground/ui/widgets/app_text_field.dart';
 import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
+import 'package:flutter_component_playground/ui/widgets/shimmer_effect/carosel_slider_shimmer_efect.dart';
+import 'package:flutter_component_playground/ui/widgets/shimmer_effect/movie_category_shimmer_effect.dart';
+import 'package:flutter_component_playground/ui/widgets/shimmer_effect/movie_shimmer_effect.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jiffy/jiffy.dart';
 
 /// HomeScreenContent displays the main dashboard content for the home tab,
 /// including a toolbar, slider, categories, and a grid of movie items.
@@ -73,7 +78,7 @@ class HomeScreenContent extends StatelessWidget {
                     SizedBox(height: spacingSizes.large),
                     _buildMovieCategory(),
                     SizedBox(height: spacingSizes.large),
-                    _buildMovieItemList(context),
+                    _buildMovieItemList(),
                   ],
                 ),
               ),
@@ -176,37 +181,23 @@ class HomeScreenContent extends StatelessWidget {
   Widget _buildMovieSlider() {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state.fullPageLoader) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: context.materialColors.primary,
-            ),
-          );
-        }
-        if (state.slider.isEmpty) {
-          return Center(
-            child: Text(
-              context.getString.error_message_no_data_found,
-              style: context.typography.bodyMedium.copyWith(
-                color: context.textColors.primaryTextColor,
-              ),
-            ),
-          );
+        if (state.isSliderLoading) {
+          return const CaroselSliderShimmerEfect();
         }
 
         return Column(
           children: [
             CarouselSlider(
               items: state.slider.map((slider) {
-                //appLog.info("Slider Image: ${AppCoreEnv().imageBaseUrl + slider.backdropPath}");
-
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(context.shapeRadius.base),
+                        color: context.backgroundColors.primaryBackgroundColor,
+                        borderRadius: BorderRadius.circular(
+                          context.shapeRadius.base,
+                        ),
                         image: DecorationImage(
                           image: NetworkImage(
                             AppCoreEnv().imageBaseUrl + slider.backdropPath,
@@ -235,6 +226,12 @@ class HomeScreenContent extends StatelessWidget {
             _buildSliderPageIndicator(context),
           ],
         );
+        // return state.sliderState.when(
+        //   initial: () => const SizedBox(),
+        //   loading: () => const CaroselSliderShimmerEfect(),
+        //   success: (slider) =>
+        //   error: (message) => const SizedBox(),
+        // );
       },
     );
   }
@@ -270,8 +267,8 @@ class HomeScreenContent extends StatelessWidget {
   Widget _buildMovieCategory() {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state.movieCategories.isEmpty) {
-          return const SizedBox();
+        if (state.isCategoryLoading) {
+          return const MovieCategoryShimmerEffect();
         }
 
         return Column(
@@ -328,7 +325,7 @@ class HomeScreenContent extends StatelessWidget {
         decoration: BoxDecoration(
           color: isCategorySelected
               ? context.buttonColors.primary
-              : context.backgroundColors.primaryBackgroundColor,
+              : context.backgroundColors.secondaryBackgroundColor,
           borderRadius: BorderRadius.circular(context.shapeRadius.medium),
         ),
         child: Center(
@@ -346,25 +343,11 @@ class HomeScreenContent extends StatelessWidget {
   }
 
   /// Builds the grid of movie items.
-  Widget _buildMovieItemList(BuildContext context) {
+  Widget _buildMovieItemList() {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state.fullPageLoader) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: context.materialColors.primary,
-            ),
-          );
-        }
-        if (state.movies.isEmpty) {
-          return Center(
-            child: Text(
-              context.getString.error_message_no_data_found,
-              style: context.typography.bodyMedium.copyWith(
-                color: context.textColors.primaryTextColor,
-              ),
-            ),
-          );
+        if (state.isMoviesLoading) {
+          return const MovieShimmerEffect();
         }
 
         return GridView.count(
@@ -386,6 +369,10 @@ class HomeScreenContent extends StatelessWidget {
   Widget _buildMovieItem(BuildContext context, MovieApiEntity movie) {
     final textColor = context.textColors;
     final typography = context.typography;
+    final spacingSizes = context.spacingSizes;
+    final secondaryTextStyle = typography.bodySmallLight.copyWith(
+      color: context.textColors.secondaryTextColor,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,10 +391,10 @@ class HomeScreenContent extends StatelessWidget {
             ),
             // Favorite icon overlay
             Positioned(
-              top: 8.h,
-              right: 8.w,
+              top: spacingSizes.medium,
+              right: spacingSizes.medium,
               child: Container(
-                padding: EdgeInsets.all(context.spacingSizes.xSmall),
+                padding: EdgeInsets.all(spacingSizes.xSmall),
                 decoration: BoxDecoration(
                   color: context.buttonColors.onPrimary.withAlpha(50),
                   shape: BoxShape.circle,
@@ -421,18 +408,20 @@ class HomeScreenContent extends StatelessWidget {
             ),
 
             Positioned(
-              top: 8.h,
-              left: 8.w,
+              top: spacingSizes.medium,
+              left: spacingSizes.medium,
               child: Container(
-                padding: EdgeInsets.all(context.spacingSizes.xSmall),
+                padding: EdgeInsets.all(spacingSizes.xSmall),
                 decoration: BoxDecoration(
-                  color: context.buttonColors.onPrimary.withAlpha(50),
+                  color: context.backgroundColors.primaryBackgroundColor
+                      .withAlpha(80),
                   borderRadius:
                       BorderRadius.circular(context.shapeRadius.large),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: context.spacingSizes.medium),
+                    horizontal: spacingSizes.medium,
+                  ),
                   child: Row(
                     children: [
                       Icon(
@@ -441,15 +430,9 @@ class HomeScreenContent extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       Text(
-                        movie.voteAverage.toString(),
+                        "${movie.voteAverage} (${movie.voteCount})",
                         style: typography.bodySmallBold.copyWith(
                           color: context.textColors.primaryTextColor,
-                        ),
-                      ),
-                      Text(
-                        "(${movie.voteCount})",
-                        style: context.typography.bodySmallLight.copyWith(
-                          color: textColor.primaryTextColor,
                         ),
                       ),
                     ],
@@ -471,10 +454,16 @@ class HomeScreenContent extends StatelessWidget {
         SizedBox(height: context.spacingSizes.xSmall),
 
         Text(
-          "Releaed on: ${movie.releaseDate}",
-          style: typography.bodySmallMedium.copyWith(
-            color: context.textColors.secondaryTextColor,
+          context.getString.placeholder_released_on(
+            Jiffy.parse(movie.releaseDate).yMMMd,
           ),
+          style: secondaryTextStyle,
+        ),
+        Text(
+          context.getString.placeholder_movie_language(
+            movie.originalLanguage.toUpperCase(),
+          ),
+          style: secondaryTextStyle,
         ),
       ],
     );

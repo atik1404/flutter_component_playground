@@ -1,5 +1,4 @@
 
-import 'package:flutter_component_playground/domain/entities/params/movies_api_params.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'home_event.freezed.dart';
 

@@ -20,10 +20,14 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'bn';
 
-  static String m0(email) =>
+  static String m0(language) => "Language: ${language}";
+
+  static String m1(email) =>
       "We send you an OTP to verify your email. Please enter the OTP to ${email}";
 
-  static String m1(user) => "Hello, ${user}";
+  static String m2(date) => "Released: ${date}";
+
+  static String m3(user) => "Hello, ${user}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -80,8 +84,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "msg_sign_up": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
-        "placeholder_otp_sending_message": m0,
-        "placeholder_user_greeting": m1,
+        "placeholder_movie_language": m0,
+        "placeholder_otp_sending_message": m1,
+        "placeholder_released_on": m2,
+        "placeholder_user_greeting": m3,
         "text_agreed":
             MessageLookupByLibrary.simpleMessage("I\'m agree to the "),
         "text_and": MessageLookupByLibrary.simpleMessage(" and "),

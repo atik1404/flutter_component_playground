@@ -31,6 +31,8 @@
 
     "placeholder_otp_sending_message": "We send you an OTP to verify your email. Please enter the OTP to {email}",
     "placeholder_user_greeting": "Hello, {user}",
+    "placeholder_released_on": "Released: {date}",
+    "placeholder_movie_language": "Language: {language}",
 
     "button_get_started": "Get Started",
     "button_login": "Login",

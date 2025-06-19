@@ -310,6 +310,26 @@ class LocalizedStrings {
     );
   }
 
+  /// `Released: {date}`
+  String placeholder_released_on(Object date) {
+    return Intl.message(
+      'Released: $date',
+      name: 'placeholder_released_on',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `Language: {language}`
+  String placeholder_movie_language(Object language) {
+    return Intl.message(
+      'Language: $language',
+      name: 'placeholder_movie_language',
+      desc: '',
+      args: [language],
+    );
+  }
+
   /// `Get Started`
   String get button_get_started {
     return Intl.message(

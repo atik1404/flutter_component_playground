@@ -15,7 +15,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$HomeState implements DiagnosticableTreeMixin {
-  bool get fullPageLoader;
+  bool get isSliderLoading;
+  bool get isCategoryLoading;
+  bool get isMoviesLoading;
   int get currentSliderIndex;
   int get selectedCategoryIndex;
   int get page;
@@ -35,7 +37,9 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
       ..add(DiagnosticsProperty('type', 'HomeState'))
-      ..add(DiagnosticsProperty('fullPageLoader', fullPageLoader))
+      ..add(DiagnosticsProperty('isSliderLoading', isSliderLoading))
+      ..add(DiagnosticsProperty('isCategoryLoading', isCategoryLoading))
+      ..add(DiagnosticsProperty('isMoviesLoading', isMoviesLoading))
       ..add(DiagnosticsProperty('currentSliderIndex', currentSliderIndex))
       ..add(DiagnosticsProperty('selectedCategoryIndex', selectedCategoryIndex))
       ..add(DiagnosticsProperty('page', page))
@@ -50,8 +54,12 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is HomeState &&
-            (identical(other.fullPageLoader, fullPageLoader) ||
-                other.fullPageLoader == fullPageLoader) &&
+            (identical(other.isSliderLoading, isSliderLoading) ||
+                other.isSliderLoading == isSliderLoading) &&
+            (identical(other.isCategoryLoading, isCategoryLoading) ||
+                other.isCategoryLoading == isCategoryLoading) &&
+            (identical(other.isMoviesLoading, isMoviesLoading) ||
+                other.isMoviesLoading == isMoviesLoading) &&
             (identical(other.currentSliderIndex, currentSliderIndex) ||
                 other.currentSliderIndex == currentSliderIndex) &&
             (identical(other.selectedCategoryIndex, selectedCategoryIndex) ||
@@ -68,7 +76,9 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      fullPageLoader,
+      isSliderLoading,
+      isCategoryLoading,
+      isMoviesLoading,
       currentSliderIndex,
       selectedCategoryIndex,
       page,
@@ -79,7 +89,7 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(fullPageLoader: $fullPageLoader, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, errorMessage: $errorMessage)';
+    return 'HomeState(isSliderLoading: $isSliderLoading, isCategoryLoading: $isCategoryLoading, isMoviesLoading: $isMoviesLoading, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, errorMessage: $errorMessage)';
   }
 }
 
@@ -89,7 +99,9 @@ abstract mixin class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl;
   @useResult
   $Res call(
-      {bool fullPageLoader,
+      {bool isSliderLoading,
+      bool isCategoryLoading,
+      bool isMoviesLoading,
       int currentSliderIndex,
       int selectedCategoryIndex,
       int page,
@@ -111,7 +123,9 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fullPageLoader = null,
+    Object? isSliderLoading = null,
+    Object? isCategoryLoading = null,
+    Object? isMoviesLoading = null,
     Object? currentSliderIndex = null,
     Object? selectedCategoryIndex = null,
     Object? page = null,
@@ -121,9 +135,17 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     Object? errorMessage = null,
   }) {
     return _then(_self.copyWith(
-      fullPageLoader: null == fullPageLoader
-          ? _self.fullPageLoader
-          : fullPageLoader // ignore: cast_nullable_to_non_nullable
+      isSliderLoading: null == isSliderLoading
+          ? _self.isSliderLoading
+          : isSliderLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCategoryLoading: null == isCategoryLoading
+          ? _self.isCategoryLoading
+          : isCategoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isMoviesLoading: null == isMoviesLoading
+          ? _self.isMoviesLoading
+          : isMoviesLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       currentSliderIndex: null == currentSliderIndex
           ? _self.currentSliderIndex
@@ -161,7 +183,9 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
 
 class _HomeState with DiagnosticableTreeMixin implements HomeState {
   const _HomeState(
-      {this.fullPageLoader = false,
+      {this.isSliderLoading = false,
+      this.isCategoryLoading = false,
+      this.isMoviesLoading = false,
       this.currentSliderIndex = 0,
       this.selectedCategoryIndex = 0,
       this.page = 1,
@@ -175,7 +199,13 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
 
   @override
   @JsonKey()
-  final bool fullPageLoader;
+  final bool isSliderLoading;
+  @override
+  @JsonKey()
+  final bool isCategoryLoading;
+  @override
+  @JsonKey()
+  final bool isMoviesLoading;
   @override
   @JsonKey()
   final int currentSliderIndex;
@@ -228,7 +258,9 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
       ..add(DiagnosticsProperty('type', 'HomeState'))
-      ..add(DiagnosticsProperty('fullPageLoader', fullPageLoader))
+      ..add(DiagnosticsProperty('isSliderLoading', isSliderLoading))
+      ..add(DiagnosticsProperty('isCategoryLoading', isCategoryLoading))
+      ..add(DiagnosticsProperty('isMoviesLoading', isMoviesLoading))
       ..add(DiagnosticsProperty('currentSliderIndex', currentSliderIndex))
       ..add(DiagnosticsProperty('selectedCategoryIndex', selectedCategoryIndex))
       ..add(DiagnosticsProperty('page', page))
@@ -243,8 +275,12 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _HomeState &&
-            (identical(other.fullPageLoader, fullPageLoader) ||
-                other.fullPageLoader == fullPageLoader) &&
+            (identical(other.isSliderLoading, isSliderLoading) ||
+                other.isSliderLoading == isSliderLoading) &&
+            (identical(other.isCategoryLoading, isCategoryLoading) ||
+                other.isCategoryLoading == isCategoryLoading) &&
+            (identical(other.isMoviesLoading, isMoviesLoading) ||
+                other.isMoviesLoading == isMoviesLoading) &&
             (identical(other.currentSliderIndex, currentSliderIndex) ||
                 other.currentSliderIndex == currentSliderIndex) &&
             (identical(other.selectedCategoryIndex, selectedCategoryIndex) ||
@@ -261,7 +297,9 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      fullPageLoader,
+      isSliderLoading,
+      isCategoryLoading,
+      isMoviesLoading,
       currentSliderIndex,
       selectedCategoryIndex,
       page,
@@ -272,7 +310,7 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(fullPageLoader: $fullPageLoader, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, errorMessage: $errorMessage)';
+    return 'HomeState(isSliderLoading: $isSliderLoading, isCategoryLoading: $isCategoryLoading, isMoviesLoading: $isMoviesLoading, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, errorMessage: $errorMessage)';
   }
 }
 
@@ -285,7 +323,9 @@ abstract mixin class _$HomeStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool fullPageLoader,
+      {bool isSliderLoading,
+      bool isCategoryLoading,
+      bool isMoviesLoading,
       int currentSliderIndex,
       int selectedCategoryIndex,
       int page,
@@ -307,7 +347,9 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? fullPageLoader = null,
+    Object? isSliderLoading = null,
+    Object? isCategoryLoading = null,
+    Object? isMoviesLoading = null,
     Object? currentSliderIndex = null,
     Object? selectedCategoryIndex = null,
     Object? page = null,
@@ -317,9 +359,17 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
     Object? errorMessage = null,
   }) {
     return _then(_HomeState(
-      fullPageLoader: null == fullPageLoader
-          ? _self.fullPageLoader
-          : fullPageLoader // ignore: cast_nullable_to_non_nullable
+      isSliderLoading: null == isSliderLoading
+          ? _self.isSliderLoading
+          : isSliderLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCategoryLoading: null == isCategoryLoading
+          ? _self.isCategoryLoading
+          : isCategoryLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isMoviesLoading: null == isMoviesLoading
+          ? _self.isMoviesLoading
+          : isMoviesLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       currentSliderIndex: null == currentSliderIndex
           ? _self.currentSliderIndex
