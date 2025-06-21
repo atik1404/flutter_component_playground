@@ -17,6 +17,8 @@ abstract class HomeState with _$HomeState {
     @Default([]) List<MovieApiEntity> slider,
     @Default([]) List<MovieCategoriesApiEntity> movieCategories,
     @Default([]) List<MovieApiEntity> movies,
+    @Default(false) bool isLastPage,
+    @Default(false) bool isLoadingMore,
     @Default('') String errorMessage,
 
     // @Default(ApiState.initial()) ApiState<List<MovieApiEntity>> sliderState,
@@ -28,5 +30,3 @@ abstract class HomeState with _$HomeState {
     // @Default(1) int page,
   }) = _HomeState;
 }
-
-

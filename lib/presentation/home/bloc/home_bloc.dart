@@ -26,8 +26,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<UpdateSliderIndex>(_updateSliderIndex);
     on<FetchUpcomingMovies>(_fetchUpcomingMovies);
     on<FetchMovieCategories>(_fetchMovieCategories);
-    on<UpdateSelectedCategory>(_updateSelectedCategoryIndex);
+    on<UpdateSelectedCategory>(_updateSelectedCategory);
     on<FetchMovies>(_fetchMovies);
+    on<FetchMoreMovies>(_fetchMoreMovies);
   }
 
   void _updateSliderIndex(
@@ -70,7 +71,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     FetchMovieCategories event,
     Emitter<HomeState> emit,
   ) async {
-    emit(state.copyWith(isCategoryLoading: false));
+    emit(state.copyWith(isCategoryLoading: true));
     final result = await _fetchMovieCategoriesApiUsecase.invoke();
 
     try {
@@ -78,24 +79,34 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         case SuccessResult<List<MovieCategoriesApiEntity>>():
           add(FetchMovies(result.data.isNotEmpty ? result.data[0].id : -1));
           return emit(state.copyWith(
+            isCategoryLoading: false,
             movieCategories: result.data,
             selectedCategoryIndex:
                 result.data.isNotEmpty ? result.data[0].id : -1,
           ));
 
         case FailureResult<List<MovieCategoriesApiEntity>>():
-          return emit(state.copyWith(movieCategories: []));
+          return emit(state.copyWith(
+            movieCategories: [],
+            isCategoryLoading: false,
+          ));
       }
     } catch (error) {
       appLog.shout('Error fetching movie categories: $error');
     }
   }
 
-  void _updateSelectedCategoryIndex(
+  void _updateSelectedCategory(
     UpdateSelectedCategory event,
     Emitter<HomeState> emit,
   ) {
-    emit(state.copyWith(selectedCategoryIndex: event.index));
+    if (state.selectedCategoryIndex == event.categoryId) return;
+    emit(state.copyWith(
+        selectedCategoryIndex: event.categoryId,
+        page: 1,
+        movies: [],
+        isLastPage: false,));
+    add(FetchMovies(event.categoryId));
   }
 
   void _fetchMovies(
@@ -124,6 +135,42 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(
         errorMessage: error.toString(),
         isMoviesLoading: false,
+      ));
+    }
+  }
+
+  void _fetchMoreMovies(
+    FetchMoreMovies event,
+    Emitter<HomeState> emit,
+  ) async {
+    if (state.isLoadingMore || state.isLastPage) return;
+
+    emit(state.copyWith(isLoadingMore: true));
+    final result = await _fetchMovieApiUsecase.invoke(
+      MoviesApiParams(page: state.page + 1, categoryId: event.categoryId),
+    );
+
+    try {
+      switch (result) {
+        case SuccessResult<List<MovieApiEntity>>():
+          if (result.data.isEmpty) {
+            return emit(state.copyWith(isLastPage: true, isLoadingMore: false));
+          }
+          return emit(
+            state.copyWith(
+              movies: [...state.movies, ...result.data],
+              page: state.page + 1,
+              isLoadingMore: false,
+            ),
+          );
+
+        case FailureResult<List<MovieApiEntity>>():
+          return emit(state.copyWith(isLoadingMore: false));
+      }
+    } catch (error) {
+      emit(state.copyWith(
+        errorMessage: error.toString(),
+        isLoadingMore: false,
       ));
     }
   }

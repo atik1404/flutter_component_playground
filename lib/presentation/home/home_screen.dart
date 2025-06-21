@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // List of screens for each tab in the navigation bar.
   final List<Widget> _screens =  [
-    HomeScreenContent(),
+    const HomeScreenContent(),
     const FavoritesScreen(),
     const ProfileScreen(),
   ];

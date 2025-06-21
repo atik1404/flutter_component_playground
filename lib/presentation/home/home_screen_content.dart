@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_component_playground/common/utils/logger_utils';
 import 'package:flutter_component_playground/core/config/app_core_env.dart';
 import 'package:flutter_component_playground/core/di/module/app_di_module.dart';
 import 'package:flutter_component_playground/core/sharedpref/shared_pref_key.dart';
@@ -11,11 +10,11 @@ import 'package:flutter_component_playground/designsystem/resources/app_icons.da
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
-import 'package:flutter_component_playground/presentation/home/bloc/api_state.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_event.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_state.dart';
 import 'package:flutter_component_playground/ui/widgets/app_text_field.dart';
+import 'package:flutter_component_playground/ui/widgets/network_image_loader.dart';
 import 'package:flutter_component_playground/ui/widgets/scaffold_appbar.dart';
 import 'package:flutter_component_playground/ui/widgets/shimmer_effect/carosel_slider_shimmer_efect.dart';
 import 'package:flutter_component_playground/ui/widgets/shimmer_effect/movie_category_shimmer_effect.dart';
@@ -29,59 +28,83 @@ import 'package:jiffy/jiffy.dart';
 
 /// HomeScreenContent displays the main dashboard content for the home tab,
 /// including a toolbar, slider, categories, and a grid of movie items.
-class HomeScreenContent extends StatelessWidget {
-  HomeScreenContent({super.key});
+class HomeScreenContent extends StatefulWidget {
+  const HomeScreenContent({super.key});
 
+  @override
+  State<HomeScreenContent> createState() => _HomeScreenContentState();
+}
+
+class _HomeScreenContentState extends State<HomeScreenContent> {
   final SharedPrefs _sharedPrefs = di.get<SharedPrefs>();
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScrollController);
+    context.read<HomeBloc>().add(
+          const FetchUpcomingMovies(),
+        );
+
+    context.read<HomeBloc>().add(
+          const FetchMovieCategories(),
+        );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScrollController() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      // Load more movies when reaching the end of the list
+      context.read<HomeBloc>().add(
+            FetchMoreMovies(
+              context.read<HomeBloc>().state.selectedCategoryIndex,
+            ),
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final spacingSizes = context.spacingSizes;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<HomeBloc>().add(
-            const FetchUpcomingMovies(),
-          );
-
-      context.read<HomeBloc>().add(
-            const FetchMovieCategories(),
-          );
-    });
-
     return ScaffoldAppbar(
       body: Column(
         children: [
-          // Top toolbar with avatar, greeting, and search
+          SizedBox(height: spacingSizes.large),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: spacingSizes.base,
-              vertical: spacingSizes.base,
-            ),
-            child: Column(
-              children: [
-                _buildInfoHeader(context),
-                SizedBox(height: spacingSizes.large),
-                _buildSearchBar(context),
-              ],
-            ),
+            padding: EdgeInsets.all(spacingSizes.base),
+            child: _buildInfoHeader(context),
           ),
-          // Main scrollable content
           Expanded(
-            child: SingleChildScrollView(
+            child: CustomScrollView(
+              controller: _scrollController,
               physics: const ClampingScrollPhysics(),
-              child: Container(
-                padding: EdgeInsets.all(spacingSizes.base),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildMovieSlider(),
-                    SizedBox(height: spacingSizes.large),
-                    _buildMovieCategory(),
-                    SizedBox(height: spacingSizes.large),
-                    _buildMovieItemList(),
-                  ],
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(spacingSizes.base),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildSearchBar(context),
+                        SizedBox(height: spacingSizes.large),
+                        _buildMovieSlider(),
+                        SizedBox(height: spacingSizes.large),
+                        _buildMovieCategory(),
+                        SizedBox(height: spacingSizes.large),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+                _buildMovieItemList(),
+              ],
             ),
           ),
         ],
@@ -312,9 +335,6 @@ class HomeScreenContent extends StatelessWidget {
         context.read<HomeBloc>().add(
               UpdateSelectedCategory(category.id),
             );
-        context.read<HomeBloc>().add(
-              FetchMovies(category.id),
-            );
       },
       child: Container(
         margin: EdgeInsets.only(right: context.spacingSizes.medium),
@@ -345,22 +365,80 @@ class HomeScreenContent extends StatelessWidget {
   /// Builds the grid of movie items.
   Widget _buildMovieItemList() {
     return BlocBuilder<HomeBloc, HomeState>(
+      buildWhen: (previous, current) =>
+          previous.movies != current.movies ||
+          previous.isMoviesLoading != current.isMoviesLoading ||
+          previous.isLoadingMore != current.isLoadingMore,
       builder: (context, state) {
         if (state.isMoviesLoading) {
-          return const MovieShimmerEffect();
+          // Show a progress bar while loading movies
+          return SliverToBoxAdapter(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.spacingSizes.base,
+                ),
+                child: const MovieShimmerEffect(),
+              ),
+            ),
+          );
         }
 
-        return GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: context.spacingSizes.large,
-          mainAxisSpacing: context.spacingSizes.xLarge,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          childAspectRatio: .62,
-          children: List.generate(state.movies.length, (index) {
-            return _buildMovieItem(context, state.movies[index]);
-          }),
+        final movieListSize = state.movies.length;
+
+        return SliverPadding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.spacingSizes.base,
+          ),
+          sliver: SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                if (index >= state.movies.length) {
+                  // Show loading indicator at the end
+                  return Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.spacingSizes.base,
+                      ),
+                      child: CircularProgressIndicator(
+                        color: context.materialColors.primary,
+                      ),
+                    ),
+                  );
+                }
+
+                return _buildMovieItem(context, state.movies[index]);
+              },
+              childCount:
+                  state.isLoadingMore ? movieListSize + 1 : movieListSize,
+            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: context.spacingSizes.base,
+              mainAxisSpacing: context.spacingSizes.small,
+              childAspectRatio: 0.6,
+            ),
+          ),
         );
+
+        // GridView.builder(
+        //   controller: _scrollController,
+        //   itemCount: state.movies.length,
+        //   physics: const BouncingScrollPhysics(),
+        //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //     crossAxisCount: 2,
+        //     crossAxisSpacing: context.spacingSizes.large,
+        //     mainAxisSpacing: context.spacingSizes.xLarge,
+        //     childAspectRatio: 0.6, // Adjust aspect ratio as needed
+        //   ),
+        //   itemBuilder: (context, index) {
+        //     if (index >= state.movies.length) {
+        //       return const CircularProgressIndicator();
+        //     }
+
+        //     return _buildMovieItem(context, state.movies[index]);
+        //   },
+        // )
       },
     );
   }
@@ -382,11 +460,9 @@ class HomeScreenContent extends StatelessWidget {
             // Movie poster image
             ClipRRect(
               borderRadius: BorderRadius.circular(context.shapeRadius.medium),
-              child: Image.network(
-                AppCoreEnv().imageBaseUrl + movie.backdropPath,
-                width: double.infinity,
+              child: NetworkImageLoader(
+                imageUrl: movie.posterPath,
                 height: 200.h,
-                fit: BoxFit.cover,
               ),
             ),
             // Favorite icon overlay

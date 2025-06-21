@@ -15,4 +15,5 @@ final class AppImages {
   static const moviePoster =
       "https://m.media-amazon.com/images/I/61CRq2R6i4L._AC_SL1024_.jpg";
   static const imgError = "assets/images/img_error.svg";
+  static const imgErrorPlaceholder = "assets/images/img_image_placeholder.png";
 }

@@ -185,6 +185,71 @@ class _$FetchMoviesCopyWithImpl<$Res> implements $FetchMoviesCopyWith<$Res> {
 
 /// @nodoc
 
+class FetchMoreMovies implements HomeEvent {
+  const FetchMoreMovies(this.categoryId);
+
+  final int categoryId;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $FetchMoreMoviesCopyWith<FetchMoreMovies> get copyWith =>
+      _$FetchMoreMoviesCopyWithImpl<FetchMoreMovies>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FetchMoreMovies &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, categoryId);
+
+  @override
+  String toString() {
+    return 'HomeEvent.fetchMoreMovies(categoryId: $categoryId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $FetchMoreMoviesCopyWith<$Res>
+    implements $HomeEventCopyWith<$Res> {
+  factory $FetchMoreMoviesCopyWith(
+          FetchMoreMovies value, $Res Function(FetchMoreMovies) _then) =
+      _$FetchMoreMoviesCopyWithImpl;
+  @useResult
+  $Res call({int categoryId});
+}
+
+/// @nodoc
+class _$FetchMoreMoviesCopyWithImpl<$Res>
+    implements $FetchMoreMoviesCopyWith<$Res> {
+  _$FetchMoreMoviesCopyWithImpl(this._self, this._then);
+
+  final FetchMoreMovies _self;
+  final $Res Function(FetchMoreMovies) _then;
+
+  /// Create a copy of HomeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? categoryId = null,
+  }) {
+    return _then(FetchMoreMovies(
+      null == categoryId
+          ? _self.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
 class FetchMovieCategories implements HomeEvent {
   const FetchMovieCategories();
 
@@ -206,9 +271,9 @@ class FetchMovieCategories implements HomeEvent {
 /// @nodoc
 
 class UpdateSelectedCategory implements HomeEvent {
-  const UpdateSelectedCategory(this.index);
+  const UpdateSelectedCategory(this.categoryId);
 
-  final int index;
+  final int categoryId;
 
   /// Create a copy of HomeEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -223,15 +288,16 @@ class UpdateSelectedCategory implements HomeEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is UpdateSelectedCategory &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, categoryId);
 
   @override
   String toString() {
-    return 'HomeEvent.updateSelectedCategory(index: $index)';
+    return 'HomeEvent.updateSelectedCategory(categoryId: $categoryId)';
   }
 }
 
@@ -242,7 +308,7 @@ abstract mixin class $UpdateSelectedCategoryCopyWith<$Res>
           $Res Function(UpdateSelectedCategory) _then) =
       _$UpdateSelectedCategoryCopyWithImpl;
   @useResult
-  $Res call({int index});
+  $Res call({int categoryId});
 }
 
 /// @nodoc
@@ -257,12 +323,12 @@ class _$UpdateSelectedCategoryCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? index = null,
+    Object? categoryId = null,
   }) {
     return _then(UpdateSelectedCategory(
-      null == index
-          ? _self.index
-          : index // ignore: cast_nullable_to_non_nullable
+      null == categoryId
+          ? _self.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }

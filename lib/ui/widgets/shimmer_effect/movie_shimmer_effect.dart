@@ -71,7 +71,7 @@ class MovieShimmerEffect extends StatelessWidget {
       mainAxisSpacing: context.spacingSizes.xLarge,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      childAspectRatio: .62,
+      childAspectRatio: .60,
       children: List.generate(6, (index) {
         return _buildMovieItemShimmer(context);
       }),

@@ -24,6 +24,8 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
   List<MovieApiEntity> get slider;
   List<MovieCategoriesApiEntity> get movieCategories;
   List<MovieApiEntity> get movies;
+  bool get isLastPage;
+  bool get isLoadingMore;
   String get errorMessage;
 
   /// Create a copy of HomeState
@@ -46,6 +48,8 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('slider', slider))
       ..add(DiagnosticsProperty('movieCategories', movieCategories))
       ..add(DiagnosticsProperty('movies', movies))
+      ..add(DiagnosticsProperty('isLastPage', isLastPage))
+      ..add(DiagnosticsProperty('isLoadingMore', isLoadingMore))
       ..add(DiagnosticsProperty('errorMessage', errorMessage));
   }
 
@@ -69,6 +73,10 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
             const DeepCollectionEquality()
                 .equals(other.movieCategories, movieCategories) &&
             const DeepCollectionEquality().equals(other.movies, movies) &&
+            (identical(other.isLastPage, isLastPage) ||
+                other.isLastPage == isLastPage) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
@@ -85,11 +93,13 @@ mixin _$HomeState implements DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(slider),
       const DeepCollectionEquality().hash(movieCategories),
       const DeepCollectionEquality().hash(movies),
+      isLastPage,
+      isLoadingMore,
       errorMessage);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(isSliderLoading: $isSliderLoading, isCategoryLoading: $isCategoryLoading, isMoviesLoading: $isMoviesLoading, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, errorMessage: $errorMessage)';
+    return 'HomeState(isSliderLoading: $isSliderLoading, isCategoryLoading: $isCategoryLoading, isMoviesLoading: $isMoviesLoading, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, isLastPage: $isLastPage, isLoadingMore: $isLoadingMore, errorMessage: $errorMessage)';
   }
 }
 
@@ -108,6 +118,8 @@ abstract mixin class $HomeStateCopyWith<$Res> {
       List<MovieApiEntity> slider,
       List<MovieCategoriesApiEntity> movieCategories,
       List<MovieApiEntity> movies,
+      bool isLastPage,
+      bool isLoadingMore,
       String errorMessage});
 }
 
@@ -132,6 +144,8 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
     Object? slider = null,
     Object? movieCategories = null,
     Object? movies = null,
+    Object? isLastPage = null,
+    Object? isLoadingMore = null,
     Object? errorMessage = null,
   }) {
     return _then(_self.copyWith(
@@ -171,6 +185,14 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _self.movies
           : movies // ignore: cast_nullable_to_non_nullable
               as List<MovieApiEntity>,
+      isLastPage: null == isLastPage
+          ? _self.isLastPage
+          : isLastPage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMore: null == isLoadingMore
+          ? _self.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: null == errorMessage
           ? _self.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -192,6 +214,8 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
       final List<MovieApiEntity> slider = const [],
       final List<MovieCategoriesApiEntity> movieCategories = const [],
       final List<MovieApiEntity> movies = const [],
+      this.isLastPage = false,
+      this.isLoadingMore = false,
       this.errorMessage = ''})
       : _slider = slider,
         _movieCategories = movieCategories,
@@ -244,6 +268,12 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
 
   @override
   @JsonKey()
+  final bool isLastPage;
+  @override
+  @JsonKey()
+  final bool isLoadingMore;
+  @override
+  @JsonKey()
   final String errorMessage;
 
   /// Create a copy of HomeState
@@ -267,6 +297,8 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
       ..add(DiagnosticsProperty('slider', slider))
       ..add(DiagnosticsProperty('movieCategories', movieCategories))
       ..add(DiagnosticsProperty('movies', movies))
+      ..add(DiagnosticsProperty('isLastPage', isLastPage))
+      ..add(DiagnosticsProperty('isLoadingMore', isLoadingMore))
       ..add(DiagnosticsProperty('errorMessage', errorMessage));
   }
 
@@ -290,6 +322,10 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
             const DeepCollectionEquality()
                 .equals(other._movieCategories, _movieCategories) &&
             const DeepCollectionEquality().equals(other._movies, _movies) &&
+            (identical(other.isLastPage, isLastPage) ||
+                other.isLastPage == isLastPage) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
@@ -306,11 +342,13 @@ class _HomeState with DiagnosticableTreeMixin implements HomeState {
       const DeepCollectionEquality().hash(_slider),
       const DeepCollectionEquality().hash(_movieCategories),
       const DeepCollectionEquality().hash(_movies),
+      isLastPage,
+      isLoadingMore,
       errorMessage);
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState(isSliderLoading: $isSliderLoading, isCategoryLoading: $isCategoryLoading, isMoviesLoading: $isMoviesLoading, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, errorMessage: $errorMessage)';
+    return 'HomeState(isSliderLoading: $isSliderLoading, isCategoryLoading: $isCategoryLoading, isMoviesLoading: $isMoviesLoading, currentSliderIndex: $currentSliderIndex, selectedCategoryIndex: $selectedCategoryIndex, page: $page, slider: $slider, movieCategories: $movieCategories, movies: $movies, isLastPage: $isLastPage, isLoadingMore: $isLoadingMore, errorMessage: $errorMessage)';
   }
 }
 
@@ -332,6 +370,8 @@ abstract mixin class _$HomeStateCopyWith<$Res>
       List<MovieApiEntity> slider,
       List<MovieCategoriesApiEntity> movieCategories,
       List<MovieApiEntity> movies,
+      bool isLastPage,
+      bool isLoadingMore,
       String errorMessage});
 }
 
@@ -356,6 +396,8 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
     Object? slider = null,
     Object? movieCategories = null,
     Object? movies = null,
+    Object? isLastPage = null,
+    Object? isLoadingMore = null,
     Object? errorMessage = null,
   }) {
     return _then(_HomeState(
@@ -395,6 +437,14 @@ class __$HomeStateCopyWithImpl<$Res> implements _$HomeStateCopyWith<$Res> {
           ? _self._movies
           : movies // ignore: cast_nullable_to_non_nullable
               as List<MovieApiEntity>,
+      isLastPage: null == isLastPage
+          ? _self.isLastPage
+          : isLastPage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoadingMore: null == isLoadingMore
+          ? _self.isLoadingMore
+          : isLoadingMore // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: null == errorMessage
           ? _self.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
