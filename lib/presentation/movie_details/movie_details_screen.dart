@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
+import 'package:flutter_component_playground/presentation/movie_details/bloc/movie_details_bloc.dart';
+import 'package:flutter_component_playground/presentation/movie_details/bloc/movie_details_event.dart';
+import 'package:flutter_component_playground/presentation/movie_details/bloc/movie_details_state.dart';
 import 'package:flutter_component_playground/ui/widgets/network_image_loader.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +24,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    context
+        .read<MovieDetailsBloc>()
+        .add(FetchMovieDetailsEvent(widget.movieId));
   }
 
   @override
@@ -30,71 +37,103 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: _buildMovieDetailsMainUi(),
+    );
+  }
+
+  Widget _buildMovieDetailsMainUi() {
     final spacingSizes = context.spacingSizes;
     final shapeRadius = context.shapeRadius;
     final mediaQuery = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          _buildMainPosterSection(context),
-          SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: Container(
-              margin: EdgeInsets.only(top: mediaQuery.height * 0.25),
-              padding: EdgeInsets.all(spacingSizes.large),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(shapeRadius.large),
-                  topRight: Radius.circular(shapeRadius.large),
+    return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state.errorMessage?.isNotEmpty == true) {
+          return Center(child: Text(state.errorMessage!));
+        }
+
+        return Stack(
+          children: [
+            _buildMainPosterSection(
+              context,
+              posterImage: state.movieDetails?.posterPath ?? "",
+            ),
+            SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Container(
+                margin: EdgeInsets.only(top: mediaQuery.height * 0.25),
+                padding: EdgeInsets.all(spacingSizes.large),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(shapeRadius.large),
+                    topRight: Radius.circular(shapeRadius.large),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildMovieTitleAndRating(
+                      context,
+                      title: state.movieDetails?.movieTitle ?? "",
+                      rating: state.movieDetails?.rating.toString() ?? "0.0",
+                    ),
+                    SpacerBox(height: spacingSizes.medium),
+                    _buildGenreChips(),
+                    SpacerBox(height: spacingSizes.medium),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildMovieMetaDetail(
+                            context, context.getString.title_length, "2h 28m"),
+                        _buildMovieMetaDetail(context,
+                            context.getString.title_language, "English"),
+                        _buildMovieMetaDetail(
+                            context, context.getString.title_status, "PG-13"),
+                      ],
+                    ),
+                    SpacerBox(height: spacingSizes.large),
+                    _buildMovieDescriptionSection(context,
+                        state.movieDetails?.movieDescription ?? "",),
+                    SpacerBox(height: spacingSizes.large),
+                    Text(
+                      context.getString.title_related_movies,
+                      style: context.typography.titleSmallBold.copyWith(
+                        color: context.textColors.primaryTextColor,
+                      ),
+                    ),
+                    SpacerBox(height: spacingSizes.small),
+                    _buildRelatedMoviesList(),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildMovieTitleAndRating(context),
-                  SpacerBox(height: spacingSizes.medium),
-                  _buildGenreChips(),
-                  SpacerBox(height: spacingSizes.medium),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildMovieMetaDetail(context, "Length", "2h 28m"),
-                      _buildMovieMetaDetail(context, "Language", "English"),
-                      _buildMovieMetaDetail(context, "Rating", "PG-13"),
-                    ],
-                  ),
-                  SpacerBox(height: spacingSizes.large),
-                  _buildMovieDescriptionSection(context),
-                  SpacerBox(height: spacingSizes.large),
-                  Text(
-                    "Related Movies",
-                    style: context.typography.titleSmallBold.copyWith(
-                      color: context.textColors.primaryTextColor,
-                    ),
-                  ),
-                  SpacerBox(height: spacingSizes.small),
-                  _buildRelatedMoviesList(),
-                ],
-              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 
-  Widget _buildMainPosterSection(BuildContext context) {
+  Widget _buildMainPosterSection(BuildContext context,
+      {required String posterImage}) {
     final mediaQuery = MediaQuery.of(context).size;
 
     return NetworkImageLoader(
-      imageUrl: "/lVgE5oLzf7ABmzyASEVcjYyHI41.jpg",
+      imageUrl: posterImage,
       height: mediaQuery.height * 0.30,
     );
   }
 
-  Widget _buildMovieTitleAndRating(BuildContext context) {
+  Widget _buildMovieTitleAndRating(
+    BuildContext context, {
+    required String title,
+    required String rating,
+  }) {
     final textColor = context.textColors;
     final smallSpacing = context.spacingSizes.small;
 
@@ -102,7 +141,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Spiderman: No Way Home",
+          title,
           style: context.typography.titleSmallMedium.copyWith(
             color: textColor.primaryTextColor,
           ),
@@ -117,7 +156,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
             SpacerBox(width: context.spacingSizes.xSmall),
             Text(
-              "8.5/10 Imdb",
+              context.getString.placeholder_movie_rating(
+                rating,
+              ),
               style: context.typography.bodyExtraSmallLight.copyWith(
                 color: context.textColors.primaryTextColor,
               ),
@@ -194,21 +235,24 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  Widget _buildMovieDescriptionSection(BuildContext context) {
+  Widget _buildMovieDescriptionSection(
+    BuildContext context,
+    String description,
+  ) {
     final textColor = context.textColors;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Description",
+          context.getString.title_description,
           style: context.typography.titleSmallBold.copyWith(
             color: textColor.primaryTextColor,
           ),
         ),
         SpacerBox(height: context.spacingSizes.small),
         Text(
-          "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+          description,
           style: context.typography.bodySmallRegular.copyWith(
             color: textColor.secondaryTextColor,
           ),

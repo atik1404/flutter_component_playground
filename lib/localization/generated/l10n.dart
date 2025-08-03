@@ -160,6 +160,56 @@ class LocalizedStrings {
     );
   }
 
+  /// `Length`
+  String get title_length {
+    return Intl.message(
+      'Length',
+      name: 'title_length',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get title_language {
+    return Intl.message(
+      'Language',
+      name: 'title_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get title_status {
+    return Intl.message(
+      'Status',
+      name: 'title_status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Related Movies`
+  String get title_related_movies {
+    return Intl.message(
+      'Related Movies',
+      name: 'title_related_movies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get title_description {
+    return Intl.message(
+      'Description',
+      name: 'title_description',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No data found, Please try again later.`
   String get error_message_no_data_found {
     return Intl.message(
@@ -327,6 +377,16 @@ class LocalizedStrings {
       name: 'placeholder_movie_language',
       desc: '',
       args: [language],
+    );
+  }
+
+  /// `{rating}/10 IMDB`
+  String placeholder_movie_rating(Object rating) {
+    return Intl.message(
+      '$rating/10 IMDB',
+      name: 'placeholder_movie_rating',
+      desc: '',
+      args: [rating],
     );
   }
 

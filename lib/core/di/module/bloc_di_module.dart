@@ -5,6 +5,7 @@ import 'package:flutter_component_playground/presentation/auth/onboarding/bloc/o
 import 'package:flutter_component_playground/presentation/auth/registration/bloc/registration_bloc.dart';
 import 'package:flutter_component_playground/presentation/auth/splash/bloc/splash_cubit.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
+import 'package:flutter_component_playground/presentation/movie_details/bloc/movie_details_bloc.dart';
 
 Future<void> registerBlocModule() async {
   di
@@ -28,6 +29,9 @@ Future<void> registerBlocModule() async {
         ))
     ..registerFactory<OnboardingCubit>(
       () => OnboardingCubit(sharedPrefs: di.get()),
+    )
+    ..registerFactory<MovieDetailsBloc>(
+      () => MovieDetailsBloc(fetchMovieDetailsApiUsecase: di.get()),
     )
     ..registerFactory<HomeBloc>(
       () => HomeBloc(

@@ -22,12 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(language) => "Language: ${language}";
 
-  static String m1(email) =>
+  static String m1(rating) => "${rating}/10 IMDB";
+
+  static String m2(email) =>
       "We send you an OTP to verify your email. Please enter the OTP to ${email}";
 
-  static String m2(date) => "Released: ${date}";
+  static String m3(date) => "Released: ${date}";
 
-  static String m3(user) => "Hello, ${user}";
+  static String m4(user) => "Hello, ${user}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -85,9 +87,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "msg_sign_up": MessageLookupByLibrary.simpleMessage(
             "It was popularised in the 1960s with the release of Letraset sheetscontaining Lorem Ipsum."),
         "placeholder_movie_language": m0,
-        "placeholder_otp_sending_message": m1,
-        "placeholder_released_on": m2,
-        "placeholder_user_greeting": m3,
+        "placeholder_movie_rating": m1,
+        "placeholder_otp_sending_message": m2,
+        "placeholder_released_on": m3,
+        "placeholder_user_greeting": m4,
         "text_agreed":
             MessageLookupByLibrary.simpleMessage("I\'m agree to the "),
         "text_and": MessageLookupByLibrary.simpleMessage(" and "),
@@ -110,6 +113,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "text_terms": MessageLookupByLibrary.simpleMessage("Terms of Service"),
         "title_app_name": MessageLookupByLibrary.simpleMessage("Movie Hub"),
         "title_category": MessageLookupByLibrary.simpleMessage("Categories"),
+        "title_description":
+            MessageLookupByLibrary.simpleMessage("Description"),
         "title_error_title": MessageLookupByLibrary.simpleMessage("Opps!"),
         "title_forgot_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
@@ -122,8 +127,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("find the best!"),
         "title_introduction_sub_2":
             MessageLookupByLibrary.simpleMessage("Strategy!"),
+        "title_language": MessageLookupByLibrary.simpleMessage("Language"),
+        "title_length": MessageLookupByLibrary.simpleMessage("Length"),
         "title_otp": MessageLookupByLibrary.simpleMessage("Enter OTP"),
+        "title_related_movies":
+            MessageLookupByLibrary.simpleMessage("Related Movies"),
         "title_reset_password":
-            MessageLookupByLibrary.simpleMessage("Reset Password")
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "title_status": MessageLookupByLibrary.simpleMessage("Status")
       };
 }

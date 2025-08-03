@@ -10,72 +10,68 @@ MovieDetailsApiResponse _$MovieDetailsApiResponseFromJson(
         Map<String, dynamic> json) =>
     MovieDetailsApiResponse(
       adult: json['adult'] as bool?,
-      backdropPath: json['backdropPath'] as String?,
-      belongsToCollection: json['belongsToCollection'],
+      backdrop_path: json['backdrop_path'] as String?,
       budget: (json['budget'] as num?)?.toInt(),
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => Genre.fromJson(e as Map<String, dynamic>))
           .toList(),
       homepage: json['homepage'] as String?,
       id: (json['id'] as num?)?.toInt(),
-      imdbId: json['imdbId'] as String?,
-      originCountry: (json['originCountry'] as List<dynamic>?)
+      imdb_id: json['imdb_id'] as String?,
+      origin_country: (json['origin_country'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      originalLanguage: json['originalLanguage'] as String?,
-      originalTitle: json['originalTitle'] as String?,
+      original_language: json['original_language'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
       posterPath: json['posterPath'] as String?,
-      productionCompanies: (json['productionCompanies'] as List<dynamic>?)
+      production_companies: (json['production_companies'] as List<dynamic>?)
           ?.map((e) => ProductionCompany.fromJson(e as Map<String, dynamic>))
           .toList(),
-      productionCountries: (json['productionCountries'] as List<dynamic>?)
+      production_countries: (json['production_countries'] as List<dynamic>?)
           ?.map((e) => ProductionCountry.fromJson(e as Map<String, dynamic>))
           .toList(),
-      releaseDate: json['releaseDate'] as String?,
+      release_date: json['release_date'] as String?,
       revenue: (json['revenue'] as num?)?.toInt(),
       runtime: (json['runtime'] as num?)?.toInt(),
-      spokenLanguages: (json['spokenLanguages'] as List<dynamic>?)
+      spoken_languages: (json['spoken_languages'] as List<dynamic>?)
           ?.map((e) => SpokenLanguage.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String?,
       tagline: json['tagline'] as String?,
       title: json['title'] as String?,
       video: json['video'] as bool?,
-      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
-      voteCount: (json['voteCount'] as num?)?.toInt(),
+      vote_average: (json['vote_average'] as num?)?.toDouble(),
+      vote_count: (json['vote_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$MovieDetailsApiResponseToJson(
         MovieDetailsApiResponse instance) =>
     <String, dynamic>{
       'adult': instance.adult,
-      'backdropPath': instance.backdropPath,
-      'belongsToCollection': instance.belongsToCollection,
+      'backdrop_path': instance.backdrop_path,
       'budget': instance.budget,
       'genres': instance.genres,
       'homepage': instance.homepage,
       'id': instance.id,
-      'imdbId': instance.imdbId,
-      'originCountry': instance.originCountry,
-      'originalLanguage': instance.originalLanguage,
-      'originalTitle': instance.originalTitle,
+      'imdb_id': instance.imdb_id,
+      'origin_country': instance.origin_country,
+      'original_language': instance.original_language,
       'overview': instance.overview,
       'popularity': instance.popularity,
       'posterPath': instance.posterPath,
-      'productionCompanies': instance.productionCompanies,
-      'productionCountries': instance.productionCountries,
-      'releaseDate': instance.releaseDate,
+      'production_companies': instance.production_companies,
+      'production_countries': instance.production_countries,
+      'release_date': instance.release_date,
       'revenue': instance.revenue,
       'runtime': instance.runtime,
-      'spokenLanguages': instance.spokenLanguages,
+      'spoken_languages': instance.spoken_languages,
       'status': instance.status,
       'tagline': instance.tagline,
       'title': instance.title,
       'video': instance.video,
-      'voteAverage': instance.voteAverage,
-      'voteCount': instance.voteCount,
+      'vote_average': instance.vote_average,
+      'vote_count': instance.vote_count,
     };
 
 Genre _$GenreFromJson(Map<String, dynamic> json) => Genre(

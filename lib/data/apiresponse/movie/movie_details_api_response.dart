@@ -5,59 +5,55 @@ part 'movie_details_api_response.g.dart';
 @JsonSerializable()
 class MovieDetailsApiResponse {
   final bool? adult;
-  final String? backdropPath;
-  final dynamic belongsToCollection;
+  final String? backdrop_path;
   final int? budget;
   final List<Genre>? genres;
   final String? homepage;
   final int? id;
-  final String? imdbId;
-  final List<String>? originCountry;
-  final String? originalLanguage;
-  final String? originalTitle;
+  final String? imdb_id;
+  final List<String>? origin_country;
+  final String? original_language;
   final String? overview;
   final double? popularity;
   final String? posterPath;
-  final List<ProductionCompany>? productionCompanies;
-  final List<ProductionCountry>? productionCountries;
-  final String? releaseDate;
+  final List<ProductionCompany>? production_companies;
+  final List<ProductionCountry>? production_countries;
+  final String? release_date;
   final int? revenue;
   final int? runtime;
-  final List<SpokenLanguage>? spokenLanguages;
+  final List<SpokenLanguage>? spoken_languages;
   final String? status;
   final String? tagline;
   final String? title;
   final bool? video;
-  final double? voteAverage;
-  final int? voteCount;
+  final double? vote_average;
+  final int? vote_count;
 
   MovieDetailsApiResponse({
     this.adult,
-    this.backdropPath,
-    this.belongsToCollection,
+    this.backdrop_path,
     this.budget,
     this.genres,
     this.homepage,
     this.id,
-    this.imdbId,
-    this.originCountry,
-    this.originalLanguage,
-    this.originalTitle,
+    this.imdb_id,
+    this.origin_country,
+    this.original_language,
     this.overview,
     this.popularity,
     this.posterPath,
-    this.productionCompanies,
-    this.productionCountries,
-    this.releaseDate,
+    this.production_companies,
+    this.production_countries,
+    this.release_date,
     this.revenue,
     this.runtime,
-    this.spokenLanguages,
+    this.spoken_languages,
     this.status,
     this.tagline,
     this.title,
     this.video,
-    this.voteAverage,
-    this.voteCount,
+    this.vote_average,
+    this.vote_count,
   });
 
   factory MovieDetailsApiResponse.fromJson(Map<String, dynamic> json) =>
