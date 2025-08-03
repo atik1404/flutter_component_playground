@@ -12,12 +12,10 @@ class RegistrationRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.registrationScreen,
           name: AppRoute.registrationScreen,
-          pageBuilder: (context, state) {
-            return buildAnimatedPage(
-              child: BlocProvider(
-                create: (context) => di.get<RegistrationBloc>(),
-                child: const RegistrationScreen(),
-              ),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (context) => di.get<RegistrationBloc>(),
+              child: const RegistrationScreen(),
             );
           },
         ),

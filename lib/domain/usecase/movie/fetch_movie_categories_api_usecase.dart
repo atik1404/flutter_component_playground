@@ -1,6 +1,6 @@
 import 'package:flutter_component_playground/core/base/base_use_case.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_categories_api_entity.dart';
 import 'package:flutter_component_playground/domain/repositories/movie_repository.dart';
 
 class FetchMovieCategoriesApiUsecase

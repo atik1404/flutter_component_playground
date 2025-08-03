@@ -8,8 +8,9 @@ import 'package:flutter_component_playground/core/sharedpref/shared_prefs.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_event.dart';
 import 'package:flutter_component_playground/presentation/home/bloc/home_state.dart';
@@ -24,6 +25,7 @@ import 'package:flutter_component_playground/localization/localize_extension.dar
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jiffy/jiffy.dart';
 
 /// HomeScreenContent displays the main dashboard content for the home tab,
@@ -420,25 +422,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
             ),
           ),
         );
-
-        // GridView.builder(
-        //   controller: _scrollController,
-        //   itemCount: state.movies.length,
-        //   physics: const BouncingScrollPhysics(),
-        //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 2,
-        //     crossAxisSpacing: context.spacingSizes.large,
-        //     mainAxisSpacing: context.spacingSizes.xLarge,
-        //     childAspectRatio: 0.6, // Adjust aspect ratio as needed
-        //   ),
-        //   itemBuilder: (context, index) {
-        //     if (index >= state.movies.length) {
-        //       return const CircularProgressIndicator();
-        //     }
-
-        //     return _buildMovieItem(context, state.movies[index]);
-        //   },
-        // )
       },
     );
   }
@@ -452,96 +435,104 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
       color: context.textColors.secondaryTextColor,
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            // Movie poster image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(context.shapeRadius.medium),
-              child: NetworkImageLoader(
-                imageUrl: movie.posterPath,
-                height: 200.h,
-              ),
-            ),
-            // Favorite icon overlay
-            Positioned(
-              top: spacingSizes.medium,
-              right: spacingSizes.medium,
-              child: Container(
-                padding: EdgeInsets.all(spacingSizes.xSmall),
-                decoration: BoxDecoration(
-                  color: context.buttonColors.onPrimary.withAlpha(50),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.favorite_border,
-                  size: 20.w,
-                  color: Colors.pink.shade200,
+    return GestureDetector(
+      onTap: () {
+        context.push(
+          AppRoute.movieDetailsScreen,
+          extra: movie.movieId,
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              // Movie poster image
+              ClipRRect(
+                borderRadius: BorderRadius.circular(context.shapeRadius.medium),
+                child: NetworkImageLoader(
+                  imageUrl: movie.posterPath,
+                  height: 200.h,
                 ),
               ),
-            ),
-
-            Positioned(
-              top: spacingSizes.medium,
-              left: spacingSizes.medium,
-              child: Container(
-                padding: EdgeInsets.all(spacingSizes.xSmall),
-                decoration: BoxDecoration(
-                  color: context.backgroundColors.primaryBackgroundColor
-                      .withAlpha(80),
-                  borderRadius:
-                      BorderRadius.circular(context.shapeRadius.large),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: spacingSizes.medium,
+              // Favorite icon overlay
+              Positioned(
+                top: spacingSizes.medium,
+                right: spacingSizes.medium,
+                child: Container(
+                  padding: EdgeInsets.all(spacingSizes.xSmall),
+                  decoration: BoxDecoration(
+                    color: context.buttonColors.onPrimary.withAlpha(50),
+                    shape: BoxShape.circle,
                   ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        size: 14.w,
-                        color: Colors.blue,
-                      ),
-                      Text(
-                        "${movie.voteAverage} (${movie.voteCount})",
-                        style: typography.bodySmallBold.copyWith(
-                          color: context.textColors.primaryTextColor,
+                  child: Icon(
+                    Icons.favorite_border,
+                    size: 20.w,
+                    color: Colors.pink.shade200,
+                  ),
+                ),
+              ),
+
+              Positioned(
+                top: spacingSizes.medium,
+                left: spacingSizes.medium,
+                child: Container(
+                  padding: EdgeInsets.all(spacingSizes.xSmall),
+                  decoration: BoxDecoration(
+                    color: context.backgroundColors.primaryBackgroundColor
+                        .withAlpha(80),
+                    borderRadius:
+                        BorderRadius.circular(context.shapeRadius.large),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: spacingSizes.medium,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          size: 14.w,
+                          color: Colors.blue,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "${movie.voteAverage} (${movie.voteCount})",
+                          style: typography.bodySmallBold.copyWith(
+                            color: context.textColors.primaryTextColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
+            ],
+          ),
+          SizedBox(height: context.spacingSizes.medium),
+          // Movie title
+          Text(
+            maxLines: 1,
+            movie.title,
+            style: context.typography.bodyMediumBold.copyWith(
+              color: textColor.primaryTextColor,
             ),
-          ],
-        ),
-        SizedBox(height: context.spacingSizes.medium),
-        // Movie title
-        Text(
-          maxLines: 1,
-          movie.title,
-          style: context.typography.bodyMediumBold.copyWith(
-            color: textColor.primaryTextColor,
           ),
-        ),
-        SizedBox(height: context.spacingSizes.xSmall),
+          SizedBox(height: context.spacingSizes.xSmall),
 
-        Text(
-          context.getString.placeholder_released_on(
-            Jiffy.parse(movie.releaseDate).yMMMd,
+          Text(
+            context.getString.placeholder_released_on(
+              Jiffy.parse(movie.releaseDate).yMMMd,
+            ),
+            style: secondaryTextStyle,
           ),
-          style: secondaryTextStyle,
-        ),
-        Text(
-          context.getString.placeholder_movie_language(
-            movie.originalLanguage.toUpperCase(),
+          Text(
+            context.getString.placeholder_movie_language(
+              movie.originalLanguage.toUpperCase(),
+            ),
+            style: secondaryTextStyle,
           ),
-          style: secondaryTextStyle,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

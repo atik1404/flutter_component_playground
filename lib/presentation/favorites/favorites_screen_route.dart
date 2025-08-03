@@ -9,10 +9,8 @@ class FavoritesScreenRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.favoriteScreen,
           name: AppRoute.favoriteScreen,
-          pageBuilder: (context, state) {
-            return buildAnimatedPage(
-              child: const FavoritesScreen(),
-            );
+          builder: (context, state) {
+            return const FavoritesScreen();
           },
         ),
       ];

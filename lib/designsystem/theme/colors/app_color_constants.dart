@@ -36,7 +36,7 @@ final class AppColorConstants {
   static const hintTextColorLight = Color.fromARGB(117, 105, 105, 107);
   static const hintTextColorDart = Color.fromARGB(163, 105, 105, 107);
 
-  static const primaryBackgroundLight = Color.fromARGB(130, 222, 232, 246);
+  static const primaryBackgroundLight = Color.fromARGB(229, 255, 255, 255);
   static const primaryBackgroundDark = Color(0xFF6A6D7E);
 
   static const secondaryBackgroundLight = Color.fromARGB(130, 237, 243, 253);

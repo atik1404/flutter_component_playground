@@ -6,9 +6,10 @@ import 'package:flutter_component_playground/domain/usecase/auth/post_registrati
 import 'package:flutter_component_playground/domain/usecase/auth/post_reset_password_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_send_otp_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/auth/post_verify_otp_api_usecase.dart';
-import 'package:flutter_component_playground/domain/usecase/home/fetch_movie_api_usecase.dart';
-import 'package:flutter_component_playground/domain/usecase/home/fetch_movie_categories_api_usecase.dart';
-import 'package:flutter_component_playground/domain/usecase/home/fetch_upcoming_movies_api_usecase.dart';
+import 'package:flutter_component_playground/domain/usecase/movie/fetch_movie_api_usecase.dart';
+import 'package:flutter_component_playground/domain/usecase/movie/fetch_movie_categories_api_usecase.dart';
+import 'package:flutter_component_playground/domain/usecase/movie/fetch_movie_details_api_usecase.dart';
+import 'package:flutter_component_playground/domain/usecase/movie/fetch_upcoming_movies_api_usecase.dart';
 
 Future<void> registerAuthUseCaseModule() async {
   di
@@ -61,6 +62,11 @@ Future<void> registerMovieUseCaseModule() async {
     )
     ..registerLazySingleton<FetchMovieApiUsecase>(
       () => FetchMovieApiUsecase(
+        di.get(),
+      ),
+    )
+    ..registerLazySingleton<FetchMovieDetailsApiUsecase>(
+      () => FetchMovieDetailsApiUsecase(
         di.get(),
       ),
     );

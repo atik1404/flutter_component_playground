@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
-import 'package:flutter_component_playground/data/apiresponse/home/movie_categories_api_response.dart';
-import 'package:flutter_component_playground/data/apiresponse/home/movies_api_response.dart';
-import 'package:flutter_component_playground/data/apiresponse/home/upcoming_movie_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/movie/movie_categories_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/movie/movie_details_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/movie/movies_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/movie/upcoming_movie_api_response.dart';
 import 'package:flutter_component_playground/data/datasources/remote/handle_api_call.dart';
 import 'package:flutter_component_playground/domain/entities/params/movies_api_params.dart';
 
@@ -29,6 +30,13 @@ class MovieApiServices {
     return handleApiResponse<MoviesApiResponse>(
       () => dio.get("3/discover/movie", queryParameters: params.toJson()),
       (json) => MoviesApiResponse.fromJson(json),
+    );
+  }
+
+  Future<Result<MovieDetailsApiResponse>> fetchMovieDetails(int movieId) {
+    return handleApiResponse<MovieDetailsApiResponse>(
+      () => dio.get("3/movie/$movieId"),
+      (json) => MovieDetailsApiResponse.fromJson(json),
     );
   }
 }

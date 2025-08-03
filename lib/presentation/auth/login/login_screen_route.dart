@@ -12,12 +12,10 @@ final class LoginScreenRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.loginScreen,
           name: AppRoute.loginScreen,
-          pageBuilder: (context, state) {
-            return buildAnimatedPage(
-              child: BlocProvider(
-                create: (_) => di.get<LoginBloc>(),
-                child: const LoginScreen(),
-              ),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => di.get<LoginBloc>(),
+              child: const LoginScreen(),
             );
           },
         ),

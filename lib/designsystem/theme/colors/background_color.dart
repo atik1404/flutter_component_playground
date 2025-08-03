@@ -16,7 +16,7 @@ final class BackgroundColor extends ThemeExtension<BackgroundColor>
   List<Color> get colorFields => [
         primaryBackgroundColor,
         secondaryBackgroundColor,
-        introductionBackgroundColor
+        introductionBackgroundColor,
       ];
 
   @override

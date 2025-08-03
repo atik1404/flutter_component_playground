@@ -1,6 +1,6 @@
 import 'package:flutter_component_playground/core/base/base_mapper.dart';
-import 'package:flutter_component_playground/data/apiresponse/home/movie_categories_api_response.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/data/apiresponse/movie/movie_categories_api_response.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_categories_api_entity.dart';
 
 class MovieCategoriesApiMapper extends BaseMapper<MovieCategoriesApiResponse,
     List<MovieCategoriesApiEntity>> {

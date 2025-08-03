@@ -12,12 +12,10 @@ final class HomeScreenRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.homeScreen,
           name: AppRoute.homeScreen,
-          pageBuilder: (context, state) {
-            return buildAnimatedPage(
-              child: BlocProvider(
-                create: (_) => di.get<HomeBloc>(),
-                child: const HomeScreen(),
-              ),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (_) => di.get<HomeBloc>(),
+              child: const HomeScreen(),
             );
           },
         ),

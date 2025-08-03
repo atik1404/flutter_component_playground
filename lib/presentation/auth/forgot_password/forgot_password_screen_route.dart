@@ -12,12 +12,10 @@ final class ForgotPasswordScreenRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.forgotPasswordScreen,
           name: AppRoute.forgotPasswordScreen,
-          pageBuilder: (context, state) {
-            return buildAnimatedPage(
-              child: BlocProvider(
-                create: (context) => di.get<ForgotPasswordBloc>(),
-                child: ForgotPasswordScreen(),
-              ),
+          builder: (context, state) {
+            return BlocProvider(
+              create: (context) => di.get<ForgotPasswordBloc>(),
+              child: ForgotPasswordScreen(),
             );
           },
         ),

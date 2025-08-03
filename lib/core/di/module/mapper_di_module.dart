@@ -4,9 +4,10 @@ import 'package:flutter_component_playground/data/mappers/auth/forgot_password_a
 import 'package:flutter_component_playground/data/mappers/auth/login_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/profile_api_mapper.dart';
 import 'package:flutter_component_playground/data/mappers/auth/verify_otp_api_mapper.dart';
-import 'package:flutter_component_playground/data/mappers/home/movie_api_mapper.dart';
-import 'package:flutter_component_playground/data/mappers/home/movie_categories_api_mapper.dart';
-import 'package:flutter_component_playground/data/mappers/home/upcoming_movie_api_mapper.dart';
+import 'package:flutter_component_playground/data/mappers/movie/movie_api_mapper.dart';
+import 'package:flutter_component_playground/data/mappers/movie/movie_categories_api_mapper.dart';
+import 'package:flutter_component_playground/data/mappers/movie/movie_details_api_mapper.dart';
+import 'package:flutter_component_playground/data/mappers/movie/upcoming_movie_api_mapper.dart';
 
 Future<void> registerAuthMapperModule() async {
   di
@@ -23,7 +24,8 @@ Future<void> registerMovieMapperModule() async {
   di
     ..registerFactory(UpcomingMovieApiMapper.new)
     ..registerFactory(MovieApiMapper.new)
-    ..registerFactory(MovieCategoriesApiMapper.new);
+    ..registerFactory(MovieCategoriesApiMapper.new)
+    ..registerFactory(MovieDetailsApiMapper.new);
 
   return;
 }

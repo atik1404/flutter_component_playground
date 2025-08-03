@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/home/movie_api_entity.dart';
-import 'package:flutter_component_playground/domain/entities/apientity/home/movie_categories_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_api_entity.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_categories_api_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_state.freezed.dart';

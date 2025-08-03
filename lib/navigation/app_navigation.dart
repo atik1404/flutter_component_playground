@@ -9,6 +9,7 @@ import 'package:flutter_component_playground/presentation/favorites/favorites_sc
 import 'package:flutter_component_playground/presentation/home/home_screen_route.dart';
 import 'package:flutter_component_playground/navigation/app_route.dart';
 import 'package:flutter_component_playground/navigation/base_router.dart';
+import 'package:flutter_component_playground/presentation/movie_details/movie_details_route.dart';
 import 'package:go_router/go_router.dart';
 
 List<BaseRouter> get routers => [
@@ -20,6 +21,7 @@ List<BaseRouter> get routers => [
       FavoritesScreenRoute(),
       ProfileScreenRoute(),
       ForgotPasswordScreenRoute(),
+      MovieDetailsRoute(),
     ];
 
 final GoRouter router = GoRouter(

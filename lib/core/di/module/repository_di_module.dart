@@ -20,6 +20,7 @@ Future<void> registerRepositoryModule() async {
           upcomingMovieApiMapper: di.get(),
           movieApiMapper: di.get(),
           movieCategoriesApiMapper: di.get(),
+          movieDetailsApiMapper: di.get(),
         ));
 
   return;

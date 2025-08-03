@@ -1,4 +1,4 @@
-import 'package:flutter_component_playground/data/apiresponse/home/upcoming_movie_api_response.dart';
+import 'package:flutter_component_playground/data/apiresponse/movie/upcoming_movie_api_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'movies_api_response.g.dart';
 

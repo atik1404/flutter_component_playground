@@ -9,10 +9,8 @@ class ProfileScreenRoute extends BaseRouter {
         GoRoute(
           path: AppRoute.profileScreen,
           name: AppRoute.profileScreen,
-          pageBuilder: (context, state) {
-            return buildAnimatedPage(
-              child: const ProfileScreen(),
-            );
+          builder: (context, state) {
+            return const ProfileScreen();
           },
         ),
       ];
