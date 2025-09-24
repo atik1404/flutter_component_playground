@@ -120,3 +120,6 @@ This is a **hobby project** to:
 - Understand **Firebase Authentication**
     
 - Improve design and UI skills
+
+### add this package to my app
+- https://pub.dev/packages/device_preview

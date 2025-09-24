@@ -80,7 +80,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   children: [
                     _buildMovieTitleAndRating(
                       context,
-                      title: state.movieDetails?.movieTitle ?? "",
+                      title: state.movieDetails?.movieTitle ?? "", 
                       rating: state.movieDetails?.rating.toString() ?? "0.0",
                     ),
                     SpacerBox(height: spacingSizes.medium),
