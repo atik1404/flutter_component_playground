@@ -252,7 +252,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
         SpacerBox(height: context.spacingSizes.small),
         Text(
-          description,
+          "$description\n$description\n$description",
           style: context.typography.bodySmallRegular.copyWith(
             color: textColor.secondaryTextColor,
           ),

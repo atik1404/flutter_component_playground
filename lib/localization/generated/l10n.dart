@@ -18,8 +18,10 @@ class LocalizedStrings {
   static LocalizedStrings? _current;
 
   static LocalizedStrings get current {
-    assert(_current != null,
-        'No instance of LocalizedStrings was loaded. Try to initialize the LocalizedStrings delegate before accessing LocalizedStrings.current.');
+    assert(
+      _current != null,
+      'No instance of LocalizedStrings was loaded. Try to initialize the LocalizedStrings delegate before accessing LocalizedStrings.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class LocalizedStrings {
 
   static LocalizedStrings of(BuildContext context) {
     final instance = LocalizedStrings.maybeOf(context);
-    assert(instance != null,
-        'No instance of LocalizedStrings present in the widget tree. Did you add LocalizedStrings.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of LocalizedStrings present in the widget tree. Did you add LocalizedStrings.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,12 +56,7 @@ class LocalizedStrings {
 
   /// `Home`
   String get title_home {
-    return Intl.message(
-      'Home',
-      name: 'title_home',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Home', name: 'title_home', desc: '', args: []);
   }
 
   /// `Movie Hub`
@@ -122,12 +121,7 @@ class LocalizedStrings {
 
   /// `Enter OTP`
   String get title_otp {
-    return Intl.message(
-      'Enter OTP',
-      name: 'title_otp',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Enter OTP', name: 'title_otp', desc: '', args: []);
   }
 
   /// `Reset Password`
@@ -152,42 +146,22 @@ class LocalizedStrings {
 
   /// `Opps!`
   String get title_error_title {
-    return Intl.message(
-      'Opps!',
-      name: 'title_error_title',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Opps!', name: 'title_error_title', desc: '', args: []);
   }
 
   /// `Length`
   String get title_length {
-    return Intl.message(
-      'Length',
-      name: 'title_length',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Length', name: 'title_length', desc: '', args: []);
   }
 
   /// `Language`
   String get title_language {
-    return Intl.message(
-      'Language',
-      name: 'title_language',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Language', name: 'title_language', desc: '', args: []);
   }
 
   /// `Status`
   String get title_status {
-    return Intl.message(
-      'Status',
-      name: 'title_status',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Status', name: 'title_status', desc: '', args: []);
   }
 
   /// `Related Movies`
@@ -402,12 +376,7 @@ class LocalizedStrings {
 
   /// `Login`
   String get button_login {
-    return Intl.message(
-      'Login',
-      name: 'button_login',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Login', name: 'button_login', desc: '', args: []);
   }
 
   /// `Create Account`
@@ -442,22 +411,12 @@ class LocalizedStrings {
 
   /// `Submit`
   String get button_sumit {
-    return Intl.message(
-      'Submit',
-      name: 'button_sumit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Submit', name: 'button_sumit', desc: '', args: []);
   }
 
   /// `Retry`
   String get button_retry {
-    return Intl.message(
-      'Retry',
-      name: 'button_retry',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Retry', name: 'button_retry', desc: '', args: []);
   }
 
   /// `Please wait...`
@@ -472,42 +431,22 @@ class LocalizedStrings {
 
   /// `Facebook`
   String get text_facebook {
-    return Intl.message(
-      'Facebook',
-      name: 'text_facebook',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Facebook', name: 'text_facebook', desc: '', args: []);
   }
 
   /// `Google`
   String get text_google {
-    return Intl.message(
-      'Google',
-      name: 'text_google',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Google', name: 'text_google', desc: '', args: []);
   }
 
   /// `Sign In`
   String get text_sign_in {
-    return Intl.message(
-      'Sign In',
-      name: 'text_sign_in',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sign In', name: 'text_sign_in', desc: '', args: []);
   }
 
   /// `Or`
   String get text_or {
-    return Intl.message(
-      'Or',
-      name: 'text_or',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Or', name: 'text_or', desc: '', args: []);
   }
 
   /// `Forget Password?`
@@ -542,12 +481,7 @@ class LocalizedStrings {
 
   /// `Sign Up`
   String get text_sign_up {
-    return Intl.message(
-      'Sign Up',
-      name: 'text_sign_up',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sign Up', name: 'text_sign_up', desc: '', args: []);
   }
 
   /// `I'm agree to the `
@@ -582,12 +516,7 @@ class LocalizedStrings {
 
   /// ` and `
   String get text_and {
-    return Intl.message(
-      ' and ',
-      name: 'text_and',
-      desc: '',
-      args: [],
-    );
+    return Intl.message(' and ', name: 'text_and', desc: '', args: []);
   }
 
   /// `Didn’t get the OTP?`
@@ -672,32 +601,17 @@ class LocalizedStrings {
 
   /// `Home`
   String get menu_home {
-    return Intl.message(
-      'Home',
-      name: 'menu_home',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Home', name: 'menu_home', desc: '', args: []);
   }
 
   /// `Profile`
   String get menu_profile {
-    return Intl.message(
-      'Profile',
-      name: 'menu_profile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Profile', name: 'menu_profile', desc: '', args: []);
   }
 
   /// `Favorites`
   String get menu_wishlist {
-    return Intl.message(
-      'Favorites',
-      name: 'menu_wishlist',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Favorites', name: 'menu_wishlist', desc: '', args: []);
   }
 }
 
