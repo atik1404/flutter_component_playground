@@ -15,7 +15,7 @@ class MovieDetailsApiResponse {
   final String? original_language;
   final String? overview;
   final double? popularity;
-  final String? posterPath;
+  final String? poster_path;
   final List<ProductionCompany>? production_companies;
   final List<ProductionCountry>? production_countries;
   final String? release_date;
@@ -41,7 +41,7 @@ class MovieDetailsApiResponse {
     this.original_language,
     this.overview,
     this.popularity,
-    this.posterPath,
+    this.poster_path,
     this.production_companies,
     this.production_countries,
     this.release_date,

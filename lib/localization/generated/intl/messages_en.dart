@@ -157,6 +157,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "title_language": MessageLookupByLibrary.simpleMessage("Language"),
     "title_length": MessageLookupByLibrary.simpleMessage("Length"),
     "title_otp": MessageLookupByLibrary.simpleMessage("Enter OTP"),
+    "title_popular_movies": MessageLookupByLibrary.simpleMessage(
+      "Popular Movies",
+    ),
+    "title_production_countries": MessageLookupByLibrary.simpleMessage(
+      "Production Countries",
+    ),
     "title_related_movies": MessageLookupByLibrary.simpleMessage(
       "Related Movies",
     ),

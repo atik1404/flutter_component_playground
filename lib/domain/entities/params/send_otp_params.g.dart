@@ -13,7 +13,4 @@ SendOtpParams _$SendOtpParamsFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$SendOtpParamsToJson(SendOtpParams instance) =>
-    <String, dynamic>{
-      'email': instance.email,
-      'appSecret': instance.appSecret,
-    };
+    <String, dynamic>{'email': instance.email, 'appSecret': instance.appSecret};

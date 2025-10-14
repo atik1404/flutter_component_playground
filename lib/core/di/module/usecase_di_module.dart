@@ -9,40 +9,31 @@ import 'package:flutter_component_playground/domain/usecase/auth/post_verify_otp
 import 'package:flutter_component_playground/domain/usecase/movie/fetch_movie_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/movie/fetch_movie_categories_api_usecase.dart';
 import 'package:flutter_component_playground/domain/usecase/movie/fetch_movie_details_api_usecase.dart';
+import 'package:flutter_component_playground/domain/usecase/movie/fetch_popular_movies_api_use_case.dart';
 import 'package:flutter_component_playground/domain/usecase/movie/fetch_upcoming_movies_api_usecase.dart';
 
 Future<void> registerAuthUseCaseModule() async {
   di
-    ..registerLazySingleton<PostLoginApiUsecase>(() => PostLoginApiUsecase(
-          di.get(),
-        ))
-    ..registerLazySingleton<FetchProfileApiUsecase>(
-      () => FetchProfileApiUsecase(
-        di.get(),
-      ),
+    ..registerLazySingleton<PostLoginApiUsecase>(
+      () => PostLoginApiUsecase(di.get()),
     )
-    ..registerLazySingleton<PostSendOtpApiUsecase>(() => PostSendOtpApiUsecase(
-          di.get(),
-        ))
+    ..registerLazySingleton<FetchProfileApiUsecase>(
+      () => FetchProfileApiUsecase(di.get()),
+    )
+    ..registerLazySingleton<PostSendOtpApiUsecase>(
+      () => PostSendOtpApiUsecase(di.get()),
+    )
     ..registerLazySingleton<PostVerifyOtpApiUsecase>(
-      () => PostVerifyOtpApiUsecase(
-        di.get(),
-      ),
+      () => PostVerifyOtpApiUsecase(di.get()),
     )
     ..registerLazySingleton<PostResetPasswordApiUsecase>(
-      () => PostResetPasswordApiUsecase(
-        di.get(),
-      ),
+      () => PostResetPasswordApiUsecase(di.get()),
     )
     ..registerLazySingleton<CheckEmailAvailabilityApiUsecase>(
-      () => CheckEmailAvailabilityApiUsecase(
-        di.get(),
-      ),
+      () => CheckEmailAvailabilityApiUsecase(di.get()),
     )
     ..registerLazySingleton<PostRegistrationUsecase>(
-      () => PostRegistrationUsecase(
-        di.get(),
-      ),
+      () => PostRegistrationUsecase(di.get()),
     );
 
   return;
@@ -51,24 +42,19 @@ Future<void> registerAuthUseCaseModule() async {
 Future<void> registerMovieUseCaseModule() async {
   di
     ..registerLazySingleton<FetchUpcomingMoviesApiUsecase>(
-      () => FetchUpcomingMoviesApiUsecase(
-        di.get(),
-      ),
+      () => FetchUpcomingMoviesApiUsecase(di.get()),
     )
     ..registerLazySingleton<FetchMovieCategoriesApiUsecase>(
-      () => FetchMovieCategoriesApiUsecase(
-        di.get(),
-      ),
+      () => FetchMovieCategoriesApiUsecase(di.get()),
     )
     ..registerLazySingleton<FetchMovieApiUsecase>(
-      () => FetchMovieApiUsecase(
-        di.get(),
-      ),
+      () => FetchMovieApiUsecase(di.get()),
+    )
+    ..registerLazySingleton<FetchPopularMoviesApiUseCase>(
+      () => FetchPopularMoviesApiUseCase(di.get()),
     )
     ..registerLazySingleton<FetchMovieDetailsApiUsecase>(
-      () => FetchMovieDetailsApiUsecase(
-        di.get(),
-      ),
+      () => FetchMovieDetailsApiUsecase(di.get()),
     );
 
   return;

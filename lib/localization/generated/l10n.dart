@@ -184,6 +184,26 @@ class LocalizedStrings {
     );
   }
 
+  /// `Production Countries`
+  String get title_production_countries {
+    return Intl.message(
+      'Production Countries',
+      name: 'title_production_countries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Popular Movies`
+  String get title_popular_movies {
+    return Intl.message(
+      'Popular Movies',
+      name: 'title_popular_movies',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No data found, Please try again later.`
   String get error_message_no_data_found {
     return Intl.message(

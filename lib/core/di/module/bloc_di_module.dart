@@ -9,29 +9,38 @@ import 'package:flutter_component_playground/presentation/movie_details/bloc/mov
 
 Future<void> registerBlocModule() async {
   di
-    ..registerFactory<SplashCubit>(() => SplashCubit(
-          sharedPrefs: di.get(),
-          fetchProfileApiUsecase: di.get(),
-        ))
-    ..registerFactory<LoginBloc>(() => LoginBloc(
-          postLoginUseCase: di.get(),
-          sharedPrefs: di.get(),
-          fetchProfileApiUsecase: di.get(),
-        ))
-    ..registerFactory<RegistrationBloc>(() => RegistrationBloc(
-          postRegistrationUsecase: di.get(),
-          checkEmailAvailabilityApiUsecase: di.get(),
-        ))
-    ..registerFactory<ForgotPasswordBloc>(() => ForgotPasswordBloc(
-          postResetPasswordApiUsecase: di.get(),
-          postSendOtpApiUsecase: di.get(),
-          postVerifyOtpApiUsecase: di.get(),
-        ))
+    ..registerFactory<SplashCubit>(
+      () =>
+          SplashCubit(sharedPrefs: di.get(), fetchProfileApiUsecase: di.get()),
+    )
+    ..registerFactory<LoginBloc>(
+      () => LoginBloc(
+        postLoginUseCase: di.get(),
+        sharedPrefs: di.get(),
+        fetchProfileApiUsecase: di.get(),
+      ),
+    )
+    ..registerFactory<RegistrationBloc>(
+      () => RegistrationBloc(
+        postRegistrationUsecase: di.get(),
+        checkEmailAvailabilityApiUsecase: di.get(),
+      ),
+    )
+    ..registerFactory<ForgotPasswordBloc>(
+      () => ForgotPasswordBloc(
+        postResetPasswordApiUsecase: di.get(),
+        postSendOtpApiUsecase: di.get(),
+        postVerifyOtpApiUsecase: di.get(),
+      ),
+    )
     ..registerFactory<OnboardingCubit>(
       () => OnboardingCubit(sharedPrefs: di.get()),
     )
     ..registerFactory<MovieDetailsBloc>(
-      () => MovieDetailsBloc(fetchMovieDetailsApiUsecase: di.get()),
+      () => MovieDetailsBloc(
+        fetchMovieDetailsApiUsecase: di.get(),
+        fetchPopularMoviesApiUseCase: di.get(),
+      ),
     )
     ..registerFactory<HomeBloc>(
       () => HomeBloc(

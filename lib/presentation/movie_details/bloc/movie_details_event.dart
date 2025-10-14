@@ -5,3 +5,7 @@ final class FetchMovieDetailsEvent extends MovieDetailsEvent {
 
   FetchMovieDetailsEvent(this.movieId);
 }
+
+final class FetchPopularMovieEvent extends MovieDetailsEvent {
+  FetchPopularMovieEvent();
+}

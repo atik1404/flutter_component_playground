@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/common/extensions/converter_extension.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
+import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_api_entity.dart';
 import 'package:flutter_component_playground/localization/localize_extension.dart';
 import 'package:flutter_component_playground/presentation/movie_details/bloc/movie_details_bloc.dart';
 import 'package:flutter_component_playground/presentation/movie_details/bloc/movie_details_event.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_component_playground/presentation/movie_details/bloc/mov
 import 'package:flutter_component_playground/ui/widgets/network_image_loader.dart';
 import 'package:flutter_component_playground/ui/widgets/spacer_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiffy/jiffy.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
@@ -24,9 +27,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    context
-        .read<MovieDetailsBloc>()
-        .add(FetchMovieDetailsEvent(widget.movieId));
+    context.read<MovieDetailsBloc>().add(
+      FetchMovieDetailsEvent(widget.movieId),
+    );
   }
 
   @override
@@ -37,9 +40,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildMovieDetailsMainUi(),
-    );
+    return Scaffold(body: _buildMovieDetailsMainUi());
   }
 
   Widget _buildMovieDetailsMainUi() {
@@ -56,12 +57,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         if (state.errorMessage?.isNotEmpty == true) {
           return Center(child: Text(state.errorMessage!));
         }
+        final movieDetails = state.movieDetails;
+        if (movieDetails == null) {
+          return Center(
+            child: Text(context.getString.error_message_no_data_found),
+          );
+        }
 
         return Stack(
           children: [
             _buildMainPosterSection(
               context,
-              posterImage: state.movieDetails?.posterPath ?? "",
+              posterImage: movieDetails.posterPath,
             ),
             SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
@@ -80,35 +87,52 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   children: [
                     _buildMovieTitleAndRating(
                       context,
-                      title: state.movieDetails?.movieTitle ?? "", 
-                      rating: state.movieDetails?.rating.toString() ?? "0.0",
+                      title: movieDetails.movieTitle,
+                      rating: movieDetails.rating.toString(),
                     ),
                     SpacerBox(height: spacingSizes.medium),
-                    _buildGenreChips(),
+                    _buildGenreChips(movieDetails.genres),
                     SpacerBox(height: spacingSizes.medium),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _buildMovieMetaDetail(
-                            context, context.getString.title_length, "2h 28m"),
-                        _buildMovieMetaDetail(context,
-                            context.getString.title_language, "English"),
+                          context,
+                          context.getString.title_length,
+                          movieDetails.duration.toHoursAndMinutes(),
+                        ),
                         _buildMovieMetaDetail(
-                            context, context.getString.title_status, "PG-13"),
+                          context,
+                          context.getString.title_language,
+                          movieDetails.originalLanguage.toUpperCase(),
+                        ),
+                        _buildMovieMetaDetail(
+                          context,
+                          context.getString.title_status,
+                          movieDetails.status,
+                        ),
                       ],
                     ),
                     SpacerBox(height: spacingSizes.large),
-                    _buildMovieDescriptionSection(context,
-                        state.movieDetails?.movieDescription ?? "",),
+                    _buildMovieMetaDetail(
+                          context,
+                          context.getString.title_production_countries,
+                          movieDetails.productionCountries.join(", "),
+                        ),
+                        SpacerBox(height: spacingSizes.large),
+                    _buildMovieDescriptionSection(
+                      context,
+                      movieDetails.movieDescription,
+                    ),
                     SpacerBox(height: spacingSizes.large),
                     Text(
-                      context.getString.title_related_movies,
+                      context.getString.title_popular_movies,
                       style: context.typography.titleSmallBold.copyWith(
                         color: context.textColors.primaryTextColor,
                       ),
                     ),
                     SpacerBox(height: spacingSizes.small),
-                    _buildRelatedMoviesList(),
+                    _buildPopularMoviesList(state.popularMovies),
                   ],
                 ),
               ),
@@ -119,8 +143,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  Widget _buildMainPosterSection(BuildContext context,
-      {required String posterImage}) {
+  Widget _buildMainPosterSection(
+    BuildContext context, {
+    required String posterImage,
+  }) {
     final mediaQuery = MediaQuery.of(context).size;
 
     return NetworkImageLoader(
@@ -149,16 +175,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         SpacerBox(height: smallSpacing),
         Row(
           children: [
-            Icon(
-              Icons.star,
-              size: 14.w,
-              color: Colors.amber,
-            ),
+            Icon(Icons.star, size: 14.w, color: Colors.amber),
             SpacerBox(width: context.spacingSizes.xSmall),
             Text(
-              context.getString.placeholder_movie_rating(
-                rating,
-              ),
+              context.getString.placeholder_movie_rating(rating),
               style: context.typography.bodyExtraSmallLight.copyWith(
                 color: context.textColors.primaryTextColor,
               ),
@@ -170,25 +190,20 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  Widget _buildGenreChips() {
+  Widget _buildGenreChips(List<String> category) {
     return SizedBox(
       height: 35.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const ClampingScrollPhysics(),
-        itemCount: 10,
-        itemBuilder: (context, index) => _buildGenreChip(
-          context,
-          "Action",
-        ),
+        itemCount: category.length,
+        itemBuilder: (context, index) =>
+            _buildGenreChip(context, category[index]),
       ),
     );
   }
 
-  Widget _buildGenreChip(
-    BuildContext context,
-    String category,
-  ) {
+  Widget _buildGenreChip(BuildContext context, String category) {
     return Container(
       margin: EdgeInsets.only(right: context.spacingSizes.medium),
       padding: EdgeInsets.symmetric(
@@ -261,23 +276,24 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  Widget _buildRelatedMoviesList() {
+  Widget _buildPopularMoviesList(List<MovieApiEntity> popularMovies) {
     return SizedBox(
       height: 250.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const ClampingScrollPhysics(),
-        itemCount: 10,
-        itemBuilder: (context, index) => _buildRelatedMovieCard(context),
+        itemCount: popularMovies.length,
+        itemBuilder: (context, index) =>
+            _buildPopularMovieCard(context, popularMovies[index]),
       ),
     );
   }
 
-  Widget _buildRelatedMovieCard(BuildContext context) {
+  Widget _buildPopularMovieCard(BuildContext context, MovieApiEntity movie) {
     final textColor = context.textColors;
     final typography = context.typography;
     final spacingSizes = context.spacingSizes;
-    final secondaryTextStyle = typography.bodySmallLight.copyWith(
+    final secondaryTextStyle = typography.bodyExtraSmallLight.copyWith(
       color: context.textColors.secondaryTextColor,
     );
 
@@ -285,97 +301,98 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       padding: EdgeInsets.only(right: spacingSizes.large),
       child: GestureDetector(
         onTap: () {},
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                // Movie poster image
-                ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(context.shapeRadius.medium),
-                  child: SizedBox(
-                    width: 120.w,
-                    height: 150.h,
-                    child: const NetworkImageLoader(
-                        imageUrl: "/lVgE5oLzf7ABmzyASEVcjYyHI41.jpg"),
-                  ),
-                ),
-                // Favorite icon overlay
-                Positioned(
-                  top: spacingSizes.medium,
-                  right: spacingSizes.medium,
-                  child: Container(
-                    padding: EdgeInsets.all(spacingSizes.xSmall),
-                    decoration: BoxDecoration(
-                      color: context.buttonColors.onPrimary.withAlpha(50),
-                      shape: BoxShape.circle,
+        child: SizedBox(
+          width: 120.w,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  // Movie poster image
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      context.shapeRadius.medium,
                     ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      size: 20.w,
-                      color: Colors.pink.shade200,
+                    child: SizedBox(
+                      height: 150.h,
+                      child: NetworkImageLoader(imageUrl: movie.posterPath),
                     ),
                   ),
-                ),
-
-                Positioned(
-                  top: spacingSizes.medium,
-                  left: spacingSizes.medium,
-                  child: Container(
-                    padding: EdgeInsets.all(spacingSizes.xSmall),
-                    decoration: BoxDecoration(
-                      color: context.backgroundColors.primaryBackgroundColor
-                          .withAlpha(80),
-                      borderRadius:
-                          BorderRadius.circular(context.shapeRadius.large),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: spacingSizes.medium,
+                  // Favorite icon overlay
+                  Positioned(
+                    top: spacingSizes.medium,
+                    right: spacingSizes.medium,
+                    child: Container(
+                      padding: EdgeInsets.all(spacingSizes.xSmall),
+                      decoration: BoxDecoration(
+                        color: context.buttonColors.onPrimary.withAlpha(50),
+                        shape: BoxShape.circle,
                       ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            size: 14.w,
-                            color: Colors.blue,
-                          ),
-                          Text(
-                            "8.5/10",
-                            style: typography.bodySmallBold.copyWith(
-                              color: context.textColors.primaryTextColor,
+                      child: Icon(
+                        Icons.favorite_border,
+                        size: 20.w,
+                        color: Colors.pink.shade200,
+                      ),
+                    ),
+                  ),
+
+                  Positioned(
+                    top: spacingSizes.medium,
+                    left: spacingSizes.medium,
+                    child: Container(
+                      padding: EdgeInsets.all(spacingSizes.xSmall),
+                      decoration: BoxDecoration(
+                        color: context.backgroundColors.primaryBackgroundColor
+                            .withAlpha(80),
+                        borderRadius: BorderRadius.circular(
+                          context.shapeRadius.large,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: spacingSizes.medium,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.star, size: 14.w, color: Colors.blue),
+                            Text(
+                              "${movie.voteAverage} (${movie.voteCount})",
+                              style: typography.bodySmallBold.copyWith(
+                                color: context.textColors.primaryTextColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                ],
+              ),
+              SizedBox(height: context.spacingSizes.medium),
+              // Movie title
+              Text(
+                maxLines: 2,
+                movie.title,
+                style: context.typography.bodyMediumBold.copyWith(
+                  color: textColor.primaryTextColor,
                 ),
-              ],
-            ),
-            SizedBox(height: context.spacingSizes.medium),
-            // Movie title
-            Text(
-              maxLines: 1,
-              "Movie Title",
-              style: context.typography.bodyMediumBold.copyWith(
-                color: textColor.primaryTextColor,
               ),
-            ),
-            SizedBox(height: context.spacingSizes.xSmall),
+              SizedBox(height: context.spacingSizes.xSmall),
 
-            Text(
-              "29th Dec 2023",
-              style: secondaryTextStyle,
-            ),
-            Text(
-              context.getString.placeholder_movie_language(
-                "EN",
+              Text(
+                context.getString.placeholder_released_on(
+                  Jiffy.parse(movie.releaseDate).yMMMd,
+                ),
+                style: secondaryTextStyle,
               ),
-              style: secondaryTextStyle,
-            ),
-          ],
+              Text(
+                context.getString.placeholder_movie_language(
+                  movie.originalLanguage,
+                ),
+                style: secondaryTextStyle,
+              ),
+            ],
+          ),
         ),
       ),
     );

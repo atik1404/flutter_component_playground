@@ -9,6 +9,8 @@ abstract class MovieRepository {
 
   Future<Result<List<MovieApiEntity>>> fetchMovies(MoviesApiParams params);
 
+  Future<Result<List<MovieApiEntity>>> fetchPopularMovies();
+
   Future<Result<MovieDetailsApiEntity>> fetchMovieDetails(int movieId);
 
   Future<Result<List<MovieCategoriesApiEntity>>> fetchMovieCategories();

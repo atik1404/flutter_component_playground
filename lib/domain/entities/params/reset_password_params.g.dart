@@ -14,9 +14,9 @@ ResetPasswordParams _$ResetPasswordParamsFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ResetPasswordParamsToJson(
-        ResetPasswordParams instance) =>
-    <String, dynamic>{
-      'email': instance.email,
-      'newPassword': instance.newPassword,
-      'appSecret': instance.appSecret,
-    };
+  ResetPasswordParams instance,
+) => <String, dynamic>{
+  'email': instance.email,
+  'newPassword': instance.newPassword,
+  'appSecret': instance.appSecret,
+};

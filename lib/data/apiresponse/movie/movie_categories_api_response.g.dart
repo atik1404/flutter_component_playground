@@ -7,18 +7,16 @@ part of 'movie_categories_api_response.dart';
 // **************************************************************************
 
 MovieCategoriesApiResponse _$MovieCategoriesApiResponseFromJson(
-        Map<String, dynamic> json) =>
-    MovieCategoriesApiResponse(
-      genres: (json['genres'] as List<dynamic>?)
-          ?.map((e) => MovieCategories.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => MovieCategoriesApiResponse(
+  genres: (json['genres'] as List<dynamic>?)
+      ?.map((e) => MovieCategories.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$MovieCategoriesApiResponseToJson(
-        MovieCategoriesApiResponse instance) =>
-    <String, dynamic>{
-      'genres': instance.genres,
-    };
+  MovieCategoriesApiResponse instance,
+) => <String, dynamic>{'genres': instance.genres};
 
 MovieCategories _$MovieCategoriesFromJson(Map<String, dynamic> json) =>
     MovieCategories(
@@ -27,7 +25,4 @@ MovieCategories _$MovieCategoriesFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$MovieCategoriesToJson(MovieCategories instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-    };
+    <String, dynamic>{'id': instance.id, 'name': instance.name};

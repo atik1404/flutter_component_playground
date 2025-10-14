@@ -8,6 +8,7 @@ final class MovieDetailsApiEntity {
   final String releaseDate;
   final String status;
   final List<String> languages;
+  final List<String> productionCountries;
   final String originalLanguage;
   final List<String> genres;
   final int duration;
@@ -25,5 +26,6 @@ final class MovieDetailsApiEntity {
     required this.originalLanguage,
     required this.genres,
     required this.duration,
+    required this.productionCountries,
   });
 }

@@ -24,42 +24,61 @@ final class MovieRepoImpl extends MovieRepository {
     required MovieCategoriesApiMapper movieCategoriesApiMapper,
     required MovieApiMapper movieApiMapper,
     required MovieDetailsApiMapper movieDetailsApiMapper,
-  })  : _upcomingMovieApiMapper = upcomingMovieApiMapper,
-        _movieCategoriesApiMapper = movieCategoriesApiMapper,
-        _movieApiMapper = movieApiMapper,
-        _movieDetailsApiMapper = movieDetailsApiMapper,
-        _apiServices = apiServices;
+  }) : _upcomingMovieApiMapper = upcomingMovieApiMapper,
+       _movieCategoriesApiMapper = movieCategoriesApiMapper,
+       _movieApiMapper = movieApiMapper,
+       _movieDetailsApiMapper = movieDetailsApiMapper,
+       _apiServices = apiServices;
 
   @override
   Future<Result<List<MovieApiEntity>>> fetchUpcomingMovies() async {
     final response = await _apiServices.fetchUpcomingMovies();
 
-    return ResponseTransformer()
-        .transform(response: response, mapper: _upcomingMovieApiMapper);
+    return ResponseTransformer().transform(
+      response: response,
+      mapper: _upcomingMovieApiMapper,
+    );
   }
 
   @override
   Future<Result<List<MovieCategoriesApiEntity>>> fetchMovieCategories() async {
     final response = await _apiServices.fetchMovieCategories();
 
-    return ResponseTransformer()
-        .transform(response: response, mapper: _movieCategoriesApiMapper);
+    return ResponseTransformer().transform(
+      response: response,
+      mapper: _movieCategoriesApiMapper,
+    );
   }
 
   @override
   Future<Result<List<MovieApiEntity>>> fetchMovies(
-      MoviesApiParams params,) async {
+    MoviesApiParams params,
+  ) async {
     final response = await _apiServices.fetchMovies(params);
 
-    return ResponseTransformer()
-        .transform(response: response, mapper: _movieApiMapper);
+    return ResponseTransformer().transform(
+      response: response,
+      mapper: _movieApiMapper,
+    );
   }
 
   @override
   Future<Result<MovieDetailsApiEntity>> fetchMovieDetails(int movieId) async {
     final response = await _apiServices.fetchMovieDetails(movieId);
 
-    return ResponseTransformer()
-        .transform(response: response, mapper: _movieDetailsApiMapper);
+    return ResponseTransformer().transform(
+      response: response,
+      mapper: _movieDetailsApiMapper,
+    );
+  }
+
+  @override
+  Future<Result<List<MovieApiEntity>>> fetchPopularMovies() async {
+    final response = await _apiServices.fetchPopularMovies();
+
+    return ResponseTransformer().transform(
+      response: response,
+      mapper: _movieApiMapper,
+    );
   }
 }

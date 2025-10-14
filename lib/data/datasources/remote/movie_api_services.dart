@@ -33,6 +33,13 @@ class MovieApiServices {
     );
   }
 
+  Future<Result<MoviesApiResponse>> fetchPopularMovies() {
+    return handleApiResponse<MoviesApiResponse>(
+      () => dio.get("3/movie/popular"),
+      (json) => MoviesApiResponse.fromJson(json),
+    );
+  }
+
   Future<Result<MovieDetailsApiResponse>> fetchMovieDetails(int movieId) {
     return handleApiResponse<MovieDetailsApiResponse>(
       () => dio.get("3/movie/$movieId"),

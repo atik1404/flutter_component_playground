@@ -7,18 +7,18 @@ part of 'upcoming_movie_api_response.dart';
 // **************************************************************************
 
 UpcomingMovieApiResponse _$UpcomingMovieApiResponseFromJson(
-        Map<String, dynamic> json) =>
-    UpcomingMovieApiResponse(
-      (json['results'] as List<dynamic>?)
-          ?.map((e) => MovieResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Map<String, dynamic> json,
+) => UpcomingMovieApiResponse(
+  (json['results'] as List<dynamic>?)
+      ?.map((e) => MovieResponse.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$UpcomingMovieApiResponseToJson(
-        UpcomingMovieApiResponse instance) =>
-    <String, dynamic>{
-      'results': instance.results?.map((e) => e.toJson()).toList(),
-    };
+  UpcomingMovieApiResponse instance,
+) => <String, dynamic>{
+  'results': instance.results?.map((e) => e.toJson()).toList(),
+};
 
 MovieResponse _$MovieResponseFromJson(Map<String, dynamic> json) =>
     MovieResponse(
