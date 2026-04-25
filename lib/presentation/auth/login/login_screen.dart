@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_component_playground/common/utils/logger_utils.dart';
 import 'package:flutter_component_playground/designsystem/extensions/theme_context_extension.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_icons.dart';
 import 'package:flutter_component_playground/designsystem/resources/app_images.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 /// Refactored LoginScreen using private builder methods
 class LoginScreen extends StatelessWidget {
@@ -224,8 +226,10 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AppTextField(
-              onChanged: (value) =>
-                  context.read<LoginBloc>().add(LoginEvent.emailChanged(value)),
+              onChanged: (value){
+                appLog.shout("Error fetching app flavor: $value");
+                context.read<LoginBloc>().add(LoginEvent.emailChanged(value));
+              },
               hintText: context.getString.hint_enter_email,
               keyboardType: TextInputType.emailAddress,
               maxLength: 30,

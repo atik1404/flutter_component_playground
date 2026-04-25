@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_component_playground/common/utils/logger_utils';
+import 'package:flutter_component_playground/common/utils/logger_utils.dart';
 
 final class FlavorConfig {
   static final FlavorConfig _instance = FlavorConfig._internal();

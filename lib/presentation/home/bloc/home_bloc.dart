@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_component_playground/common/utils/logger_utils';
+import 'package:flutter_component_playground/common/utils/logger_utils.dart';
 import 'package:flutter_component_playground/core/network/result.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_api_entity.dart';
 import 'package:flutter_component_playground/domain/entities/apientity/movie/movie_categories_api_entity.dart';
